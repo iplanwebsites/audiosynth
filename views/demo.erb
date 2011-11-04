@@ -1,60 +1,3 @@
-<!-- 
-
-
-
-HTML5 Audio spec implementation (looping and playback)
-http://www.w3schools.com/html5/att_audio_loop.asp
-
-
-music is math - notes + frequencies
-http://members.cox.net/mathmistakes/music.htm
-
-
-Phasing FX.
-http://www.math.montana.edu/frankw/ccp/before-calculus/trigonometry/soundtrg/body.htm
-
-Distinction between differents wave type (swatooh, square, and sins)
-http://en.wikipedia.org/wiki/Sine_wave
-
-http://en.wikipedia.org/wiki/Harmonics
-
-
-
-
-Phaser FX
-http://en.wikipedia.org/wiki/Phaser_(effect)
-
-
-Binaural recording
-http://www.wired.com/threatlevel/2010/07/digital-drugs/
-That is one positive use, to quit a drug. Other binaural beats are to help sleeping, positive thoughts, other good things. I've tried Gates of Hades and I couldn't finish listening to it. It is freaky. I-Doser wasn't kidding. I-Doser makes some of the most extreme binaural beats around. I'd like to NOTE that everyone reacts the same to a binaural beats. For example I could listen to a binaural beats like I-Doser's Cliffhanger (meant to feel like I'm on the edge of a clifft) and feel the full effect while someone else who tries it feels nothing. Doesn't work for everyone! Get that through your head
-
-http://en.wikipedia.org/wiki/Binaural_beats
-
-Brain waves
-Main article: Electroencephalography
-Frequency range	Name	Usually associated with:
-> 40 Hz	Gamma waves	Higher mental activity, including perception, problem solving, fear, and consciousness
-13–39 Hz	Beta waves	Active, busy or anxious thinking and active concentration, arousal, cognition, and or paranoia
-7–13 Hz	Alpha waves	Relaxation (while awake), pre-sleep and pre-wake drowsiness, REM sleep, Dreams
-4–7 Hz	Theta waves	deep meditation/relaxation, NREM sleep
-< 4 Hz	Delta waves	Deep dreamless sleep, loss of body awareness
-
-
-
-// LFO
-http://en.wikipedia.org/wiki/Low-frequency_oscillation
-
-An LFO can be routed to control, for example, the frequency of the audio oscillator, its phase, stereo panning, filter frequency, or amplification. When routed to control pitch, an LFO creates vibrato. When an LFO modulates amplitude (volume), it creates tremolo. On most synthesizers and sound modules, LFOs feature several controllable parameters, which often include a variety of different waveforms, a rate control, routing options (as described above), a tempo sync feature, and an option to control how much the LFO will modulate the audio signal.
-Electronic musicians use LFO for a variety of applications. They may be used to add simple vibrato or tremolo to a melody, or for more complex applications such as triggering gate envelopes, or controlling the rate of arpeggiation.
-Differences between LFO rates also account for a number of commonly heard effects in modern music. A very low rate can be used to modulate a filter's cutoff frequency, thereby providing the characteristic gradual sensation of the sound becoming clearer or closer to the listener. Alternatively, a high rate can be used for bizarre 'rippling' sound effects (indeed, another important use of LFO would be for various sound effects used in films). Such effects are difficult to describe, and are more understandable when heard. Dubstep is a form of electronic music that employs heavy use of LFOs for bass sounds that have a "generic wobble" effect.
-
-
-
--->
-
-
-
 
 <html>
 <head>
@@ -64,9 +7,7 @@ Differences between LFO rates also account for a number of commonly heard effect
 <link rel="stylesheet" href="keys.css">
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-<!-- 
-<script src="sh_main.min.js"></script>
-<script src="sh_javascript.min.js"></script>-->
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="riffwave.js"></script>
 <script src="synth.js"></script>
@@ -75,6 +16,16 @@ Differences between LFO rates also account for a number of commonly heard effect
 
 
 
+<h1>noise bits</h1>
+A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix_m</a>
+
+<hr>
+
+<br/>
+<em>
+Press your keyboard's keys, <strong>make some noise</strong></em>
+<br/>
+<br/>
 
 <div id="keyboard">
     	<ul>
@@ -176,82 +127,36 @@ Differences between LFO rates also account for a number of commonly heard effect
    
    
 
+<h2>Controls</h2>
+<hr>
+<strong>Numbers</strong>: The lowest frequencies, you'll hear an LFO effect when combined with other keys.<br/>
+<strong>Letters</strong>: Notes are in reading order (from lowest to highest frequency)<br/>
+<strong>CAPS</strong> = Capital letters <em>(shift key)</em> produces a square waveform (instead of sine). Use caps lock for constant Square waves. <br/>
+<br/><br/><br/>
 
-<!-- 
-▲◀▼▼▼▼▼
-▲   ▼    ◀       ▼
-<h1>riffwave.js - HTML5 sound synthesis via PCM encoding</h1>
 
 
+<h2>How it works?</h2>
+<hr>
+ <br/>
+<p>
+  <strong>No plugins nor heavy libraries here...</strong>
+Keyboard keys are associated with arbitrary notes. 
+Proper sine waves are then calculated for the required frequencies and kept in a  simple array <em>(some noise is added to spice up the timber)</em>. <br/> <br/> 
+</p>
+<p>
+We then transform this long list 0-255 values into a file. 
+That mean converting the array into base64, slapping some Wave header onto this fresh file (you remember the good old .wav files?). 
+Finally, we load this fresh sound using HTML5 audio playback capability. That's it!<br/> <br/> 
+</p>
+<p>
+  Next step are to read/write to Midi <em>(and karaoke!)</em> files using the file API, build  more advanced instruments,  support midi input <em>(currently not part of the HTML specs)</em>, and release full-blown audio web-application.
+  
+  
+</p>
 
-<h2>What?</h2>
-
-<p>"<strong>riffwave.js</strong>" is a tiny javascript library that encodes audio 
-data to a format (<a href="http://en.wikipedia.org/wiki/Pulse-code_modulation">PCM</a>
-inside a <a href="http://en.wikipedia.org/wiki/RIFF_(File_format)">RIFF container</a>) that
-can be used to play synthesized sounds with the
-<a href="http://en.wikipedia.org/wiki/Html5_audio#Audio_format_support">HTML5 audio</a> element.</p>
-
-<p>Simply use the generated <a href="http://en.wikipedia.org/wiki/Data_Uri">data URI</a> as source.</p>
-
-<p>Works in:</p>
-<ul>
-<li>Chrome 9</li>
-<li>Firefox 3.6</li>
-<li>Opera 11</li>
-</ul>
-<p>Other browsers not tested. Problem IE?</p>
-
-<p><span style="border:1px solid #ccc;font-size:100%;padding:4px;16px">
-Download <strong><a href="riffwave.js">riffwave.js</a></strong> (version 0.02)
-</span></p>
--->
-<h2>tests</h2>
-
-<button onmousedown="play(audio1);">Noise</button>
-<button onmousedown="play(audio2);">Sine wave</button>
-<button onmousedown="play(audio6);">square wave</button>
-<button onmousedown="play(audio3);">Effect</button>
-<button onmousedown="play(audio4);">Stereo</button>
-<button onmousedown="play(audio5);">5</button>
-<!-- 
-<h2>Sample usage</h2>
-
-<pre class="sh_javascript">
-var data = []; // just an array
-for (var i=0; i<10000; i++) data[i] = Math.round(255 * Math.random()); // fill data with random samples
-var wave = new RIFFWAVE(data); // create the wave file
-var audio = new Audio(wave.dataURI); // create the HTML5 audio element
-audio.play(); // some noise
-</pre>
-
-<h2>Another one</h2>
-<pre class="sh_javascript">
-var audio = new Audio(); // create the HTML5 audio element
-var wave = new RIFFWAVE(); // create an empty wave file
-var data = []; // yes, it's an array
-
-wave.header.sampleRate = 44100; // set sample rate to 44KHz
-wave.header.numChannels = 2; // two channels (stereo)
-
-var i = 0;
-while (i<100000) { 
-  data[i++] = 128+Math.round(127*Math.sin(i/10)); // left speaker
-  data[i++] = 128+Math.round(127*Math.sin(i/200)); // right speaker
-}
-
-wave.Make(data); // make the wave file
-audio.src = wave.dataURI; // set audio source
-audio.play(); // we should hear two tones one on each speaker
-</pre>
--->
-
+ <br/> <br/>
 
 <hr>
-<!-- 
-<p>by Pedro Ladaria &lt;pedro.ladaria at gmail dot com&gt;</br>
-twitter: @pladaria</p>
-<p><a href="http://www.codebase.es">Go home</a></p>
--->
 </body>
 </html>

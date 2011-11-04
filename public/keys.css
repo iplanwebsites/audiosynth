@@ -1,6 +1,8 @@
 /*view-source:http://dl.dropbox.com/u/921159/Keyboard/page.html
 */
 
+p{width:50%;}
+
 body { font-family: "Droid Sans"; margin: 16px 32px; }
 pre { font-family: "Droid Sans Mono"; }
 button { font-family: "Droid Sans"; font-size: 150%; }
