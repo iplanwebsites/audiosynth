@@ -1,0 +1,169 @@
+    __ ___ __  __ __  __ _____  ___ __
+  // //  // / / // / / // __  )/  // //
+ // //  // /_/ // /_/ // /_/ //  // //
+//_//__/(___  / \____// ____//__//_//,
+         __/ /       / /they're back.
+        (___/       /_/
+
+ Sonant by Youth Uprising
+ Synth system & tool for 4k intros
+
+ http://thygrion.untergrund.net/
+
+##################################################################################
+## Sonant Mini-Manual ############################################################
+##################################################################################
+
+A. Tool Overview
+ 1. Instrument Editor
+  - The Instrument Editor allows you to modify the current instrument. It contains
+    controls to modify all the synth parameters available for the different synth
+    "machines" in Sonant.
+   a. Oscillator 1 & Oscillator 2:
+    - These two machines are completely identical, and also completely independent
+      from each other. These (along with the Noise Oscillator) are what initially
+      produce sound in Sonant. Their parameters are very simple and much like that
+      of any simple analog oscillator. The "Oct" knobs control the base octave at
+      which sound is produced. The "Semi" knobs control the offset at which sound
+      is produced, i.e., the base note is equal to "Oct"'s value plus "Semi"'s
+      value. The "Det" knobs control the detune of the oscillator. Next we have our
+      waveform chooser. This simply controls which of four basic waveforms are
+      produced by the oscillator. The volume sliders control each oscillator's
+      master volume. The "x-env" boxes are neat little buggers - what these do is
+      multiply the oscillator's output frequency by the Envelope output (See A.1.c.),
+      and gives the effect of a simple pitch envelope. This is essential for making
+      decent drum sounds.
+   b. Noise Oscillator
+    - This is the simplest machine in Sonant. The volume slider here controls how
+      much pure white noise is added to Oscillator 1's and Oscillator 2's output.
+   c. Envelope
+    - This machine controls the final amplitude of the instrument. Attack controls
+      the instrument's fade-in time, sustain controls the length of a note, and
+      release controls the instrument's fade-out time. Finally, master controls
+      the master volume of the instrument.
+   d. LFO
+    - LFO is an acronym for "Low-Frequency Oscillator". This is a special machine
+      that produces waveforms that are too low-pitched to hear. This is useful for
+      modifying other machine's parameters which adds alot more dynamic to the
+      sound. The "Freq" knob controls the frequency. This in multiples of the
+      length of one row in the Pattern Editor (See a.2.), so there is always an
+      automatic tempo-sync. The "Amt" knob controls how much the LFO will affect
+      other parameters. The waveform chooser here simply controls which basic
+      waveform the LFO will use. The three checkboxes are what route the LFO to
+      other parts of the synth. "01FM" uses the LFO to perform very basic (and
+      probably not mathematically correct) frequency modulation on Oscillator 1.
+      This can create very interesting sound effects. Finally, "FXFreq" maps the
+      LFO to the FX frequency (See next section).
+   e. FX
+    - This machine modifies the output of all other machines, minus the LFO and
+      Envelope. There are three effects here - Delay, State Variable Filter, and
+      Pan. The Delay is controlled very simply. "DLY Time" controls the time for
+      the delay. This is in intervals of 1/2 of a row length in the Pattern Editor.
+      "DLY Amt" controls how much of the original signal is used in the delay. The
+      rest of the controls in this machine (minus the two "Pan" knobs) are for the
+      State Variable Filter. The top checkboxes ("HP", "LP", "BP" and "Notch") act
+      as radio buttons and control which type of signal filter is used (Highpass,
+      Lowpass, Bandpass and Notchpass). "Freq" controls the filter frequency, and
+      "Res" controls the input signal's resonance. Finally, the Pan system. This is
+      a simple hack for nice, dynamic stereo implementation. The panning works like
+      an LFO. The signal starts in the left speaker at the beginning of the song,
+      and will pan back and forth between each speaker. "Pan Amt" controls how much
+      panning will be applied. All the way down means the sound is directly
+      centered, and all the way up means it will come out of only one speaker at a
+      time. "Pan Freq" determines the speed at which the signal goes back and forth
+      and works exactly like the LFO's frequency (See A.1.d.).
+
+ 2. Sequencer & Pattern Editor
+  - The large grid in the upper right corner of the tool is the Sequencer. This is
+    used for orderering patterns of notes for each instrument. Each column belongs
+    to a different instrument. Each row corresponds to a pattern. If a cell is
+    blank, nothing is played. Otherwise, the numbers 0-9 are used, which represent
+    patterns to be played. Patterns are instrument-specific, i.e., column 1's "0"
+    pattern is different than column 2's "0" pattern.
+  - The large column to the left of the Sequencer is the Pattern Editor. This is
+    used for actually adding/modifying notes in the song. To edit a pattern, place
+    the cursor in any non-blank cell of the Sequencer (you may have to fill a cell
+    first). The pattern in the current cell will be displayed in the Pattern
+    Editor and can be modified.
+
+ 3. Transport
+  - The bottom right section of the synth is called the Transport. This section
+    contains buttons to load, save, and export songs. Here you can also change the
+    tempo of the song. The "New" button resets all parameters, patterns, and data
+    in the sequencer to default values. The "Open" and "Save" buttons will open
+    and save a song in ".snt" format, Sonant's own song format. The "Save .h"
+    button will output the song as a C header file (.h), which is used with the
+    C synth code. "Save .inc" is the NASM equivalent. The "Save .wav" format will
+    output the song as a .wav file.
+
+B. Tool Keyboard Controls
+  1. Space Bar
+   - The Space Bar will play the entire song, start to finish.
+  2. F1-F8
+   - These keys will each play only part of the song starting at the cursor in the
+     sequencer. F1 will play one pattern, F2 will play two, and so on up to the F8
+     key.
+  3. F9
+   - The F9 key will play the song beginning from the cursor in the sequencer and
+     will go until the end of the song.
+  4. Enter/Return
+   - This key stops the current playback.
+  5. Arrow Keys
+   - These allow you to move around in the Sequencer and Pattern Editor.
+  6. "Ctrl" keys
+   - When using the arrow keys above, holding either "Ctrl" key will make the
+     cursor move very fast.
+   - The "Ctrl+C" combination will copy the contents of the current pattern in the
+     sequencer. They can be pasted into any non-blank pattern in the sequencer in
+     any instrument by using the "Ctrl+V" combination.
+  7. 0-9 and Numpad 0-9
+   - When the cursor is in the sequencer, these keys allow you to enter patterns
+     into the sequencer's cells. When in the pattern editor, however, these keys
+     allow you to enter the octave of the current note cell. The base octave here
+     is 5.
+  8. A-Z, ",<", ".>", "/?", ";:", "'"", "[{", and "]}"
+   - When the cursor is in the pattern editor, these keys allow you to enter notes
+     into the current note cell. These are arranged very simply by rows of keys.
+     When looking at a United States-standard keyboard, you will notice all of
+     these keys lie in three rows. The top row enters notes from C-4 to B-4, the
+     second row enters notes from C-5 to A#5, and the last row enters notes from
+     C-6 to A-6. Note here that octave numbers reset at C, not A.
+  9. Page Up/Down
+   - When the mouse is hovering over a slider, you can use these to "fine-tune" its
+     current value when using the mouse is too inaccurate.
+ 10. End
+   - This key sets the last pattern to be played in a song as the row of the cursor
+     in the sequencer.
+ 11. Escape
+   - Use this key to terminate the program.
+
+C. Linking the Synth
+ 1. The Sonant source files are required to link the synth into your framework. They
+    reside in the "Synth" directory.
+ 2. C:
+   - NOTE: SONANT WILL ONLY COMPILE UNDER GCC. That being said, to use Sonant in your
+     own framework is quite simple. Just include the file "sonant.c" from your frame-
+     work. To play sound, just call "sonant_init();" just before your intro starts,
+     and Sonant will generate and play the song in "music.h". Because it plays the
+     song and doesn't just generate it, it's really best to place this function call
+     just after your intro's initialization code (unless this code pertains to timer
+     initialization, which should be placed directly after this function called for
+     decent sync). Also, don't forget to add sonant.o to your link command.
+ 3. NASM:
+   - NOTE: SONANT WILL ONLY ASSEMBLE WITH NASM. To use the synth in your framework,
+     all you need to do is make sure sonant.asm gets assembled into a .obj file, and
+     that your framework includes the line "extern sonant_init". To play sound, just
+     execute "call sonant_init" just before your intro starts, and Sonant will generate
+     and play the song in "music.inc". Because it plays the song and doesn't just
+     generate it, it's really best to place this function call just after your intro's
+     initialization code (unless this code pertains to timer initialization, which
+     should be placed directly after this function called for decent sync). Also, don't
+     forget to add sonant.obj to your link command.
+D. Known Bugs and Issues
+ 1. When the tempo is set very low and there are alot or patterns to be rendered in the
+    sequencer, Sonant will crash while generating the song data. This is because the
+    amount of memory required to meet this request has not been allocated in an effort
+    to conserve memory usage. But most likely, you'll never write a song this slow and
+    long for practical purposes.
+ 2. The .inc output code fails when trying to output the number 128. The output then
+    becomes the symbol "-(", which must be fixed by hand and should be "-128".

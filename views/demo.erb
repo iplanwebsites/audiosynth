@@ -6,7 +6,8 @@ HTML5 Audio spec implementation (looping and playback)
 http://www.w3schools.com/html5/att_audio_loop.asp
 
 
-
+music is math - notes + frequencies
+http://members.cox.net/mathmistakes/music.htm
 
 
 Phasing FX.
@@ -41,6 +42,14 @@ Frequency range	Name	Usually associated with:
 
 
 
+// LFO
+http://en.wikipedia.org/wiki/Low-frequency_oscillation
+
+An LFO can be routed to control, for example, the frequency of the audio oscillator, its phase, stereo panning, filter frequency, or amplification. When routed to control pitch, an LFO creates vibrato. When an LFO modulates amplitude (volume), it creates tremolo. On most synthesizers and sound modules, LFOs feature several controllable parameters, which often include a variety of different waveforms, a rate control, routing options (as described above), a tempo sync feature, and an option to control how much the LFO will modulate the audio signal.
+Electronic musicians use LFO for a variety of applications. They may be used to add simple vibrato or tremolo to a melody, or for more complex applications such as triggering gate envelopes, or controlling the rate of arpeggiation.
+Differences between LFO rates also account for a number of commonly heard effects in modern music. A very low rate can be used to modulate a filter's cutoff frequency, thereby providing the characteristic gradual sensation of the sound becoming clearer or closer to the listener. Alternatively, a high rate can be used for bizarre 'rippling' sound effects (indeed, another important use of LFO would be for various sound effects used in films). Such effects are difficult to describe, and are more understandable when heard. Dubstep is a form of electronic music that employs heavy use of LFOs for bass sounds that have a "generic wobble" effect.
+
+
 
 -->
 
@@ -58,13 +67,146 @@ Frequency range	Name	Usually associated with:
 <!-- 
 <script src="sh_main.min.js"></script>
 <script src="sh_javascript.min.js"></script>-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="riffwave.js"></script>
+
 <style>
 body { font-family: "Droid Sans"; margin: 16px 32px; }
 pre { font-family: "Droid Sans Mono"; }
 button { font-family: "Droid Sans"; font-size: 150%; }
 </style>
+
 <script>
+
+keyNotes = {
+  "q": -12,
+  "w": -9,
+  "e": -8,
+  "r": -6,
+  "t": -5,
+  "y": -4,
+  "u": -2,
+  "i": 0,
+  "o": 2,
+  "p": 3,
+  "a": 5,
+  "s": 7,
+  "d": 8,
+  "f": 9,
+  "g": 12,
+  "h": 14,
+  "j": 15,
+  "i": 24,
+  "l": 26,
+  "z": 32,
+  "x": 36,
+  "c": 37,
+  "v": 39,
+  "b": 40,
+  "n": 44,
+  "m": 48
+}
+
+
+
+
+$(document).ready(function() {
+// alert('doc ready!');
+
+count=0;
+$(document).keypress(function(e) {
+  //if(count){ a.stop(); }
+  if ( e.which == 13 ) { //enter...
+     event.preventDefault();
+   }else if(e.which == 32 ){ //spacebar
+     //TODO: Stop All audio!
+     a.stop();
+   }else{
+  var c = String.fromCharCode(e.which);//alert(c +" - " + e.which);
+  var note = keyNotes[c.toLowerCase()];
+  
+  if (c == c.toLowerCase()){
+    // The character is lowercase
+    var shape = 'sine';
+  }else{
+    // The character is uppercase
+    var shape = 'square';
+  }
+  
+  a = buildSound(note, shape);
+  a.play();
+  count++
+  }
+});
+
+
+}); //eo doc ready...
+
+// NOTES
+
+var volume = 1;// float, vary from 0 to 1;
+
+
+baseFreq = 440; // middle A frequency, in hz
+musicScale = 12; //chromatic 12-note pattern
+freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593
+
+
+
+
+
+function buildSound(note, shape){
+  var waveShape = shape; // square, sin, tri, or swa
+  var rndtone = 4+ Math.round(3 * Math.random()); //5 = default
+  var sine = []; 
+  var freq = getFreq(note) /baseFreq;
+  freq = freq * 44.1; // !!! MAGIC NUMBER, arbitrary, I don't know what is the multiplier for 44khz... guessed...
+
+
+  var vol = volume *255 /2;
+  noiseLvl = 0; //1; // peut varier de 0, 0.01, à 20 (après ça ce n'Est que du white-noise)
+  for (var i=0; i<50000; i++) {
+      noiseRnd =  (Math.random()*noiseLvl) - (noiseLvl /2); //on ajoute ou soustrait une valeur au hasard
+      val = vol+(vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
+      if(waveShape == 'square'){
+        val = Math.round(val/255)*255;
+      }
+
+      sine[i] = Math.round(val);
+      //160 = low
+      // 40 = middle
+      // 5 = high pitch
+      // donc inversement proportionel à la Fre reelegf
+        // SIN returns -127 to 127, so we have a full, 255 (one bit) Amplitude (volume) of sound
+  }
+   var wave2 = new RIFFWAVE();
+  wave2.header.sampleRate = 44100; // set sample rate to 44KHz
+  //wave2.header.bitsPerSample = 16;
+  wave2.Make(sine);
+  var audio2 = new Audio(wave2.dataURI);
+  audio2.loop=0;
+
+  return audio2;
+  
+  
+  
+}
+
+
+
+
+
+function getFreq(noteDiff){
+  //This function return a note frequency based on the number of half-tone increments received (-100 to 100)
+  noteDiff = noteDiff * -1; //twisted way to have them vary the other way around...
+  // !! NASTY
+  var freqDiff = Math.pow(freqRatio, noteDiff);
+  var newFreq = freqDiff * baseFreq;
+  return newFreq;
+}
+
+
+
 
 // NOISE
 var noise = []; for (var i=0; i<10000; i++) noise[i] = Math.round(128*Math.random());
@@ -74,22 +216,54 @@ var audio1 = new Audio(wave1.dataURI);
 
 // SINE WAVE
 
+function revertFreq(ori){
+  var freq = ori;
+  freq = ori;
+
+  var f = freq - 40; //zeroed
+  f = f * -1;   // (we rever the base)
+  f = f +40;
+  return f;
+}
+
+/*
 var rndtone = 4+ Math.round(3 * Math.random()); //5 = default
 var sine = []; for (var i=0; i<10000; i++) sine[i] = 128+Math.round(127*Math.sin(i/rndtone));
 var wave2 = new RIFFWAVE(sine);
-var audio2 = new Audio(wave2.dataURI);
-
+// var audio2 = new Audio(wave2.dataURI);
+*/
 
 // SINE WAVE
 var rndtone = 4+ Math.round(3 * Math.random()); //5 = default
 var rnd = 0;//Math.random()*20;
 var sine = []; 
-for (var i=0; i<10000; i++) {
-    sine[i] = 128+Math.round(127*Math.sin(i/5));
-}
-var wave2 = new RIFFWAVE(sine);
-var audio2 = new Audio(wave2.dataURI);
 
+var freq = getFreq(-12) /440;
+freq = freq * 44.1; // !!! MAGIC NUMBER, arbitrary, I don't know what is the multiplier for 44khz... guessed...
+
+
+var vol = volume *255 /2;
+noiseLvl = 0; //1; // peut varier de 0, 0.01, à 20 (après ça ce n'Est que du white-noise)
+for (var i=0; i<500000; i++) {
+    noiseRnd =  (Math.random()*noiseLvl) - (noiseLvl /2); //on ajoute ou soustrait une valeur au hasard
+    val = vol+(vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
+    if(waveShape != 'square'){
+      val = Math.round(val/255)*255;
+    }
+    
+    sine[i] = Math.round(val);
+    //160 = low
+    // 40 = middle
+    // 5 = high pitch
+    // donc inversement proportionel à la Fre reelegf
+      // SIN returns -127 to 127, so we have a full, 255 (one bit) Amplitude (volume) of sound
+}
+var wave2 = new RIFFWAVE();
+wave2.header.sampleRate = 44100; // set sample rate to 44KHz
+//wave2.header.bitsPerSample = 16;
+wave2.Make(sine);
+var audio2 = new Audio(wave2.dataURI);
+audio2.loop=1;
 
 
 // Square...
@@ -131,6 +305,8 @@ while (i<200000) {
 }
 wave4.Make(stereo);
 var audio4 = new Audio(wave4.dataURI);
+
+
 
 function play(audio) {
   if (!audio.paused) { // if playing stop and rewind
