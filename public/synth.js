@@ -1,5 +1,11 @@
 
 
+/*
+By: felix menard, iplanwebsites.com
+nov 2011 
+(c) 
+*/
+
 
 ////////////////////////////////
 //   Basic Config
