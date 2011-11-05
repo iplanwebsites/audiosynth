@@ -149,8 +149,8 @@ Proper sine waves are then calculated for the required frequencies and kept in a
 </p>
 <p>
 We then transform this long list 0-255 values into a file. 
-That mean converting the array into base64, slapping some Wave header onto this fresh file (you remember the good old .wav files?). 
-Finally, we load this fresh sound using HTML5 audio playback capability. That's it!<br/> <br/> 
+That mean converting the array to base64 and then slapping some headers onto this fresh file <em>(yes, those good old .wav files)</em>. 
+Finally, we load this generated sound using HTML5 audio playback capability. That's it!<br/> <br/> 
 </p>
 <p>
   Next step would be to read/write to midi and karaoke<em>(yay!)</em> files using the file API, design more advanced instruments,  support midi keyboard input <em>(not really part of the HTML specs)</em>, and release full-blown audio web-application! 
