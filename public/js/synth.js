@@ -62,6 +62,36 @@ keyNotes = {
 
 
 $(document).ready(function() {
+	////////////////////////////////
+	//   ADSR
+	/////////////////////////////
+
+
+initAdsr();
+initLfo();
+
+
+// replace switches
+
+
+$(".cb-enable").live('click', function () {
+var parent = $(this).parents('.switch');
+$('.cb-disable', parent).removeClass('selected');
+$(this).addClass('selected');
+$('.checkbox', parent).attr('checked', true);
+$('.checkbox', parent).change();
+});
+$(".cb-disable").live('click',function () {
+var parent = $(this).parents('.switch');
+$('.cb-enable', parent).removeClass('selected');
+$(this).addClass('selected');
+$('.checkbox', parent).attr('checked', false);
+$('.checkbox', parent).change();
+});
+
+
+
+
 
 ////////////////////////////////
 //   KEYBOARD Styles and functions

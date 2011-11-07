@@ -1,0 +1,63 @@
+.hide{ display:none;}
+
+.v-50{height: 50px;}
+.v-100{height: 100px;}
+.v-150{height: 150px; }
+.v-200{height: 200px;}
+
+
+.h-50{width: 50px;}
+.h-100{width: 100px;}
+.h-150{width: 150px;}
+.h-200{width: 200px;}
+
+.h-adsr{width: 200px;}
+
+.box{background:#ddd; font-size:11px; padding:5px;}
+
+#adsr{ padding-left:10px; background:#f1f1f1;}
+#adsr .s{ background:#fff; margin:0; margin-bottom:-10px;}
+#adsr label{ float: left; width:50px; margin-left:-10px; margin-top:3px; }
+
+#adsr_graph{ border: 1px solid #ccc; background: #ddd; margin:5px 0px; }
+
+.master_vol{ width: 40px; float: right; text-align:center; padding-left:20px; padding-right:0px;}
+.master_vol .label{ margin-left: -20px; display:block; }
+
+
+
+
+/*
+ LFO
+*/
+
+.lfo_volume{ float: right;}
+#lfos{ width: 300px; height: 400px; }
+
+
+
+/* Used for the Switch effect: */
+
+.field { width: 100%; float: left; margin: 0 0 20px; }
+.field input { margin: 0 0 0 20px; }
+
+
+.cb-enable, .cb-disable, .cb-enable span, .cb-disable span { background: url(../img/switch.gif) repeat-x; display: block; float: left; }
+.cb-enable span, .cb-disable span { line-height: 30px; display: block; background-repeat: no-repeat; font-weight: bold; }
+.cb-enable span { background-position: left -90px; padding: 0 10px; }
+.cb-disable span { background-position: right -180px;padding: 0 10px; }
+.cb-disable.selected { background-position: 0 -30px; }
+.cb-disable.selected span { background-position: right -210px; color: #fff; }
+.cb-enable.selected { background-position: 0 -60px; }
+.cb-enable.selected span { background-position: left -150px; color: #fff; }
+.switch label { cursor: pointer; }
+
+/* eo switch  */
+
+
+
+
+
+
+
+
