@@ -11,6 +11,8 @@
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.throttle.js"></script>
+
 <script src="js/fd-slider.js"></script>
 <script src="js/riffwave.js"></script>
 
@@ -18,8 +20,9 @@
 <script src="js/lfo.js"></script>
 <script src="js/synth.js"></script>
 
-
-
+<!-- 
+<script src="js/note-calculator.js"></script>
+-->
 
 <h1>noise bits</h1>
 A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix_m</a>
@@ -33,6 +36,7 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 <div id="lfos" class="col">
   
   <div class="lfo box" id="lfo1">
+     <!-- VOL SLIDER -->
       <div class="lfo_volume">
         <input name="lfo_vol" id="lfo_vol" type="text" title="LFO Amplitude" value="1"  maxlength="6"  />
         <label for="lfo_vol" id="lfo_vol_label">Amp</label>
@@ -40,20 +44,34 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
       </div>
       
       
-      
+      <!-- ON / OFF -->
+      <div class="on_off">
       <p class="field switch">
       	<label class="cb-enable"><span>On</span></label>
       	<label class="cb-disable selected"><span>Off</span></label>
-      	<input type="checkbox" class="checkbox hide lfo_on" name="lfo_on" data-lfo="lfo1" />
+      	<input type="checkbox" class="checkbox hide lfo_on" name="lfo_on" data-lfo="lfo1" checked="false" />
       </p>
+      </div>
       <h1>LFO #1</h1>
       
+      <div class="clear-left"></div>
+      <!-- FREQ SLIDER -->
+      <div class="s">
+        <label>Freq: </label>
+        <input name="lfo_freq" id="lfo_freq" class="lfo_freq" type="text" title="Frequency" value="-18"  maxlength="6" />
+      </div>
+    
+      <!-- freq display-->
+      <p class="right">
+      <em> <span class="actual_freq">440</span>mhz </em> <span class="note_name"></span>
       
-      <div class="s"><label>Freq: </label><input name="adsr_s_level" id="adsr_s_level" type="text" title="Sustain Level" value="0.7"  maxlength="6" /></div>
-      <label for="chk_even">
+      </p>
+      
+    <!-- chkbox even-->
+    <label for="chk_even">
       <input type="checkbox" class="chk_even" name="chk_even" checked="true" />
-      Even frequencies only</label>
-      
+      Even frequencies only
+    </label>
     </div>
     
 </div>
@@ -79,6 +97,14 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 
 
 <br><br><hr><br><br>
+
+<div class="on_off">
+<p class="field switch">
+	<label class="cb-enable"><span>On</span></label>
+	<label class="cb-disable selected"><span>Off</span></label>
+	<input type="checkbox" class="checkbox hide adsr_on" name="adsr_on" checked="false" />
+</p>
+</div>
 
 <h1>ADSR Envelope (amplitude)</h1>
 

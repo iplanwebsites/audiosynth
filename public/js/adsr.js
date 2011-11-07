@@ -4,6 +4,7 @@ function initAdsr(){
 adsr = {};
 adsr.duration = "1";
 adsr.master = "1"; //100% volume
+adsr.active = false;
 	
 createAdsrSlider('adsr_a');
 createAdsrSlider('adsr_d');
@@ -13,6 +14,13 @@ createAdsrSlider('adsr_r');
 createMasterVolume("master_volume");
 
 calculateADSR();
+
+$('.adsr_on').change(function(){
+	var on = $(this).attr('checked');
+	adsr.active = on;
+});
+
+
 }
 
 
@@ -145,6 +153,7 @@ function drawAdsrGraph(){
 	
 	//MAIN STROKE
 	context.strokeStyle = '#4cc'; 
+	context.fillStyle = '#cee'; 
 	context.lineWidth   = 4;
 	context.beginPath();
 	context.moveTo(0, h); // initial positions, lower left
@@ -156,6 +165,7 @@ function drawAdsrGraph(){
 	
   context.lineTo(w, h); //end
   context.stroke();
+	context.fill();
 
 	
 }
