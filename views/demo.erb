@@ -11,7 +11,7 @@
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.throttle.js"></script>
+<script type="text/javascript" src="js/jquery.throttle.js"></script> <!-- Unused...-->
 
 <script src="js/fd-slider.js"></script>
 <script src="js/riffwave.js"></script>
@@ -32,6 +32,38 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 
 <br><br><hr><br><br>
 
+<!-- Scale 10 / 12-->
+<div class="box">
+<div class="freq_scale">
+  <h1>metric music (10 notes per octave)</h1>
+<p class="field switch">
+	<label class="cb-enable"><span>10</span></label>
+	<label class="cb-disable selected"><span>12</span></label>
+	<input type="checkbox" class="checkbox hide chk_freq_scale" name="freq_scale"  checked="false" />
+</p>
+<div class="clear"></div>
+<small>This is an experimental features, only use if you believe we were wrong from the beginning to use a 12-notes tuning. </small>
+</div>
+</div>
+  
+  <br/>
+  
+  
+  
+  <!-- Tempo + Duration -->
+  <div id="#tempo" class="box">
+  <h1>Tempo + Duration</h1>
+
+  <div class="s"><label>Tempo </label><input name="tempo" id="s_tempo" type="text" title="Tempo" value="120"  maxlength="6" /></div>
+   <div class="s"><label>Duration </label><input name="duration" id="s_duration" type="text" title="Note Duration" value="6"  maxlength="6" /></div>
+   <span class="actual_tempo">120</span> BPM.<br/>
+   <span class="actual_note_duration">1</span> sec. 
+  </div>
+  <br><hr>
+  
+  
+  
+<!-- LFOs -->
 <h1>LFO (osciliators)</h1>
 <div id="lfos" class="col">
   
@@ -93,17 +125,9 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 -->
 
 <br><hr>
-<!-- Tempo + Duration -->
-<div id="#tempo" class="box">
-<h1>Tempo + Duration</h1>
 
-<div class="s"><label>Tempo </label><input name="tempo" id="s_tempo" type="text" title="Tempo" value="120"  maxlength="6" /></div>
- <div class="s"><label>Duration </label><input name="duration" id="s_duration" type="text" title="Note Duration" value="1"  maxlength="6" /></div>
- <span class="actual_tempo">120</span> BPM.<br/>
- <span class="actual_note_duration">1</span> sec. 
- 
-</div>
-<br><hr>
+
+
 
 <!-- ADSR -->
 <div class="on_off">

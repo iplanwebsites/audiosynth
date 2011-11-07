@@ -99,7 +99,7 @@ fdSlider.createSlider({
 	classNames:"h_lfo_freq",
 	hideInput:true,
   // Use the "tween to click point" animation
-  animation:"tween",
+  animation:"jump",
 	callbacks:{
 		'change':  [function(c){ lfoChange(); }]
 	},
@@ -115,7 +115,7 @@ function initLfoVolume(id_s){
     // Associate the select list
     inp:document.getElementById(id_s),
     // Use the tween animation
-    animation:"tween",
+    animation:"jump",
     // Min value
     min:0,
     // Max value
@@ -138,42 +138,43 @@ function initLfoVolume(id_s){
 
 
 
+///////////////////////////////////
+// Scale 10 / 12 note per octave
+///////////////////////////////////
+function updateScaleFreq(){
+	freqRatio  = Math.pow(2, 1/musicScale);
+}
+
+function initScaleSelector(){
+//UI chkbox
+	$('.chk_freq_scale').change(function(){
+		var on = $(this).attr('checked');
+		if(on){
+			musicScale = 10;
+		}else{
+			musicScale = 12;
+		}
+		updateScaleFreq();
+	});
+
+	$('.chk_freq_scale').trigger('change'); //explicitely call the event
+	updateScaleFreq();
+}
 
 
 
-
-
-/*
-TEMPO + DUration Controls
-*/
+///////////////////////////////////
+// TEMPO + DUration Controls
+///////////////////////////////////
 
 function initTempo(){
 	initTempoSlider('s_tempo');
 	initDurationSlider('s_duration');
-}
-
-function initTempoSlider(id_s){
-	fdSlider.createSlider({
-    inp:document.getElementById(id_s),
-    animation:"tween",
-    min:1,
-    max:240,
-		step:1,
-    hideInput:false, //!!!
-    vertical:false,
-		callbacks:{
-			'change':  [function(c){ 
-					tempo = $('#s_tempo').val();
-					calculateDuration(); //update note duraiton as well...
-				//	console.log('t'=tempo);
-					// lfoChange();
-				}]
-		},
-    classNames:"h-150"
-    });
+	calculateDuration();
 }
 
 function calculateDuration(){
+	tempo = $('#s_tempo').val();
 	var rel = 25 - $('#s_duration').val(); // so it's 15 to 0 now
 	rel = rel - 25; // OFFSET
 	var pow = Math.pow(2, rel);
@@ -191,6 +192,24 @@ function calculateDuration(){
 	console.log('pow='+pow);
 }
 
+function initTempoSlider(id_s){
+	fdSlider.createSlider({
+    inp:document.getElementById(id_s),
+    animation:"tween",
+    min:1,
+    max:240,
+		step:1,
+    hideInput:true, 
+    vertical:false,
+		callbacks:{
+			'change':  [function(c){ 
+					calculateDuration();
+				}]
+		},
+    classNames:"h-150"
+    });
+}
+
 function initDurationSlider(id_s){
 	fdSlider.createSlider({
     inp:document.getElementById(id_s),
@@ -198,7 +217,7 @@ function initDurationSlider(id_s){
     min:1,
     max:12,
 		step:1,
-    hideInput:false, //!!
+    hideInput:true, 
     vertical:false,
 		callbacks:{
 			'change':  [function(c){ 

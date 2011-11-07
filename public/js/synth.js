@@ -15,7 +15,7 @@ nov 2011
 // var volume = 1;// float, vary from 0 to 1;
 baseFreq = 440; // middle A4 frequency, in hz 
 musicScale = 12; //chromatic 12-note pattern
-freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593
+freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593 (for 12 scale)
 noteDuration = 0.9 //sec // is calculated precisely wiht the tempo...
 tempo = 120;
 
@@ -70,7 +70,7 @@ $(document).ready(function() {
 initAdsr();
 initLfo();
 initTempo();
-
+initScaleSelector();
 // replace switches
 
 
