@@ -16,7 +16,7 @@ nov 2011
 baseFreq = 440; // middle A4 frequency, in hz 
 musicScale = 12; //chromatic 12-note pattern
 freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593
-noteDuration = 0.1 //sec // is calculated precisely wiht the tempo...
+noteDuration = 0.9 //sec // is calculated precisely wiht the tempo...
 
 
 keyNotes = {
@@ -172,35 +172,50 @@ function buildSound(note, shape, volume, duration, env){ //duration is in second
 
 	if(env.active){ //adsr
 		//TODO: Define all the points here, get their maginc number (range calculations)
-		 ranges_a = adsr.ratio_a * 1; //we know origin is 0/0, and that it's master volume (1/1)
-		ranges_d = adsr.ratio_d  * (adsr.level_s - 1 );
-		 ranges_r = adsr.ratio_r * (0 - adsr.level_s);
+		// ranges are float between 0 - 1 
+		/*
+		 ranges_a = adsr.ratio_a * totalBeats * 1; //we know origin is 0/0, and that it's peak volume (1/1)
+		ranges_d = adsr.ratio_d * totalBeats  * (adsr.level_s - 1 );
+		 ranges_r = adsr.ratio_r * totalBeats * (0 - adsr.level_s);
+		*/
+		 ranges_a = adsr.ratio_a * totalBeats; //* 1; //we know origin is 0/0, and that it's peak volume (1/1)
+		ranges_d = adsr.ratio_d * totalBeats;  //* (adsr.level_s - 1 );
+		 ranges_r = adsr.ratio_r * totalBeats; //* (0 - adsr.level_s);
 	}
 	if(waveShape == 'square'){
 		var square = 1;
   }
 //totalBeats =50;
+//vs = []; //tracing only... delete plz
+//pos = [];
   for (var i=0; i<totalBeats; i++) {
       noiseRnd =  (Math.random()*noiseLvl) - (noiseLvl /2); //on ajoute ou soustrait une valeur au hasard
 			
 			if(env.active){ 
 				
 			if(i < env.pos_a*totalBeats ){
-					v = volume * ((i/totalBeats * ranges_a) + 0);
-				//	console.log('A='+env.active + ', v='+v);
-				}else if(i < env.pos_d*totalBeats){
-					v = volume * ((i/totalBeats * ranges_d) + 1);
-				//	console.log('D='+env.active + ', v='+v);
-				}else if(i < env.pos_s*totalBeats){
-					v = volume * env.level_s; //sustain is of a fixed volume...
-					//console.log('S='+env.active + ', v='+v);
-				}else{
-					v = volume * parseFloat((i/totalBeats * ranges_r) + env.level_s);
+					v = volume * ((i / ranges_a * 1) + 0); //WORKS!!!
+				}else if(i < env.pos_d*totalBeats){//D
+				//	v = volume * parseFloat(adsr.level_s + 1 - parseFloat(i/ranges_d)*adsr.level_s); //it progress toward the sustain level...
+				var ra = 1- env.level_s; //range of amplitude in this curve it goes from 1 to 0,7 (so .3 range).
+				var pos = (i - (env.pos_a*totalBeats)); //relative position of the curve in time
+				v = volume * ( 1 - (pos/ranges_d*ra) );  
+				
+				}else if(i < env.pos_s*totalBeats){// S
+					v = volume * env.level_s; //sustain is of a fixed volume... //WORKS!
+
+				}else{ // R
+					var ra = env.level_s; //range of amplitude in this curve it goes from 0.7 to 0.
+					var pos = (i - (env.pos_s*totalBeats));
+					v = volume * ( env.level_s - (pos/ranges_r*ra) );  //works!
+					
 					//console.log('R, ranges_r='+ vol * ((i/totalBeats * ranges_r) + env.level_s) + ', xxxxv='+v+' , '+vol);
 				}
 			}else{
 				v= volume; //no envelopes
 			}
+			//vs[i] = v;
+			// V always 
 			var vol = v *255 /2; /// TODO!!!!! 
 	
       val = vol+(vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
@@ -213,6 +228,7 @@ function buildSound(note, shape, volume, duration, env){ //duration is in second
       // donc inversement proportionel à la Fre reelegf
         // SIN returns -127 to 127, so we have a full, 255 (one bit) Amplitude (volume) of sound
   }
+s = sine; //tracing purpose only
 /*
   sine[0]=0; //avoid pops? 
   sine[sine.length-3] = 0;
