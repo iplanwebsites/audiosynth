@@ -37,7 +37,7 @@
 */
 
 .lfo_volume{ float: right;}
-#lfos{ width: 300px; height: 400px; }
+#lfos{ width: 300px; height: 200px; }
 
 .on_off{ height:30px; width:90px; display:block; float:left;  }
 

@@ -75,7 +75,7 @@ function lfoChange(){
 function lfoPlay(){
 //	$.throttle( 250, true, function(e){
 		lfo.a.pause();//stop the old sound...
-		lfo.a = buildSound(lfo.freq_rel, lfo.waveform, lfo.vol, lfo.duration, 0); //0 envelopes...
+		lfo.a = buildSound(lfo.freq_rel, lfo.waveform, lfo.vol, lfo.duration, 0, false); //0 envelopes..., false=no noise.
 		lfo.a.loop = true;
   	lfo.a.play();
 	//})
@@ -135,3 +135,79 @@ function initLfoVolume(id_s){
     classNames:"v-lfo"
     });
 }
+
+
+
+
+
+
+
+
+/*
+TEMPO + DUration Controls
+*/
+
+function initTempo(){
+	initTempoSlider('s_tempo');
+	initDurationSlider('s_duration');
+}
+
+function initTempoSlider(id_s){
+	fdSlider.createSlider({
+    inp:document.getElementById(id_s),
+    animation:"tween",
+    min:1,
+    max:240,
+		step:1,
+    hideInput:false, //!!!
+    vertical:false,
+		callbacks:{
+			'change':  [function(c){ 
+					tempo = $('#s_tempo').val();
+					calculateDuration(); //update note duraiton as well...
+				//	console.log('t'=tempo);
+					// lfoChange();
+				}]
+		},
+    classNames:"h-150"
+    });
+}
+
+function calculateDuration(){
+	var rel = 25 - $('#s_duration').val(); // so it's 15 to 0 now
+	rel = rel - 25; // OFFSET
+	var pow = Math.pow(2, rel);
+	/*
+	if(pow > 1){
+		var friendlyDuration = '1/'+ pow + ' sec.' 
+	}*/
+	
+	var duration = (1/pow) / tempo;
+	noteDuration = duration; //in seconds
+	
+	$('.actual_note_duration').text(smartRound(duration));
+	$('.actual_tempo').text(tempo);
+	console.log('duration='+duration);
+	console.log('pow='+pow);
+}
+
+function initDurationSlider(id_s){
+	fdSlider.createSlider({
+    inp:document.getElementById(id_s),
+    animation:"tween",
+    min:1,
+    max:12,
+		step:1,
+    hideInput:false, //!!
+    vertical:false,
+		callbacks:{
+			'change':  [function(c){ 
+					calculateDuration();
+				}]
+		},
+    classNames:"h-150"
+    });
+}
+
+
+

@@ -17,7 +17,7 @@ baseFreq = 440; // middle A4 frequency, in hz
 musicScale = 12; //chromatic 12-note pattern
 freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593
 noteDuration = 0.9 //sec // is calculated precisely wiht the tempo...
-
+tempo = 120;
 
 keyNotes = {
   "1": -24,
@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 initAdsr();
 initLfo();
-
+initTempo();
 
 // replace switches
 
@@ -145,17 +145,17 @@ function keySound(c){
     // The character is uppercase
     var shape = 'square';
   }
-  a = buildSound(note, shape, adsr.master, noteDuration, adsr);
+  a = buildSound(note, shape, adsr.master, noteDuration, adsr, false);
   a.play();
 }
 
 
 
 ////////////////////////////////
-//   Sound-building
+//   Sound-building - the hardcore part
 /////////////////////////////
 
-function buildSound(note, shape, volume, duration, env){ //duration is in seconds
+function buildSound(note, shape, volume, duration, env, noise){ //duration is in seconds, noise is a bool
   var waveShape = shape; // square, sin, tri, or swa
   var rndtone = 4+ Math.round(3 * Math.random()); //5 = default
   var sine = []; 
@@ -166,7 +166,7 @@ function buildSound(note, shape, volume, duration, env){ //duration is in second
 
   
   noiseLvl = 0; //1; // peut varier de 0, 0.01, à 20 (après ça ce n'Est que du white-noise)
-  if(Math.random()*10 > 7){ //we adda bit of  noise on some instances...
+  if(noise && (Math.random()*10 > 7)){ //we adda bit of  noise on some instances...
     noiseLvl = Math.random()*0.05;
   }
 
@@ -191,44 +191,41 @@ function buildSound(note, shape, volume, duration, env){ //duration is in second
   for (var i=0; i<totalBeats; i++) {
       noiseRnd =  (Math.random()*noiseLvl) - (noiseLvl /2); //on ajoute ou soustrait une valeur au hasard
 			
-			if(env.active){ 
-				
-			if(i < env.pos_a*totalBeats ){
-					v = volume * ((i / ranges_a * 1) + 0); //WORKS!!!
+			
+			//ADSR Envelope
+			//We calculate the volume at this point in time, according to the ADSR envelope settings.
+		if(! env.active){
+			v= volume; //no envelopes
+		}else{
+				if(i < env.pos_a*totalBeats ){
+					v = volume * ((i / ranges_a * 1) + 0);
 				}else if(i < env.pos_d*totalBeats){//D
-				//	v = volume * parseFloat(adsr.level_s + 1 - parseFloat(i/ranges_d)*adsr.level_s); //it progress toward the sustain level...
-				var ra = 1- env.level_s; //range of amplitude in this curve it goes from 1 to 0,7 (so .3 range).
-				var pos = (i - (env.pos_a*totalBeats)); //relative position of the curve in time
-				v = volume * ( 1 - (pos/ranges_d*ra) );  
-				
+					var ra = 1- env.level_s; //range of amplitude in this curve it goes from 1 to 0,7 (so .3 range).
+					var pos = (i - (env.pos_a*totalBeats)); //relative position of the curve in time
+					v = volume * ( 1 - (pos/ranges_d*ra) );  
 				}else if(i < env.pos_s*totalBeats){// S
-					v = volume * env.level_s; //sustain is of a fixed volume... //WORKS!
-
+					v = volume * env.level_s; //sustain is of a fixed volume... 
 				}else{ // R
 					var ra = env.level_s; //range of amplitude in this curve it goes from 0.7 to 0.
 					var pos = (i - (env.pos_s*totalBeats));
-					v = volume * ( env.level_s - (pos/ranges_r*ra) );  //works!
-					
-					//console.log('R, ranges_r='+ vol * ((i/totalBeats * ranges_r) + env.level_s) + ', xxxxv='+v+' , '+vol);
+					v = volume * ( env.level_s - (pos/ranges_r*ra) ); 
 				}
-			}else{
-				v= volume; //no envelopes
-			}
-			//vs[i] = v;
-			// V always 
-			var vol = v *255 /2; /// TODO!!!!! 
+		}//eo adsr
+		
+			var vol = v *255 /2; 
 	
-      val = vol+(vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
-      // val = vol+(vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
-      if(square) {val = Math.round(val/255)*255;}
+      val = vol + (vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
+			//we center the curve in the amplitude lvl, so overlaping doesn't create square waves...
+      if(square) {val = Math.round(val/255)*255;} //TODO: SQUARE forms doens't have any envelopes!
       sine[i] = Math.round(val);
       //160 = low
       // 40 = middle
       // 5 = high pitch
       // donc inversement proportionel à la Fre reelegf
-        // SIN returns -127 to 127, so we have a full, 255 (one bit) Amplitude (volume) of sound
+     // SIN returns -127 to 127, so we have a full, 255 (one bit) Amplitude (volume) of sound
   }
 s = sine; //tracing purpose only
+drawSineGraph(sine);
 /*
   sine[0]=0; //avoid pops? 
   sine[sine.length-3] = 0;
@@ -248,6 +245,37 @@ s = sine; //tracing purpose only
   
   
   
+}
+
+
+
+function drawSineGraph(s){  // s = the large sine array of 0-255 values
+	var canvas = document.getElementById("sine_graph");
+	var context = canvas.getContext("2d");
+	
+	var w = $(canvas).width();
+	var h = $(canvas).height();
+	var v = 1;
+	context.clearRect(0,0,w,h);
+	
+	
+	//MAIN STROKE
+	context.strokeStyle = '#4cc'; 
+	context.fillStyle = '#cee'; 
+	context.lineWidth   = 1;
+	context.beginPath();
+	context.moveTo(0, h); // initial positions, lower left
+
+var pos = 0;
+var val = 0;
+	for (var i=0; i<w; i++) {
+		pos = Math.round( i / w * s.length);
+		val = (s[pos]/255) *h;
+		context.lineTo(i, h-val); //attack peak 
+	}
+  context.lineTo(w, h); //end
+  context.stroke();
+	context.fill();
 }
 
 

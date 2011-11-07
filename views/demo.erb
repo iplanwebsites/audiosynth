@@ -92,12 +92,20 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 </p>
 -->
 
+<br><hr>
+<!-- Tempo + Duration -->
+<div id="#tempo" class="box">
+<h1>Tempo + Duration</h1>
 
+<div class="s"><label>Tempo </label><input name="tempo" id="s_tempo" type="text" title="Tempo" value="120"  maxlength="6" /></div>
+ <div class="s"><label>Duration </label><input name="duration" id="s_duration" type="text" title="Note Duration" value="1"  maxlength="6" /></div>
+ <span class="actual_tempo">120</span> BPM.<br/>
+ <span class="actual_note_duration">1</span> sec. 
+ 
+</div>
+<br><hr>
 
-
-
-<br><br><hr><br><br>
-
+<!-- ADSR -->
 <div class="on_off">
 <p class="field switch">
 	<label class="cb-enable"><span>On</span></label>
@@ -128,11 +136,6 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 </div>
 
  
- 
- 
- 
-
-
 
   <br><br><hr><br><br>
   
@@ -244,7 +247,13 @@ Hit your keyboard's keys, <strong>make some noise</strong></em>
     
    
    
-   
+    <br>
+    <canvas id="sine_graph" width="1000" height="200"></canvas>
+    <br/>
+    <small>Note: bits over time.</small>
+
+
+
 
    
    
