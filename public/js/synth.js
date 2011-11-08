@@ -59,7 +59,17 @@ keyNotes = {
 }
 
 
+/*
+major, 
+the three minors (natural, harmonic, melodic), 
+chromatic, 
+pentatonic, 
+blues, 
+octatonic (also known as diminished), 
+whole tone, and 
+all the modes (except for Locrian which I understand is seldom used)."
 
+*/
 
 $(document).ready(function() {
 	////////////////////////////////
@@ -192,7 +202,7 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
       noiseRnd =  (Math.random()*noiseLvl) - (noiseLvl /2); //on ajoute ou soustrait une valeur au hasard
 			
 			
-			//ADSR Envelope
+		//ADSR Envelope
 			//We calculate the volume at this point in time, according to the ADSR envelope settings.
 		if(! env.active){
 			v= volume; //no envelopes
@@ -215,8 +225,18 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
 			var vol = v *255 /2; 
 	
       val = vol + (vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
+/*
+      if (val < 50) val =50;
+			if (val > 200) val = 200;*/
+			
 			//we center the curve in the amplitude lvl, so overlaping doesn't create square waves...
       if(square) {val = Math.round(val/255)*255;} //TODO: SQUARE forms doens't have any envelopes!
+
+			// 16 bits??
+			// val = Math.pow(val, 2); //transform a 8bit value into a 16one
+			
+			//val = val * 250; //transform a 8bit value into a 16one
+			
       sine[i] = Math.round(val);
       //160 = low
       // 40 = middle
@@ -226,28 +246,24 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
   }
 s = sine; //tracing purpose only
 drawSineGraph(sine);
-/*
-  sine[0]=0; //avoid pops? 
-  sine[sine.length-3] = 0;
-  sine[sine.length-2] = 0;
-  sine[sine.length-1] = 0;
-   sine[sine.length] = 0;*/
+
   
    var wave2 = new RIFFWAVE();
   wave2.header.sampleRate = 44100; // set sample rate to 44KHz
  // wave5.header.numChannels = 1; // two channels (stereo)
-  //wave2.header.bitsPerSample = 16;
+  // wave2.header.bitsPerSample = 16; //Buggy...
+	wave2.header.bitsPerSample = 8; //!!
   wave2.Make(sine);
   var audio2 = new Audio(wave2.dataURI);
   audio2.loop=0;
 
-  return audio2;
-  
-  
-  
+  return audio2;  
 }
 
 
+////////////////////////////////
+//   Draw Sine graph
+/////////////////////////////
 
 function drawSineGraph(s){  // s = the large sine array of 0-255 values
 	var canvas = document.getElementById("sine_graph");
@@ -302,7 +318,7 @@ function getRevertedFreq(noteDiff){  //Opposite of previous funcion
 
 
 
-function smartRound(n){
+function smartRound(n){ //rounding for display purpose only
 if (n < 2){
 	r = Math.round(n*100)/100;
 }else if(n < 30){

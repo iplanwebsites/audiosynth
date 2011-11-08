@@ -30,7 +30,11 @@
 .master_vol .label{ margin-left: -20px; display:block; }
 
 
-
+#sine_graph{
+	/*width:100%;
+	height:200px;*/
+	background:#eee;
+}
 
 /*
  LFO
