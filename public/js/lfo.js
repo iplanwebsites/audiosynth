@@ -169,15 +169,16 @@ function initScaleSelector(){
 
 function initTempo(){
 	initTempoSlider('s_tempo');
-	initDurationSlider('s_duration');
+	//initDurationSlider('s_duration');
 	calculateDuration();
 }
 
 function calculateDuration(){
 	tempo = $('#s_tempo').val();
-	var rel = 25 - $('#s_duration').val(); // so it's 15 to 0 now
-	rel = rel - 25; // OFFSET
-	var pow = Math.pow(2, rel);
+	//var rel = 25 - $('#s_duration').val(); // so it's 15 to 0 now
+	var rel = keyDuration; //between 1-1
+	rel = rel +2; // OFFSET
+	var pow = Math.pow(2, rel*-1);
 	/*
 	if(pow > 1){
 		var friendlyDuration = '1/'+ pow + ' sec.' 
@@ -210,6 +211,7 @@ function initTempoSlider(id_s){
     });
 }
 
+/*
 function initDurationSlider(id_s){
 	fdSlider.createSlider({
     inp:document.getElementById(id_s),
@@ -226,7 +228,7 @@ function initDurationSlider(id_s){
 		},
     classNames:"h-150"
     });
-}
+}*/
 
 
 

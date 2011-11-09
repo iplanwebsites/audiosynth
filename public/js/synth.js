@@ -18,6 +18,7 @@ musicScale = 12; //chromatic 12-note pattern
 freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593 (for 12 scale)
 noteDuration = 0.9 //sec // is calculated precisely wiht the tempo...
 tempo = 120;
+keyDuration = 5; //from 1 - 10
 
 keyNotes = {
   "1": -24,
@@ -177,9 +178,10 @@ function isNumKey(k){
   return ((k >= 48) && (k < 58) )
 }
 function numKey(num){ //receive a number from 0 -9, the top keyboard keys...
-  console.log(num);
-  
-  
+  // console.log(num);
+  if (num == 0) num = 10;
+  keyDuration = num;
+  calculateDuration();
 }
 
 
