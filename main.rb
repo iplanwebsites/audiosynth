@@ -8,7 +8,7 @@ end
 
 get '/' do
 	# redirect '/clock.html'
-	erb :demo
+	erb :layout1
 end
 
 

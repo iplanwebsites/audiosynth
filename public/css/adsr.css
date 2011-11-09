@@ -65,6 +65,36 @@
 
 
 
+/*
+LAYOUT
+*/
+
+/* Frill-less keyboard keys */
+
+
+#asdfg, #zxcvb, #bottomrow, #qwerty{ clear:both;}
+.key.alt, .key.option, .key.control, .key.command, .key.fn, .key.shiftright, #bottomrow{display:none;}
+.key.c187, .key.c46, .key.c37, .key.c38, .key.c39, .key.c40{display:none;}
+.key.c192, .key#tab{opacity:0.2; }
+#caps.key{opacity:1; display:block; }
+#keyboard{width:629px; padding:0; box-shadow:none; -webkit-box-shadow:none; -moz-box-shadow:none; border: 0; background:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

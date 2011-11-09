@@ -110,7 +110,14 @@ $('.checkbox', parent).change();
 $(window).keydown(function(e) {
     key = (e.keyCode) ? e.keyCode : e.which;
     $('.key.c' + key).addClass('keydown');
-    console.log(key);
+    //console.log(key);
+    
+     key = (e.keyCode) ? e.keyCode : e.which;
+    $('.key.c' + key).addClass('playing').delay(noteDuration*1000).queue(function(next){ //TODO: use a timmer instead, cause double note removes highlight too quickly...
+    $(this).removeClass('playing');
+  		next();
+   }); //eo queue
+   
 });
 
 $(window).keyup(function(e) {
@@ -119,15 +126,21 @@ $(window).keyup(function(e) {
 });
 
 
-$('a.key').mousedown(function(){
-  var c= $(this).text();
-  keySound(c);
+$('a.key').mousedown(function(e){
+  var c= $(this).text(); //this return "a" for A key...
+ // TODO: get key number by text
+  keySound(113);
+  //$(this).trigger('keypress');
 	return false;
 });
 
 $('a.key').click(function(){return false});
 
 $(document).keypress(function(e) {
+  
+  
+  
+  
   //if(count){ a.stop(); }
   if ( e.which == 13 ) { //enter...
      event.preventDefault();
@@ -135,9 +148,10 @@ $(document).keypress(function(e) {
      //TODO: Stop All audio!
      a.stop();
    }else{
-  var c = String.fromCharCode(e.which);//alert(c +" - " + e.which);
-  keySound(c);
+  keySound(e.which);
   }
+  
+  
 });
 
 
@@ -146,7 +160,16 @@ $(document).keypress(function(e) {
 
 
 
-function keySound(c){
+function keySound(key){
+  var c = String.fromCharCode(key);//alert(c +" - " + e.which);
+  console.log(key + ' - '+ c);
+  //Highlight on keyboard duration
+  /*$('.key.c' + key).addClass('playing').delay(noteDuration*1000).queue(function(next){ //TODO: use a timmer instead, cause double note removes highlight too quickly...
+  $(this).removeClass('playing');
+		next();
+    }); //eo queue*/
+
+
   var note = keyNotes[c.toLowerCase()];
   if (c == c.toLowerCase()){
     // The character is lowercase
@@ -207,13 +230,13 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
 		if(! env.active){
 			v= volume; //no envelopes
 		}else{
-				if(i < env.pos_a*totalBeats ){
+				if(i <= env.pos_a*totalBeats ){
 					v = volume * ((i / ranges_a * 1) + 0);
-				}else if(i < env.pos_d*totalBeats){//D
+				}else if(i <= env.pos_d*totalBeats){//D
 					var ra = 1- env.level_s; //range of amplitude in this curve it goes from 1 to 0,7 (so .3 range).
 					var pos = (i - (env.pos_a*totalBeats)); //relative position of the curve in time
 					v = volume * ( 1 - (pos/ranges_d*ra) );  
-				}else if(i < env.pos_s*totalBeats){// S
+				}else if(i <= env.pos_s*totalBeats){// S
 					v = volume * env.level_s; //sustain is of a fixed volume... 
 				}else{ // R
 					var ra = env.level_s; //range of amplitude in this curve it goes from 0.7 to 0.
@@ -223,11 +246,30 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
 		}//eo adsr
 		
 			var vol = v *255 /2; 
+			// 127
 	
+	
+	var zeroBase = false;
+	if(zeroBase){
       val = vol + (vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
-/*
-      if (val < 50) val =50;
-			if (val > 200) val = 200;*/
+      // I think this line create the "pop" craquement...
+		}else{
+		  val = (255/2) + (vol*Math.sin(i * (1/ freq )+noiseRnd ));
+	
+		}
+		
+		if(val < 15){
+		  val = 15;
+		}
+		if(val > 240){
+		  val = 240;
+		}
+// !!!! HERE it is!!!!
+
+
+
+/**/
+      
 			
 			//we center the curve in the amplitude lvl, so overlaping doesn't create square waves...
       if(square) {val = Math.round(val/255)*255;} //TODO: SQUARE forms doens't have any envelopes!
