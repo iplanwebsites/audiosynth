@@ -60,6 +60,114 @@ keyNotes = {
 }
 
 
+scales= {
+  "major": { //white keys ratios to one another, one line per octave.
+    "q": 0,   "w": 2,  "e": 4,  "r": 5,  "t": 7,  "y": 9, "u": 11, "i": 12, "o": 14, "p": 16,
+    "a": 12, "s": 14, "d": 16, "f": 17, "g": 19, "h": 21, "j": 23, "k": 24, "l": 26,
+    "z": 24, "x": 26, "c": 28, "v": 29, "b": 31, "n": 33, "m": 35
+  }
+  
+  
+  
+scale_ratios = [
+ { ratios : [2,2,1,2,2,2,1],
+	 name: 'Major'},
+ { ratios : [2,1,2,2,2,2,1],
+	 name: 'Minor'},
+{ ratios : [2,1,2,2,1,3,1],
+	 name: 'Harmonic Minor'},
+ { ratios : [2,1,2,2,2,2,1],
+	 name: 'Melodic Minor'},
+ { ratios : [2,3,2,2,3],
+	 name: 'Pentatonic Major'},
+ { ratios : [3,2,2,3,2],
+	 name: 'Pentatonic Minor'},
+ { ratios : [3,2,1,1,3],
+	 name: 'Pentatonic Blues'},
+ { ratios : [2,3,2,3],
+	 name: 'Pentatonic Neutral'},
+ { ratios : [2,2,1,2,2,2,1],
+	 name: 'Ionian'},
+ { ratios : [3,2,1,2,2,1,2,2],
+	 name: 'Aeolian'},
+ { ratios : [2,1,2,2,2,1,2],
+	 name: 'Dorian'},
+ { ratios : [2,2,1,2,2,1,2],
+	 name: 'Mixolydian'},
+ { ratios : [1,2,2,2,1,2,2],
+	 name: 'Phrygian'},
+ { ratios : [2,2,2,1,2,2,1],
+	 name: 'Lydian'},
+ { ratios : [1,2,2,1,2,2,2],
+	 name: 'Locrian'},
+ { ratios : [1,2,1,2,1,2,1],
+	 name: 'Dim half'},
+ { ratios : [2,1,2,1,2,1,2],
+	 name: 'Dim whole'},
+ { ratios : [2,2,2,2,2],
+	 name: 'Whole'},
+ { ratios : [3,1,3,1,3],
+	 name: 'Augmented'},
+ { ratios : [1,1,1,1,1,1,1,1,1,1,1,1],
+	 name: 'Chromatic'},
+ { ratios : [2,1,3,1,2,1,2],
+	 name: 'Roumanian Minor'},
+ { ratios : [1,3,1,2,1,2,2],
+	 name: 'Spanish Gypsy'},
+ { ratios : [3,2,1,1,3,2],
+	 name: 'Blues'},
+ { ratios : [2,2,3,2,3],
+	 name: 'Diatonic'},
+ { ratios : [1,3,1,2,1,3,1],
+	 name: 'Double Harmonic'},
+ { ratios : [1,2,1,1,1,2,2,2],
+	 name: 'Eight Tone Spanish'},
+ { ratios : [1,3,2,2,2,1,1],
+	 name: 'Enigmatic'},
+ { ratios : [2,2,2,2,1,1],
+	 name: 'Leading Whole Tone'},
+ { ratios : [2,2,2,2,1,2,1],
+	 name: 'Lydian Augmented'},
+ { ratios : [1,2,2,2,2,2,1],
+	 name: 'Neoploitan Major'},
+ { ratios : [1,2,2,2,1,2,2],
+	 name: 'Neopolitan Minor'},
+ { ratios : [1,2,3,4,1],
+	 name: 'Pelog'},
+ { ratios : [2,2,2,3,1,2],
+	 name: 'Prometheus'},
+ { ratios : [1,3,2,3,1,2],
+	 name: 'Prometheus Neopolitan'},
+ { ratios : [1,3,1,3,1,3],
+	 name: 'Six Tone Symmetrical'},
+ { ratios : [1,2,1,2,2,2,2],
+	 name: 'Super Locrian'},
+ { ratios : [2,2,2,1,1,2,2],
+	 name: 'Lydian Minor'},
+ { ratios : [2,1,3,1,1,2,2],
+	 name: 'Lydian Diminished'},
+ { ratios : [2,1,1,2,1,1,1,2,1],
+	 name: 'Nine Tone Scale'},
+ { ratios : [2,1,2,1,2,1,2,1],
+	 name: 'Auxiliary Diminished'},
+ { ratios : [2,2,2,2,2,2],
+	 name: 'Auxiliary Augmented'},
+ { ratios : [1,2,1,2,1,2,1,2],
+	 name: 'Auxiliary Diminished Blues'},
+ { ratios : [2,2,1,1,2,2,2],
+	 name: 'Major Locrian'},
+ { ratios : [2,2,2,1,2,1,2],
+	 name: 'Overtone'},
+ { ratios : [1,2,1,2,2,2,2],
+	 name: 'Diminished Whole Tone'},
+ { ratios : [2,1,2,2,1,2,2],
+	 name: 'Pure Minor'},
+ { ratios : [2,3,2,2,1,2],
+	 name: 'Dominant 7th'}
+]
+
+}
+
 /*
 major, 
 the three minors (natural, harmonic, melodic), 
@@ -201,7 +309,12 @@ function keySound(c){
     }); //eo queue*/
 
 
-  var note = keyNotes[c.toLowerCase()];
+  // var note = keyNotes[c.toLowerCase()];
+  var note = scales['major'][c.toLowerCase()];
+  note -= 12; //we re-center the freq...
+  
+  console.log(note);
+  
   if (c == c.toLowerCase()){  //TODO: instead check if caps locks or Shift is ennforced... that will work wit clicks as we...
     // The character is lowercase
     var shape = 'sine';
