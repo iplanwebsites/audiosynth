@@ -1,0 +1,349 @@
+
+<html>
+<head>
+<title>Audio synth experiment</title>
+</head>
+<body>
+<link rel="stylesheet" href="css/keys.css">
+<link rel="stylesheet" href="css/fd-slider.css">
+<link rel="stylesheet" href="css/adsr.css">
+<!-- 
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+-->
+<script type="text/javascript" src="js/libs/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.throttle.js"></script> <!-- Unused...-->
+
+<script src="js/fd-slider.js"></script>
+<script src="js/riffwave.js"></script>
+
+<script src="js/adsr.js"></script>
+<script src="js/lfo.js"></script>
+<script src="js/synth.js"></script>
+
+<!-- 
+<script src="js/note-calculator.js"></script>
+-->
+
+<h1>noise bits</h1>
+A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix_m</a>
+
+<hr>
+
+
+<br><br><hr><br><br>
+
+<!-- Scale 10 / 12-->
+<div class="box">
+<div class="freq_scale">
+  <h1>metric music (10 notes per octave)</h1>
+<p class="field switch">
+	<label class="cb-enable"><span>10</span></label>
+	<label class="cb-disable selected"><span>12</span></label>
+	<input type="checkbox" class="checkbox hide chk_freq_scale" name="freq_scale"  checked="false" />
+</p>
+<div class="clear"></div>
+<small>This is an experimental features, only use if you believe we were wrong from the beginning to use a 12-notes tuning. </small>
+</div>
+</div>
+  
+  <br/>
+  
+  
+  
+  <!-- Tempo + Duration -->
+  <div id="#tempo" class="box">
+  <h1>Tempo + Duration</h1>
+
+  <div class="s"><label>Tempo </label><input name="tempo" id="s_tempo" type="text" title="Tempo" value="120"  maxlength="6" /></div>
+   <div class="s"><label>Duration </label><input name="duration" id="s_duration" type="text" title="Note Duration" value="6"  maxlength="6" /></div>
+   <span class="actual_tempo">120</span> BPM.<br/>
+   <span class="actual_note_duration">1</span> sec. 
+  </div>
+  <br><hr>
+  
+  
+<!-- LFOs -->
+<h1>LFO (osciliators)</h1>
+<div id="lfos" class="col">
+  
+  <div class="lfo box" id="lfo1">
+     <!-- VOL SLIDER -->
+      <div class="lfo_volume">
+        <input name="lfo_vol" id="lfo_vol" type="text" title="LFO Amplitude" value="1"  maxlength="6"  />
+        <label for="lfo_vol" id="lfo_vol_label">Amp</label>
+        <br>
+      </div>
+      
+      
+      <!-- ON / OFF -->
+      <div class="on_off">
+      <p class="field switch">
+      	<label class="cb-enable"><span>On</span></label>
+      	<label class="cb-disable selected"><span>Off</span></label>
+      	<input type="checkbox" class="checkbox hide lfo_on" name="lfo_on" data-lfo="lfo1" checked="false" />
+      </p>
+      </div>
+      <h1>LFO #1</h1>
+      
+      <div class="clear-left"></div>
+      <!-- FREQ SLIDER -->
+      <div class="s">
+        <label>Freq: </label>
+        <input name="lfo_freq" id="lfo_freq" class="lfo_freq" type="text" title="Frequency" value="-18"  maxlength="6" />
+      </div>
+    
+      <!-- freq display-->
+      <p class="right">
+      <em> <span class="actual_freq">440</span>mhz </em> <span class="note_name"></span>
+      
+      </p>
+      
+    <!-- chkbox even-->
+    <label for="chk_even">
+      <input type="checkbox" class="chk_even" name="chk_even" checked="true" />
+      Even frequencies only
+    </label>
+    </div>
+    
+</div>
+
+
+<!-- 
+<p class="field switch">
+	<input type="radio" id="radio1" name="field"  checked />enable
+	<input type="radio" id="radio2" name="field" />disable
+	<label for="radio1" class="cb-enable selected"><span>Enable</span></label>
+	<label for="radio2" class="cb-disable"><span>Disable</span></label>
+</p>
+<p class="field switch">
+	<label class="cb-enable"><span>On</span></label>
+	<label class="cb-disable selected"><span>Off</span></label>
+	<input type="checkbox" id="checkbox" class="checkbox" name="field2" /> Checkbox
+	$('#checkbox').attr('checked')
+</p>
+-->
+
+<br><hr>
+
+
+
+
+<!-- ADSR -->
+<div class="on_off">
+<p class="field switch">
+	<label class="cb-enable"><span>On</span></label>
+	<label class="cb-disable selected"><span>Off</span></label>
+	<input type="checkbox" class="checkbox hide adsr_on" name="adsr_on" checked="false" />
+</p>
+</div>
+
+<h1>ADSR Envelope (amplitude)</h1>
+
+ <div class="box master_vol">
+   <input name="master_volume" id="master_volume" type="text" title="Master Volume" value="1"  maxlength="6"  />
+   <label for="master_volume" id="master_volume_label">Master</label>
+   <br>
+ </div>
+ 
+<div id="adsr" class="box">
+   <!-- Here's the form element we will associate the third slider with. -->
+   
+  <div class="s"><label>A </label> <input name="adsr_a" id="adsr_a" type="text" title="Attack Time" value="0.18"  maxlength="6" onchange="alert('ddd')"/> </div>
+  <div class="s"><label>D </label><input name="adsr_d" id="adsr_d" type="text" title="Decay Time" value="0.22"  maxlength="6" /></div>
+  <div class="s"><label>S </label><input name="adsr_s_level" id="adsr_s_level" type="text" title="Sustain Level" value="0.7"  maxlength="6" /></div>
+  <div class="s"><label>R </label><input name="adsr_r" id="adsr_r" type="text" title="Release Time" value="0.15"  maxlength="6" /></div>
+  <input name="adsr_s" id="adsr_s" type="hidden" title="Sustain Time" value="0.3"  maxlength="6" />
+  <canvas id="adsr_graph" width="200" height="100"></canvas>
+  <br/>
+  <small>Amplitude over time</small>
+</div>
+
+ 
+
+  <br><br><hr><br><br>
+  
+
+
+
+<br/>
+<em>
+Hit your keyboard's keys, <strong>make some noise</strong></em>
+<br/>
+<br/>
+
+<div id="keyboard">
+    	<ul class="hide">
+        	<li><a href="#" class="key c27 fn"><span id="esc">esc</span></a></li>
+        	<li><a href="#" class="key c112 fn"><span>F1</span></a></li>
+        	<li><a href="#" class="key c113 fn"><span>F2</span></a></li>
+        	<li><a href="#" class="key c114 fn"><span>F3</span></a></li>
+        	<li><a href="#" class="key c115 fn"><span>F4</span></a></li>
+        	<li><a href="#" class="key c116 fn"><span>F5</span></a></li>
+        	<li><a href="#" class="key c117 fn"><span>F6</span></a></li>
+        	<li><a href="#" class="key c118 fn"><span>F7</span></a></li>
+        	<li><a href="#" class="key c119 fn"><span>F8</span></a></li>
+        	<li><a href="#" class="key c120 fn"><span>F9</span></a></li>
+        	<li><a href="#" class="key c121 fn"><span>F10</span></a></li>
+        	<li><a href="#" class="key c122 fn"><span>F11</span></a></li>
+        	<li><a href="#" class="key c123 fn"><span>F12</span></a></li>
+        	<li><a href="#" class="key fn"><span>Eject</span></a></li>
+        </ul>
+    	<ul id="numbers">
+	    	<li><a href="#" class="key c192"><b>~</b><span>`</span></a></li>
+	    	<li><a href="#" class="key c49 num"><b>!</b><span>1</span></a></li>
+	    	<li><a href="#" class="key c50 num"><b>@</b><span>2</span></a></li>
+	    	<li><a href="#" class="key c51 num"><b>#</b><span>3</span></a></li>
+	    	<li><a href="#" class="key c52 num"><b>$</b><span>4</span></a></li>
+	    	<li><a href="#" class="key c53 num"><b>%</b><span>5</span></a></li>
+	    	<li><a href="#" class="key c54 num"><b>^</b><span>6</span></a></li>
+	    	<li><a href="#" class="key c55 num"><b>&amp;</b><span>7</span></a></li>
+	    	<li><a href="#" class="key c56 num"><b>*</b><span>8</span></a></li>
+	    	<li><a href="#" class="key c57 num"><b>(</b><span>9</span></a></li>
+	    	<li><a href="#" class="key c48 num"><b>)</b><span>0</span></a></li>
+	    	<li><a href="#" class="key c189 alt"><b>_</b><span>-</span></a></li>
+	    	<li><a href="#" class="key c187"><b>+</b><span>=</span></a></li>
+	    	<li><a href="#" class="key c46" id="delete"><span>Delete</span></a></li>
+        </ul>
+    	<ul id="qwerty">
+	    	<li><a href="#" class="key c9" id="tab"><span>tab</span></a></li>
+	    	<li><a href="#" class="key c81"><span>q</span></a></li>
+	    	<li><a href="#" class="key c87"><span>w</span></a></li>
+	    	<li><a href="#" class="key c69"><span>e</span></a></li>
+	    	<li><a href="#" class="key c82"><span>r</span></a></li>
+	    	<li><a href="#" class="key c84"><span>t</span></a></li>
+	    	<li><a href="#" class="key c89"><span>y</span></a></li>
+	    	<li><a href="#" class="key c85"><span>u</span></a></li>
+	    	<li><a href="#" class="key c73"><span>i</span></a></li>
+	    	<li><a href="#" class="key c79"><span>o</span></a></li>
+	    	<li><a href="#" class="key c80"><span>p</span></a></li>
+	    	<li><a href="#" class="key c219 alt"><b>{</b><span>[</span></a></li>
+	    	<li><a href="#" class="key c221 alt"><b>}</b><span>]</span></a></li>
+	    	<li><a href="#" class="key c220 alt"><b>|</b><span>\</span></a></li>
+        </ul>
+        <ul id="asdfg">
+	    	<li><a href="#" class="key c20 alt" id="caps"><b></b><span>caps lock</span></a></li>
+	    	<li><a href="#" class="key c65"><span>a</span></a></li>
+	    	<li><a href="#" class="key c83"><span>s</span></a></li>
+	    	<li><a href="#" class="key c68"><span>d</span></a></li>
+	    	<li><a href="#" class="key c70"><span>f</span></a></li>
+	    	<li><a href="#" class="key c71"><span>g</span></a></li>
+	    	<li><a href="#" class="key c72"><span>h</span></a></li>
+	    	<li><a href="#" class="key c74"><span>j</span></a></li>
+	    	<li><a href="#" class="key c75"><span>k</span></a></li>
+	    	<li><a href="#" class="key c76"><span>l</span></a></li>
+	    	<li><a href="#" class="key c186 alt"><b>:</b><span>;</span></a></li>
+	    	<li><a href="#" class="key c222 alt"><b>"</b><span>'</span></a></li>
+	    	<li><a href="#" class="key c13 alt" id="enter"><span>return</span></a></li>
+        </ul>
+        <ul id="zxcvb">
+	    	<li><a href="#" class="key c16 shiftleft"><span>Shift</span></a></li>
+	    	<li><a href="#" class="key c90"><span>z</span></a></li>
+	    	<li><a href="#" class="key c88"><span>x</span></a></li>
+	    	<li><a href="#" class="key c67"><span>c</span></a></li>
+	    	<li><a href="#" class="key c86"><span>v</span></a></li>
+	    	<li><a href="#" class="key c66"><span>b</span></a></li>
+	    	<li><a href="#" class="key c78"><span>n</span></a></li>
+	    	<li><a href="#" class="key c77"><span>m</span></a></li>
+	    	<li><a href="#" class="key c188 alt"><b>&lt;</b><span>,</span></a></li>
+	    	<li><a href="#" class="key c190 alt"><b>&gt;</b><span>.</span></a></li>
+	    	<li><a href="#" class="key c191 alt"><b>?</b><span>/</span></a></li>
+	    	<li><a href="#" class="key c16 shiftright"><span>Shift</span></a></li>
+        </ul>
+		<ul id="bottomrow">
+	    	<li><a href="#" class="key" id="fn"><span>fn</span></a></li>
+	    	<li><a href="#" class="key c17" id="control"><span>control</span></a></li>
+	    	<li><a href="#" class="key option" id="optionleft"><span>option</span></a></li>
+	    	<li><a href="#" class="key command" id="commandleft"><span>command</span></a></li>
+	    	<li><a href="#" class="key c32" id="spacebar"></a></li>
+	    	<li><a href="#" class="key command" id="commandright"><span>command</span></a></li>
+	    	<li><a href="#" class="key option" id="optionright"><span>option</span></a></li>
+            <ol>
+            	<li><a href="#" class="key c37" id="left">◄</span></a></li>
+                <li>
+                	<a href="#" class="key c38" id="up"><span>▲</span></a>
+                	<a href="#" class="key c40" id="down"><span>▼</span></a>
+                </li>
+            	<li><a href="#" class="key c39" id="right"><span>►</span></a></li>
+            </ol>
+        </ul>
+    </div>
+    
+   
+   
+    <br>
+    <canvas id="sine_graph" width="1000" height="200"></canvas>
+    <br/>
+    <small>Note: bits over time.</small>
+
+
+
+
+   
+   
+   
+   
+  
+   
+   
+   
+   <br><br><hr><br><br>
+   
+   
+   
+
+<h2>Controls</h2>
+<hr><br/>
+
+<strong>Letters</strong>: Notes are in reading order, <em>from lowest to highest frequencies.</em><br/>
+<strong>Numbers</strong>: The lowest frequencies, if too low to hear, you'll notice an <strong>LFO effect</strong> when combined with other frequencies <em>(when you press multiple keys)</em>.<br/>
+<strong>CAPS</strong> = Capital letters <em>(shift key)</em> produces a <strong>square</strong> waveform <em>(instead of sine)</em>. Use caps lock to stick with square waves. <br/>
+<br/><br/><br/>
+
+
+
+<h2>How it works?</h2>
+<hr>
+ <br/>
+<p>
+  <strong>100% Javascript:</strong><br/>
+  <em>No plugins, server, samples, mp3s, nor heavy libraries here...</em>
+  <br/><br/>
+Keyboard keys are associated with arbitrary notes. 
+Proper sine waves are then calculated for the required frequencies and kept in a  simple array <em>(some noise is added to spice up the timber)</em>. <br/> <br/> 
+</p>
+<p>
+We then transform this long list 0-255 values into a file. 
+That mean converting the array to base64 and then slapping some headers onto this fresh file <em>(yes, those good old .wav files)</em>. 
+Finally, we load this generated sound using HTML5 audio playback capability. That's it!<br/> <br/> 
+</p>
+<p>
+  Next step would be to read/write midi and karaoke<em>(yay!)</em> files using the file API, design more advanced instruments,  support midi keyboard input <em>(not really part of the HTML specs)</em>, and release full-blown audio web-application! 
+</p>
+
+ <br/> 
+ <hr>
+ <br/><br/>
+ Find <a href="http://felixmenard.com">more artsy stuff</a> or <a href="http://iplanwebsites.com"> more web stuff </a> I did. <br/>
+ 
+ <br/>
+<a href="http://twitter.com/felix_m"> I'm also on twitter</a> <em>(but never tweet)</em>
+
+<br/> <br/>
+
+<script type="text/javascript">
+/*
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24688279-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+</script>
+
+</body>
+</html>

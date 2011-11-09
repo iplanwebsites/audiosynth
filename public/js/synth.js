@@ -108,20 +108,29 @@ $('.checkbox', parent).change();
 /////////////////////////////
 
 $(window).keydown(function(e) {
-    key = (e.keyCode) ? e.keyCode : e.which;
-    $('.key.c' + key).addClass('keydown');
-    //console.log(key);
-    
-     key = (e.keyCode) ? e.keyCode : e.which;
-    $('.key.c' + key).addClass('playing').delay(noteDuration*1000).queue(function(next){ //TODO: use a timmer instead, cause double note removes highlight too quickly...
-    $(this).removeClass('playing');
-  		next();
-   }); //eo queue
+
    
+   
+     var key = (e.keyCode) ? e.keyCode : e.which;
+      $('.key.c' + key).addClass('keydown');
+      $('.key.c' + key).addClass('playing').delay(noteDuration*1000).queue(function(next){ //TODO: use a timmer instead, cause double note removes highlight too quickly...
+      $(this).removeClass('playing');
+    		next();
+     }); //eo queue
+   
+
+   /*
+   $('.key.c' + key).addClass('playing');
+   var elem = $('.key.c' + key);
+   if(elem.highlightT) clearTimeout(elem.highlightT);
+    elem.highlightT = setTimeout(function() {
+        $(this).removeClass('playing');
+     }, 1000); //throttle: time to wait after the resize is done...
+     */
 });
 
 $(window).keyup(function(e) {
-    key = (e.keyCode) ? e.keyCode : e.which;
+    var key = (e.keyCode) ? e.keyCode : e.which;
     $('.key.c' + key).removeClass('keydown');
 });
 
@@ -129,40 +138,53 @@ $(window).keyup(function(e) {
 $('a.key').mousedown(function(e){
   var c= $(this).text(); //this return "a" for A key...
  // TODO: get key number by text
-  keySound(113);
+ if($(this).hasClass('num')){
+   c = $(this).children('span').text();
+    numKey(c); 
+  }else{
+    keySound(c);
+  }
   //$(this).trigger('keypress');
 	return false;
 });
 
 $('a.key').click(function(){return false});
 
-$(document).keypress(function(e) {
-  
-  
-  
-  
-  //if(count){ a.stop(); }
-  if ( e.which == 13 ) { //enter...
-     event.preventDefault();
-   }else if(e.which == 32 ){ //spacebar
-     //TODO: Stop All audio!
-     a.stop();
-   }else{
-  keySound(e.which);
-  }
-  
-  
+$(document).keypress(function(e) {  //for an obscure reason, there are weird eventing bug with the window.keydown event bellow...
+     if ( (e.which == 13)|| (e.which == 9) ) { //enter, tab...
+         event.preventDefault();
+       }else if(e.which == 32 ){ //spacebar
+         //TODO: Stop All audio!
+         a.stop();
+       }else{
+
+         var key = (e.keyCode) ? e.keyCode : e.which;
+         if(isNumKey(key) == true ){
+           numKey(key-48); //key zero is 48...
+         }else{
+           var c = String.fromCharCode(key);//alert(c +" - " + e.which);
+           console.log(key + ' - '+ c);
+           keySound(c);
+         }
+      }
 });
 
 
 }); //eo doc ready...
 
 
+function isNumKey(k){
+  return ((k >= 48) && (k < 58) )
+}
+function numKey(num){ //receive a number from 0 -9, the top keyboard keys...
+  console.log(num);
+  
+  
+}
 
 
-function keySound(key){
-  var c = String.fromCharCode(key);//alert(c +" - " + e.which);
-  console.log(key + ' - '+ c);
+function keySound(c){
+  
   //Highlight on keyboard duration
   /*$('.key.c' + key).addClass('playing').delay(noteDuration*1000).queue(function(next){ //TODO: use a timmer instead, cause double note removes highlight too quickly...
   $(this).removeClass('playing');
@@ -171,7 +193,7 @@ function keySound(key){
 
 
   var note = keyNotes[c.toLowerCase()];
-  if (c == c.toLowerCase()){
+  if (c == c.toLowerCase()){  //TODO: instead check if caps locks or Shift is ennforced... that will work wit clicks as we...
     // The character is lowercase
     var shape = 'sine';
   }else{
