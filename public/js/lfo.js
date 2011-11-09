@@ -176,7 +176,7 @@ function initTempo(){
 function calculateDuration(){
 	tempo = $('#s_tempo').val();
 	//var rel = 25 - $('#s_duration').val(); // so it's 15 to 0 now
-	var rel = keyDuration; //between 1-1
+	var rel = keyDuration; //between 1-10
 	rel = rel +2; // OFFSET
 	var pow = Math.pow(2, rel*-1);
 	/*

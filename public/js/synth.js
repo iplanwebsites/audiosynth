@@ -112,13 +112,20 @@ $(window).keydown(function(e) {
 
    
    
-     var key = (e.keyCode) ? e.keyCode : e.which;
-      $('.key.c' + key).addClass('keydown');
+  var key = (e.keyCode) ? e.keyCode : e.which;
+  $('.key.c' + key).addClass('keydown');
+  if(isNumKey(key)){
+    console.log(key +'=====');
+    $('.num.key.selected').removeClass('selected');
+    $('.key.c' + key).addClass('selected');
+  }else{
+    
+      
       $('.key.c' + key).addClass('playing').delay(noteDuration*1000).queue(function(next){ //TODO: use a timmer instead, cause double note removes highlight too quickly...
       $(this).removeClass('playing');
     		next();
      }); //eo queue
-   
+  }
 
    /*
    $('.key.c' + key).addClass('playing');
