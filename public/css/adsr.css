@@ -170,7 +170,7 @@ footer h1 span{ padding-left: 40px; display:inline; font-size: 11px; color:#aaa;
   display:block; margin-top:-200px;  margin-bottom: 200px; z-index:1; 
   margin-left:5px; text-shadow: 1px 1px 2px #fff; 
   }
-#sine_graph_wrap canvas{display:block; z-index:0; border:3px solid #fff; border-radius: 10px;}
+#sine_graph_wrap canvas{display:block; z-index:0; border:3px solid #fff; border-radius: 10px; clear:both;}
 
 
 
