@@ -16,9 +16,9 @@ nov 2011
 baseFreq = 440; // middle A4 frequency, in hz 
 musicScale = 12; //chromatic 12-note pattern
 freqRatio  = Math.pow(2, 1/musicScale);  //multiplier of half-tones //returns maginc number : 1.0594630943593 (for 12 scale)
-noteDuration = 0.9 //sec // is calculated precisely wiht the tempo...
+noteDuration = 0.2 //sec // is calculated precisely wiht the tempo...
 tempo = 120;
-keyDuration = 5; //from 1 - 10
+keyDuration = 2; //from 1 - 10
 
 keyNotes = {
   "1": -24,
@@ -244,6 +244,8 @@ $(window).keydown(function(e) {
      */
 });
 
+$('.key.c50').addClass('selected');// !! hardcoded duration highlight...
+
 $(window).keyup(function(e) {
     var key = (e.keyCode) ? e.keyCode : e.which;
     $('.key.c' + key).removeClass('keydown');
@@ -454,24 +456,26 @@ function drawSineGraph(s){  // s = the large sine array of 0-255 values
 	var canvas = document.getElementById("sine_graph");
 	var context = canvas.getContext("2d");
 	
+	var topOffset = 10;
 	var w = $(canvas).width();
-	var h = $(canvas).height();
+	var h = $(canvas).height()-(topOffset*2);
+	
 	var v = 1;
-	context.clearRect(0,0,w,h);
+	context.clearRect(0,0,w,h+topOffset*2);
 	
 	
 	// bg grid
 	context.strokeStyle = '#ddd'; 
 	// middle
 	context.beginPath();
-	context.moveTo(w, h/4);
-	context.lineTo(0, h/4);
+	context.moveTo(w, h/4+topOffset);
+	context.lineTo(0, h/4+topOffset);
 	context.stroke();
 	
 	// middle
 	context.beginPath();
-	context.moveTo(w, h/4*3);
-	context.lineTo(0, h/4*3);
+	context.moveTo(w, h/4*3+topOffset);
+	context.lineTo(0, h/4*3+topOffset);
 	context.stroke();
 	
 	
@@ -485,16 +489,16 @@ function drawSineGraph(s){  // s = the large sine array of 0-255 values
 	context.fillStyle = '#cee'; 
 	context.lineWidth   = 1;
 	context.beginPath();
-	context.moveTo(0, h); // initial positions, lower left
+	context.moveTo(0, h+topOffset*2); // initial positions, lower left
 
 var pos = 0;
 var val = 0;
 	for (var i=0; i<w; i++) {
 		pos = Math.round( i / w * s.length);
 		val = (s[pos]/255) *h;
-		context.lineTo(i, h-val); //attack peak 
+		context.lineTo(i, h-val+topOffset); //attack peak 
 	}
-  context.lineTo(w, h); //end
+  context.lineTo(w, h+topOffset*2); //end
   context.stroke();
 	context.fill();
 	
@@ -505,14 +509,14 @@ var val = 0;
 	context.lineWidth   = 1;
 	// middle
 	context.beginPath();
-	context.moveTo(w, h/2);
-	context.lineTo(0, h/2);
+	context.moveTo(w, h/2+topOffset);
+	context.lineTo(0, h/2+topOffset);
 	context.stroke();
 	
 	context.strokeStyle = '#fff'; 
 	context.beginPath();
-	context.moveTo(w, (h/2)+1);
-	context.lineTo(0, (h/2)+1);
+	context.moveTo(w, (h/2)+1+topOffset);
+	context.lineTo(0, (h/2)+1+topOffset);
 	context.stroke();
 
 
