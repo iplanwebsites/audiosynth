@@ -168,13 +168,19 @@ function initScaleSelector(){
 ///////////////////////////////////
 
 function initTempo(){
-	initTempoSlider('s_tempo');
+ // initTempoSlider('s_tempo');
 	//initDurationSlider('s_duration');
+	$('#input_bpm').bind('change click focus blur keypress', function(){
+    calculateDuration();
+  })
+  
 	calculateDuration();
 }
 
 function calculateDuration(){
-	tempo = $('#s_tempo').val();
+	//tempo = $('#s_tempo').val();
+	tempo = $('#input_bpm').val();
+	
 	//var rel = 25 - $('#s_duration').val(); // so it's 15 to 0 now
 	var rel = keyDuration; //between 1-10
 	rel = rel +2; // OFFSET
@@ -193,7 +199,8 @@ function calculateDuration(){
 	console.log('pow='+pow);
 }
 
-function initTempoSlider(id_s){
+
+function initTempoSlider(id_s){  //USELESS FUNCTION...
 	fdSlider.createSlider({
     inp:document.getElementById(id_s),
     animation:"tween",

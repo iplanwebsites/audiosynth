@@ -2,7 +2,8 @@
 .clear{clear: both;}
 .clear-left{clear: left;}
 
-body{font-family: "Courrier New", Courrier, Mono, Monospace, Console; }
+body{font-family: "Courrier New", Courrier, Mono, Monospace, Console;
+background: #ccc url('../img/bg_pale_noise9.gif') }
 
 .v-50{height: 50px;}
 .v-100{height: 100px;}
@@ -79,7 +80,15 @@ LAYOUT
 .key.c187, .key.c46, .key.c37, .key.c38, .key.c39, .key.c40{display:none;}
 .key.c192, .key#tab{opacity:0.2; }
 #caps.key{opacity:1; display:block; }
-#keyboard{width:629px; padding:0; box-shadow:none; -webkit-box-shadow:none; -moz-box-shadow:none; border: 0; background:none;}
+#keyboard{
+  width:629px; padding:0; 
+  padding-left:5px;
+  height:230px;
+  box-shadow:none; -webkit-box-shadow:none; -moz-box-shadow:none; 
+  border: 0; background:rgba(0,0,0,0.06); 
+  position:absolute;
+  left:500px; top:100px;
+}
 
 
 header{ 
@@ -98,15 +107,32 @@ header h1{ display:block; font-size: 25px; color:#ccc;  padding-top: 10px;font-w
 header h1 em{  color:#ddd; font-weight:normal; font-style:normal; }
 header h1 span{ display:inline; font-size: 12px; color:#aaa; font-weight:normal; }
 
+footer{ margin-top: 50px;}
+footer h1{ display:block; font-size: 12px; color:#333;  bottom-top: 10px;font-weight:bold; margin-left: 20px; }
+footer h1 em{  font-weight:normal; font-style:normal; }
+footer h1 span{ padding-left: 40px; display:inline; font-size: 11px; color:#aaa; font-weight:normal; color:#555; }
 
 
 
+#effects{ /* the left column */
+  width: 450px; float:left;
+  border:3px solid: #0f0;
+  padding-top:50px;
+}
 
+.box{
+  opacity:0.3; background:#fff; border-radius:5px;
+  margin-top:20px; padding:5px;
+  }
+.box.on, .box:hover{
+  opacity:1;
+}
 
+#adsr canvas{float:right;}
 
-
-
-
+#sine_graph_wrap{clear:both; padding:10px; background:#ccc; height:200px; }
+#sine_graph_wrap small{display:block; margin-top:-200px;  z-index:22;}
+#sine_graph_wrap canvas{display:block; z-index:0;}
 
 
 
