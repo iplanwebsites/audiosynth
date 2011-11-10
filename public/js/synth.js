@@ -65,16 +65,14 @@ scales= {
     "q": 0,   "w": 2,  "e": 4,  "r": 5,  "t": 7,  "y": 9, "u": 11, "i": 12, "o": 14, "p": 16,
     "a": 12, "s": 14, "d": 16, "f": 17, "g": 19, "h": 21, "j": 23, "k": 24, "l": 26,
     "z": 24, "x": 26, "c": 28, "v": 29, "b": 31, "n": 33, "m": 35
-  }
-  
-  
-  
-scale_ratios = [
- { ratios : [2,2,1,2,2,2,1],
-	 name: 'Major'},
+  }};
+
+
+myscale_ratios = [ 
+{ ratios : [2,2,1,2,2,2,1], name: 'Major'},
  { ratios : [2,1,2,2,2,2,1],
 	 name: 'Minor'},
-{ ratios : [2,1,2,2,1,3,1],
+{  ratios : [2,1,2,2,1,3,1],
 	 name: 'Harmonic Minor'},
  { ratios : [2,1,2,2,2,2,1],
 	 name: 'Melodic Minor'},
@@ -164,9 +162,10 @@ scale_ratios = [
 	 name: 'Pure Minor'},
  { ratios : [2,3,2,2,1,2],
 	 name: 'Dominant 7th'}
-]
+];
 
-}
+
+
 
 /*
 major, 

@@ -2,7 +2,7 @@
 .clear{clear: both;}
 .clear-left{clear: left;}
 
-
+body{font-family: "Courrier New", Courrier, Mono, Monospace, Console; }
 
 .v-50{height: 50px;}
 .v-100{height: 100px;}
@@ -19,6 +19,8 @@
 .h_lfo_freq{ width: 250px; }
 
 .box{background:#ddd; font-size:11px; padding:5px;}
+
+
 
 #adsr{ padding-left:10px; background:#f1f1f1;}
 #adsr .s{ background:#fff; margin:0; margin-bottom:-10px;}
@@ -80,6 +82,21 @@ LAYOUT
 #keyboard{width:629px; padding:0; box-shadow:none; -webkit-box-shadow:none; -moz-box-shadow:none; border: 0; background:none;}
 
 
+header{ 
+  height: 55px; 
+  width:100%;
+  color: #fff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000)); 
+  position: absolute;
+  top:0px;
+  left:0px;
+  border-bottom:#ccc 1px solid;
+  box-shadow: 0px 0px 10px #444;
+  
+  }
+header h1{ display:block; font-size: 25px; color:#ccc;  padding-top: 10px;font-weight:bold; margin-left: 20px; }
+header h1 em{  color:#ddd; font-weight:normal; font-style:normal; }
+header h1 span{ display:inline; font-size: 12px; color:#aaa; font-weight:normal; }
 
 
 

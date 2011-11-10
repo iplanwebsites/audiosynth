@@ -3,7 +3,8 @@
 <head>
 <title>Audio synth experiment</title>
 </head>
-<body>
+
+<link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/keys.css">
 <link rel="stylesheet" href="css/fd-slider.css">
 <link rel="stylesheet" href="css/adsr.css">
@@ -25,15 +26,25 @@
 <script src="js/note-calculator.js"></script>
 -->
 
-<h1>noise bits</h1>
-A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix_m</a>
 
-<hr>
+<body>
+<header>
+  <h1> &lt; html <em>orchestra </em>/&gt; 
+  <span>// bringing back audio on webpages</span>
+  </h1>
+ <div class="right">
+  <div class="scale_inputs">
+   <input type="number" name="input_key" id="input_key" min="0" max="36" value="12" />
+   
+   <input type="number" name="input_base_scale" id="input_base_scale" min="2" max="36" />
+  </div>
+  <input type="number" name="input_bpm" id="input_bpm" min="20" max="240" />
+ </div>
+</header>
 
 
-<br><br><hr><br><br>
 
-<!-- Scale 10 / 12-->
+ Scale 10 / 12
 <div class="box">
 <div class="freq_scale">
   <h1>metric music (10 notes per octave)</h1>
@@ -46,6 +57,14 @@ A Javascript audio synth experiment, by <a href="http://iplanwebsites.com">felix
 <small>This is an experimental features, only use if you believe we were wrong from the beginning to use a 12-notes tuning. </small>
 </div>
 </div>
+
+
+<div id="app">
+
+
+
+<br><br><hr><br><br>
+
   
   <br/>
   
@@ -283,109 +302,22 @@ Hit your keyboard's keys, <strong>make some noise</strong></em>
    
    
    
+</div> <!-- eo #app-->
+<footer>
+    <h1><em>html</em> orchestra</h1>
+    <h3>Used in the wild by Air, Amon Tobin, Alaska in Winter, Animal collective, Anorak, The Antlers, Aparat and <a href="#"> many more</a></h3>
+     <a href="http://iplanwebsites.com"> About the html otchestra </a>
+</footer>
+  
   
    
-   
-   
-   <br><br><hr><br><br>
-   
-   
-   <!-- SCALE INFO, number of tone difference between notes of the scale-->
-   <SELECT NAME="scale" SIZE="8" onChange="alert(this)" >
-   <OPTION VALUE="2212221" SELECTED>Major
-   <OPTION VALUE="2122221">Minor
-   <OPTION VALUE="2122131">Harmonic Minor
-   <OPTION VALUE="2122221">Melodic Minor
-   <OPTION VALUE="23223">Pentatonic Major
-   <OPTION VALUE="32232">Pentatonic Minor
-   <OPTION VALUE="32113">Pentatonic Blues
-   <OPTION VALUE="2323">Pentatonic Neutral
-   <OPTION VALUE="2212221">Ionian
-   <OPTION VALUE="32122122">Aeolian
-   <OPTION VALUE="2122212">Dorian
-   <OPTION VALUE="2212212">Mixolydian
-   <OPTION VALUE="1222122">Phrygian
-   <OPTION VALUE="2221221">Lydian
-   <OPTION VALUE="1221222">Locrian
-   <OPTION VALUE="1212121">Dim half
-   <OPTION VALUE="2121212">Dim whole
-   <OPTION VALUE="22222">Whole
-   <OPTION VALUE="31313">Augmented
-   <OPTION VALUE="111111111111">Chromatic
-   <OPTION VALUE="2131212">Roumanian Minor
-   <OPTION VALUE="1312122">Spanish Gypsy
-   <OPTION VALUE="321132">Blues
-   <OPTION VALUE="22323">Diatonic
-   <OPTION VALUE="1312131">Double Harmonic
-   <OPTION VALUE="12111222">Eight Tone Spanish
-   <OPTION VALUE="1322211">Enigmatic
-   <OPTION VALUE="222211">Leading Whole Tone
-   <OPTION VALUE="2222121">Lydian Augmented
-   <OPTION VALUE="1222221">Neoploitan Major
-   <OPTION VALUE="1222122">Neopolitan Minor
-   <OPTION VALUE="12341">Pelog
-   <OPTION VALUE="222312">Prometheus
-   <OPTION VALUE="132312">Prometheus Neopolitan
-   <OPTION VALUE="131313">Six Tone Symmetrical
-   <OPTION VALUE="1212222">Super Locrian
-   <OPTION VALUE="2221122">Lydian Minor
-   <OPTION VALUE="2131122">Lydian Diminished
-   <OPTION VALUE="211211121">Nine Tone Scale
-   <OPTION VALUE="21212121">Auxiliary Diminished
-   <OPTION VALUE="222222">Auxiliary Augmented
-   <OPTION VALUE="12121212">Auxiliary Diminished Blues
-   <OPTION VALUE="2211222">Major Locrian
-   <OPTION VALUE="2221212">Overtone
-   <OPTION VALUE="1212222">Diminished Whole Tone
-   <OPTION VALUE="2122122">Pure Minor
-   <OPTION VALUE="232212">Dominant 7th
-   </SELECT>
-   
-   
-
-<h2>Controls</h2>
-<hr><br/>
-
-<strong>Letters</strong>: Notes are in reading order, <em>from lowest to highest frequencies.</em><br/>
-<strong>Numbers</strong>: The lowest frequencies, if too low to hear, you'll notice an <strong>LFO effect</strong> when combined with other frequencies <em>(when you press multiple keys)</em>.<br/>
-<strong>CAPS</strong> = Capital letters <em>(shift key)</em> produces a <strong>square</strong> waveform <em>(instead of sine)</em>. Use caps lock to stick with square waves. <br/>
-<br/><br/><br/>
 
 
-
-<h2>How it works?</h2>
-<hr>
- <br/>
-<p>
-  <strong>100% Javascript:</strong><br/>
-  <em>No plugins, server, samples, mp3s, nor heavy libraries here...</em>
-  <br/><br/>
-Keyboard keys are associated with arbitrary notes. 
-Proper sine waves are then calculated for the required frequencies and kept in a  simple array <em>(some noise is added to spice up the timber)</em>. <br/> <br/> 
-</p>
-<p>
-We then transform this long list 0-255 values into a file. 
-That mean converting the array to base64 and then slapping some headers onto this fresh file <em>(yes, those good old .wav files)</em>. 
-Finally, we load this generated sound using HTML5 audio playback capability. That's it!<br/> <br/> 
-</p>
-<p>
-  Next step would be to read/write midi and karaoke<em>(yay!)</em> files using the file API, design more advanced instruments,  support midi keyboard input <em>(not really part of the HTML specs)</em>, and release full-blown audio web-application! 
-</p>
-
- <br/> 
- <hr>
- <br/><br/>
- Find <a href="http://felixmenard.com">more artsy stuff</a> or <a href="http://iplanwebsites.com"> more web stuff </a> I did. <br/>
- 
- <br/>
-<a href="http://twitter.com/felix_m"> I'm also on twitter</a> <em>(but never tweet)</em>
-
-<br/> <br/>
 
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-24688279-5']);
+  _gaq.push(['_setAccount', 'UA-24688279-5']); /* HTML orchestra accnt*/
   _gaq.push(['_trackPageview']);
 
   (function() {
