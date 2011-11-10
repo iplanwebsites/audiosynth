@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<title>Audio synth experiment</title>
+<title>HTML ORCHESTRA</title>
 </head>
 
 <link rel="stylesheet" href="css/reset.css">
@@ -14,6 +14,10 @@
 -->
 <script type="text/javascript" src="js/libs/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery.throttle.js"></script> <!-- Unused...-->
+
+<script type="text/javascript" src="js/libs/underscore.js"></script>
+<script type="text/javascript" src="js/libs/backbone.js"></script>
+<script type="text/javascript" src="js/libs/backbone.localStorage.js"></script>
 
 <script src="js/fd-slider.js"></script>
 <script src="js/riffwave.js"></script>
@@ -120,7 +124,7 @@
    <!-- VOL SLIDER -->
     <div class="lfo_volume">
       <input name="lfo_vol" id="lfo_vol" type="text" title="LFO Amplitude" value="1"  maxlength="6"  />
-      <label for="lfo_vol" id="lfo_vol_label">Amp</label>
+     <!-- <label for="lfo_vol" id="lfo_vol_label">Amp</label>--> 
       <br>
     </div>
     
@@ -132,12 +136,12 @@
     	<input type="checkbox" class="checkbox hide lfo_on" name="lfo_on" data-lfo="lfo1" checked="false" />
     </p>
     </div>
-    <h1>LFO #1</h1>
+    <h1>LFO</h1>
     
     <div class="clear-left"></div>
     <!-- FREQ SLIDER -->
     <div class="s">
-      <label>Freq: </label>
+      <label><em>Rate </em>(osciliation freq.) </label>
       <input name="lfo_freq" id="lfo_freq" class="lfo_freq" type="text" title="Frequency" value="-18"  maxlength="6" />
     </div>
   
@@ -244,7 +248,7 @@
 	    	<li><a href="#" class="key c220 alt"><b>|</b><span>\</span></a></li>
         </ul>
         <ul id="asdfg">
-	    	<li><a href="#" class="key c20 alt" id="caps"><b></b><span>caps lock</span></a></li>
+	    	<li><a href="#" class="key c20 alt caps" id="caps"><b></b><span>square lock</span></a></li>
 	    	<li><a href="#" class="key c65"><span>a</span></a></li>
 	    	<li><a href="#" class="key c83"><span>s</span></a></li>
 	    	<li><a href="#" class="key c68"><span>d</span></a></li>
@@ -259,7 +263,7 @@
 	    	<li><a href="#" class="key c13 alt" id="enter"><span>return</span></a></li>
         </ul>
         <ul id="zxcvb">
-	    	<li><a href="#" class="key c16 shiftleft"><span>Shift</span></a></li>
+	    	<li><a href="#" class="key c16 shiftleft"><span>square</span></a></li>
 	    	<li><a href="#" class="key c90"><span>z</span></a></li>
 	    	<li><a href="#" class="key c88"><span>x</span></a></li>
 	    	<li><a href="#" class="key c67"><span>c</span></a></li>

@@ -400,13 +400,13 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
 		  val = (255/2) + (vol*Math.sin(i * (1/ freq )+noiseRnd ));
 	
 		}
-		
+		/*
 		if(val < 15){
 		  val = 15;
 		}
 		if(val > 240){
 		  val = 240;
-		}
+		}*/
 // !!!! HERE it is!!!!
 
 
@@ -460,6 +460,26 @@ function drawSineGraph(s){  // s = the large sine array of 0-255 values
 	context.clearRect(0,0,w,h);
 	
 	
+	// bg grid
+	context.strokeStyle = '#ddd'; 
+	// middle
+	context.beginPath();
+	context.moveTo(w, h/4);
+	context.lineTo(0, h/4);
+	context.stroke();
+	
+	// middle
+	context.beginPath();
+	context.moveTo(w, h/4*3);
+	context.lineTo(0, h/4*3);
+	context.stroke();
+	
+	
+	
+	
+	
+	
+	
 	//MAIN STROKE
 	context.strokeStyle = '#4cc'; 
 	context.fillStyle = '#cee'; 
@@ -477,6 +497,28 @@ var val = 0;
   context.lineTo(w, h); //end
   context.stroke();
 	context.fill();
+	
+	
+	
+	//gridlines
+	context.strokeStyle = '#ccc'; 
+	context.lineWidth   = 1;
+	// middle
+	context.beginPath();
+	context.moveTo(w, h/2);
+	context.lineTo(0, h/2);
+	context.stroke();
+	
+	context.strokeStyle = '#fff'; 
+	context.beginPath();
+	context.moveTo(w, (h/2)+1);
+	context.lineTo(0, (h/2)+1);
+	context.stroke();
+
+
+  
+  
+  
 }
 
 

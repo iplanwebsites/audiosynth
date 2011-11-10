@@ -18,6 +18,11 @@ calculateADSR();
 $('.adsr_on').change(function(){
 	var on = $(this).attr('checked');
 	adsr.active = on;
+	if(on){
+	  $('#adsr.box').addClass('on');
+	}else{
+	  $('#adsr.box').removeClass('on');
+	}
 });
 
 
@@ -128,11 +133,30 @@ function drawAdsrGraph(){
 	
 	var w = $(canvas).width();
 	var h = $(canvas).height();
-	var v = adsr.master; // master volume 0 - 1
+	var v = adsr.master * 0.8; // master volume 0 - 1, with some margin...
 	context.clearRect(0,0,w,h);
 	
 	
-	//gridlines
+	
+	
+	//MAIN STROKE
+	context.strokeStyle = '#4cc'; 
+	context.fillStyle = '#cee'; 
+	context.lineWidth   = 4;
+	context.beginPath();
+	context.moveTo(0, h); // initial positions, lower left
+
+	context.lineTo( adsr.pos_a*w, h-(v*h)); //attack peak 
+	context.lineTo( (adsr.pos_d)*w, h-((v*adsr.level_s)*h) ); //d
+	context.lineTo( (adsr.pos_s)*w, h-((v*adsr.level_s)*h) ); //s
+	context.lineTo( (adsr.pos_r)*w, h);//lower right corder
+	
+  context.lineTo(w, h); //end
+  context.stroke();
+	context.fill();
+
+
+  //gridlines
 	context.strokeStyle = '#fff'; 
 	context.lineWidth   = 1;
 	// A
@@ -151,22 +175,6 @@ function drawAdsrGraph(){
 	context.lineTo(adsr.pos_s*w, 0);
 	context.stroke();
 	
-	//MAIN STROKE
-	context.strokeStyle = '#4cc'; 
-	context.fillStyle = '#cee'; 
-	context.lineWidth   = 4;
-	context.beginPath();
-	context.moveTo(0, h); // initial positions, lower left
-
-	context.lineTo( adsr.pos_a*w, h-(v*h)); //attack peak 
-	context.lineTo( (adsr.pos_d)*w, h-((v*adsr.level_s)*h) ); //d
-	context.lineTo( (adsr.pos_s)*w, h-((v*adsr.level_s)*h) ); //s
-	context.lineTo( (adsr.pos_r)*w, h);//lower right corder
-	
-  context.lineTo(w, h); //end
-  context.stroke();
-	context.fill();
-
 	
 }
 

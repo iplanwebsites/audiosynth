@@ -20,8 +20,10 @@ function initLfo(){
 		lfo.active = on;
 		if(on){
 			lfoPlay();
+			$('#lfo1.box').addClass('on');
 		}else{
 			lfo.a.pause();
+			$('#lfo1.box').removeClass('on');
 		}
 	});
 	

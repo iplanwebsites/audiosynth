@@ -3,7 +3,7 @@
 .clear-left{clear: left;}
 
 body{font-family: "Courrier New", Courrier, Mono, Monospace, Console;
-background: #ccc url('../img/bg_pale_noise9.gif') }
+background: #ccc url('../img/bg_noise2.gif') }
 
 .v-50{height: 50px;}
 .v-100{height: 100px;}
@@ -23,9 +23,9 @@ background: #ccc url('../img/bg_pale_noise9.gif') }
 
 
 
-#adsr{ padding-left:10px; background:#f1f1f1;}
-#adsr .s{ background:#fff; margin:0; margin-bottom:-10px;}
-#adsr label{ float: left; width:50px; margin-left:-10px; margin-top:3px; }
+#adsr{  }
+#adsr .s{ background:#fff; margin:0; margin-bottom:-10px; padding-left:20px;}
+#adsr .s label{ float: left; width:50px; margin-left:-10px; margin-top:3px; }
 
 #adsr_graph{ border: 1px solid #ccc; background: #ddd; margin:5px 0px; }
 
@@ -36,7 +36,7 @@ background: #ccc url('../img/bg_pale_noise9.gif') }
 #sine_graph{
 	/*width:100%;
 	height:200px;*/
-	background:#eee;
+	background:#fff;
 }
 
 /*
@@ -47,6 +47,8 @@ background: #ccc url('../img/bg_pale_noise9.gif') }
 #lfos{ width: 300px; height: 200px; }
 
 .on_off{ height:30px; width:90px; display:block; float:left;  }
+
+#lfo1 label em{font-weight:bold; font-size:14px; font-style:normal; }
 
 /* Used for the Switch effect: */
 
@@ -85,11 +87,12 @@ LAYOUT
   padding-left:5px;
   height:230px;
   box-shadow:none; -webkit-box-shadow:none; -moz-box-shadow:none; 
-  border: 0; background:rgba(0,0,0,0.06); 
+  border: 0; background:rgba(255,255,255,0.0); 
   position:absolute;
-  left:500px; top:100px;
+  left:550px; top:100px;
 }
-
+.key.shiftleft{ background: #fff url('../img/squarewave2.gif') no-repeat 75% 50% ; background-size:35px; }
+.key.caps{ background: #fff url('../img/squarewave2.gif') no-repeat 35% 20% ; background-size:22px; }
 
 header{ 
   height: 55px; 
@@ -107,11 +110,14 @@ header h1{ display:block; font-size: 25px; color:#ccc;  padding-top: 10px;font-w
 header h1 em{  color:#ddd; font-weight:normal; font-style:normal; }
 header h1 span{ display:inline; font-size: 12px; color:#aaa; font-weight:normal; }
 
-footer{ margin-top: 50px;}
+footer{ margin-top: 50px; clear:both;}
 footer h1{ display:block; font-size: 12px; color:#333;  bottom-top: 10px;font-weight:bold; margin-left: 20px; }
 footer h1 em{  font-weight:normal; font-style:normal; }
 footer h1 span{ padding-left: 40px; display:inline; font-size: 11px; color:#aaa; font-weight:normal; color:#555; }
 
+
+
+#app{width:1200px;  /* margin:auto;  TODO- wrap properly... */}
 
 
 #effects{ /* the left column */
@@ -122,17 +128,25 @@ footer h1 span{ padding-left: 40px; display:inline; font-size: 11px; color:#aaa;
 
 .box{
   opacity:0.3; background:#fff; border-radius:5px;
-  margin-top:20px; padding:5px;
+  margin-top:20px; 
+  padding:10px;
   }
-.box.on, .box:hover{
+.box.on, .box.on:hover{
   opacity:1;
 }
-
+.box:hover{
+  opacity:0.5;
+}
+.box h1{ font-size: 22px; font-weight: normal; padding-bottom:10px;}
 #adsr canvas{float:right;}
+2
 
-#sine_graph_wrap{clear:both; padding:10px; background:#ccc; height:200px; }
-#sine_graph_wrap small{display:block; margin-top:-200px;  z-index:22;}
-#sine_graph_wrap canvas{display:block; z-index:0;}
+#sine_graph_wrap{clear:both; padding:10px; background:#ccc; height:300px;  }
+#sine_graph_wrap small{
+  display:block; margin-top:-200px;  margin-bottom: 200px; z-index:1; 
+  margin-left:5px; text-shadow: 1px 1px 2px #fff; 
+  }
+#sine_graph_wrap canvas{display:block; z-index:0; border:3px solid #fff; border-radius: 10px;}
 
 
 
