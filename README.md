@@ -13,11 +13,11 @@
 - Durée de son basé sur le tempo (bpm) et la sélection de l'usager
 
 # Sous le capot
-HTML5: Lecture audio, "sliders", affichage des graphiques.
-CSS: Interface, mise en page, transitions, animations, effets. 
-Jquery: gestion du clavier, de l'interface et de l'affichage.
-Javascript: Synthèse du son (math), écriture du fichier son.
-Ruby + GIT + Heroku: Back-end et hébergement.
+- HTML5: Lecture audio, "sliders", affichage des graphiques.
+- CSS: Interface, mise en page, transitions, animations, effets. 
+- Jquery: gestion du clavier, de l'interface et de l'affichage.
+- Javascript: Synthèse du son (math), écriture du fichier son.
+-   Ruby + GIT + Heroku: Back-end et hébergement.
 
 # Ensuite
 - Alter-dodécaphonisme ( ≠ 12 notes / octave )
