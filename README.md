@@ -1,15 +1,49 @@
 
+## French...
 
 
-# ideas
 
-- 16 beats sequencer
+# Quoi  (Intermède technico-expérimentale)
+- Un monstre: Aprox 25 pages dactylographié de code
+(css:20kb, html:13kb, javascript:25kb)
+- Génération d'un fichier son via une page web (sans plugins).
+- Synthèse de fréquences.
+- Interface de composition minimalement utilisable.
+- Enveloppe ADSR gérant l'amplitude des sons dans le temps.
+- Durée de son basé sur le tempo (bpm) et la sélection de l'usager
 
-- binaural beats generator
+# Sous le capot
+HTML5: Lecture audio, "sliders", affichage des graphiques.
+CSS: Interface, mise en page, transitions, animations, effets. 
+Jquery: gestion du clavier, de l'interface et de l'affichage.
+Javascript: Synthèse du son (math), écriture du fichier son.
+Ruby + GIT + Heroku: Back-end et hébergement.
 
-- noise  machine
+# Ensuite
+- Alter-dodécaphonisme ( ≠ 12 notes / octave )
+- Choix varié d’échelles musicales (Mineur, Pentatonique, Blues)
+- Effets supplémentaires (distorsion, "reverb", écho)
+- Séquenceur (enregistrer des notes dans le temps)
+- Écriture/lecture d'un fichier MIDI (et karaoké - yeah!)
+- Design de d'autres instruments ("drum-machine")
+- Créer un accordeur de guitare (ex: accorde-mon-banjo.org)
+- Battements binauraux (moins utile, plus louche)
+- Sono-Spirographe (pas utile, mais si amusant)
+- Synthèse au format 16 bit (au lieu de 8bit/44khz)
+- Débogage & dé-spaghettification du code (MVC avec backbone.js)
+- Me faire des amis et présenter un concert louche (à la sat).
 
-- tone generation
+# Open-source + (C)
+$ git clone git@github.com:iplanwebsites/audiosynth.git
+
+♥ wikipedia
+
+
+
+
+
+
+
 
 
 
