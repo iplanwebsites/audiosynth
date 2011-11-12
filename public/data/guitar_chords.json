@@ -111,11 +111,11 @@ A7sus4                   ", "fret" === ["x 0 2 0 3 0] (D  E  G  A)", "name" == "
 { "note" = "Am7                      ", "fret" === ["x 0 2 0 1 0] (C  E  G  A)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Am7                      ", "fret" === ["x 0 2 2 1 3] (C  E  G  A)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Am7                      ", "fret" === ["x 0 5 5 5 8] (C  E  G  A)", "name" == "minor triad, minor 7th" }, 
-{ "note" = "Am7(b5)   or   Ao7       ", "fret" === ["x x 1 2 1 3] (C  Eb G  A)", "name" == "diminished triad, minor 7th", "name" == "half-diminished 7th
-Am7/add11 or   Am7/11    ", "fret" === ["x 5 7 5 8 0] (C  D  E  G  A)", "name" == "minor triad, minor 7th, plus 11th
-Amaj7     or   A#7       ", "fret" === ["x 0 2 1 2 0] (Db E  Ab A)", "name" == "major triad, major 7th" }, 
-{ "note" = "Amin/maj9                ", "fret" === ["x 0 6 5 5 7] (C  E  Ab A  B)", "name" == "minor triad, major 7th plus 9th
-Asus      or   Asus4     ", "fret" === ["0 0 2 2 3 0] (D  E  A)", "name" == "no 3rd but a 4th from a major triad" }, 
+{ "note" = "Am7(b5)   or   Ao7       ", "fret" === ["x x 1 2 1 3] (C  Eb G  A)", "name" == "diminished triad, minor 7th: half-diminished 7th" }, 
+{ "note" = "Am7/add11 or   Am7/11    ", "fret" === ["x 5 7 5 8 0] (C  D  E  G  A)", "name" == "minor triad, minor 7th, plus 11th" }, 
+{ "note" = "Amaj7     or   A#7       ", "fret" === ["x 0 2 1 2 0] (Db E  Ab A)", "name" == "major triad, major 7th" }, 
+{ "note" = "Amin/maj9                ", "fret" === ["x 0 6 5 5 7] (C  E  Ab A  B)", "name" == "minor triad, major 7th plus 9th}, 
+{ "Asus      or   Asus4     ", "fret" === ["0 0 2 2 3 0] (D  E  A)", "name" == "no 3rd but a 4th from a major triad" }, 
 { "note" = "Asus      or   Asus4     ", "fret" === ["x 0 2 2 3 0] (D  E  A)", "name" == "no 3rd but a 4th from a major triad" }, 
 { "note" = "Asus      or   Asus4     ", "fret" === ["5 5 7 7 x 0] (D  E  A)", "name" == "no 3rd but a 4th from a major triad" }, 
 { "note" = "Asus      or   Asus4     ", "fret" === ["x 0 0 2 3 0] (D  E  A)", "name" == "no 3rd but a 4th from a major triad" }, 
@@ -252,9 +252,9 @@ Asus      or   Asus4     ", "fret" === ["0 0 2 2 3 0] (D  E  A)", "name" == "no 
 { "note" = "Bm7                      ", "fret" === ["x 2 4 2 3 2] (D  Gb A  B)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Bm7                      ", "fret" === ["x x 0 2 0 2] (D  Gb A  B)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Bm7(b5)   or   Bo7       ", "fret" === ["1 2 3 2 3 1] (D  F  A  B)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
-{ "Bm7(b5)   or   Bo7       ", "fret" === ["x 2 0 2 0 1] (D  F  A  B)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
-{ "Bm7(b5)   or   Bo7       ", "fret" === ["x x 0 2 0 1] (D  F  A  B)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
-{ "Bm7/add11 or   Bm7/11    ", "fret" === ["0 0 2 4 3 2] (D  E  Gb A  B)", "name" == "minor triad, minor 7th, plus 11th" }, 
+{ "note" = "Bm7(b5)   or   Bo7       ", "fret" === ["x 2 0 2 0 1] (D  F  A  B)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Bm7(b5)   or   Bo7       ", "fret" === ["x x 0 2 0 1] (D  F  A  B)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Bm7/add11 or   Bm7/11    ", "fret" === ["0 0 2 4 3 2] (D  E  Gb A  B)", "name" == "minor triad, minor 7th, plus 11th" }, 
 { "note" = "Bm7/add11 or   Bm7/11    ", "fret" === ["0 2 0 2 0 2] (D  E  Gb A  B)", "name" == "minor triad, minor 7th, plus 11th" }, 
 { "note" = "Bmaj7/#11                ", "fret" === ["x 2 3 3 4 2] (Eb F  Gb Bb B)", "name" == "major triad, major 7th, augmented 11th" }, 
 { "note" = "Bsus      or   Bsus4     ", "fret" === ["7 9 9 x x 0] (E  Gb B)", "name" == "no 3rd but a 4th from a major triad" }, 
@@ -309,7 +309,7 @@ Asus      or   Asus4     ", "fret" === ["0 0 2 2 3 0] (D  E  A)", "name" == "no 
 { "note" = "C7        or   Cdom 7    ", "fret" === ["x 3 5 3 5 3] (C  E  G  Bb)", "name" == "major triad, minor 7th" }, 
 { "note" = "C7sus4                   ", "fret" === ["x 3 5 3 6 3] (C  F  G  Bb)", "name" == "sus4 triad, minor 7th" }, 
 { "note" = "C9(b5)                   ", "fret" === ["0 3 x 3 3 2] (C  D  E  Gb Bb)", "name" == "diminished 5th, minor 7th, plus 9th" }, 
-{ "Cadd9     or   C2        ", "fret" === ["3 x 0 0 1 0] (C  D  E  G)", "name" == "major triad plus 9th" }, 
+{ "note" = "Cadd9     or   C2        ", "fret" === ["3 x 0 0 1 0] (C  D  E  G)", "name" == "major triad plus 9th" }, 
 { "note" = "Cadd9     or   C2        ", "fret" === ["x 3 0 0 1 0] (C  D  E  G)", "name" == "major triad plus 9th" }, 
 { "note" = "Cadd9     or   C2        ", "fret" === ["x 3 2 0 3 0] (C  D  E  G)", "name" == "major triad plus 9th" }, 
 { "note" = "Cadd9     or   C2        ", "fret" === ["x 3 2 0 3 3] (C  D  E  G)", "name" == "major triad plus 9th" }, 
@@ -405,8 +405,8 @@ Asus      or   Asus4     ", "fret" === ["0 0 2 2 3 0] (D  E  A)", "name" == "no 
 { "note" = "D9        or   Ddom 9    ", "fret" === ["0 0 0 2 1 2] (C  D  E  Gb A)", "name" == "major triad, minor 7th plus 9th" }, 
 { "note" = "D9        or   Ddom 9    ", "fret" === ["2 x 0 2 1 0] (C  D  E  Gb A)", "name" == "major triad, minor 7th plus 9th" }, 
 { "note" = "D9        or   Ddom 9    ", "fret" === ["x 5 7 5 7 0] (C  D  E  Gb A)", "name" == "major triad, minor 7th plus 9th" }, 
-{ "note" = "D9(#5)                   ", "fret" === ["0 3 x 3 3 2] (C  D  E  Gb Bb)", "name" == "augmented 5th, minor 7th plus 9th
-Dadd9     or   D2        ", "fret" === ["0 0 0 2 3 2] (D  E  Gb A)", "name" == "major triad plus 9th" }, 
+{ "note" = "D9(#5)                   ", "fret" === ["0 3 x 3 3 2] (C  D  E  Gb Bb)", "name" == "augmented 5th, minor 7th plus 9th" }, 
+{ "note" = "Dadd9     or   D2        ", "fret" === ["0 0 0 2 3 2] (D  E  Gb A)", "name" == "major triad plus 9th" }, 
 { "note" = "Dadd9     or   D2        ", "fret" === ["0 0 4 2 3 0] (D  E  Gb A)", "name" == "major triad plus 9th" }, 
 { "note" = "Dadd9     or   D2        ", "fret" === ["2 x 0 2 3 0] (D  E  Gb A)", "name" == "major triad plus 9th" }, 
 { "note" = "Dadd9     or   D2        ", "fret" === ["x 0 2 2 3 2] (D  E  Gb A)", "name" == "major triad plus 9th" }, 
@@ -449,8 +449,8 @@ Dadd9     or   D2        ", "fret" === ["0 0 0 2 3 2] (D  E  Gb A)", "name" == "
 { "note" = "Dbm/B                    ", "fret" === ["x 4 6 4 5 4] (Db E  Ab B)", "name" == "minor triad (altered bass)" }, 
 { "note" = "Dbm7                     ", "fret" === ["0 2 2 1 2 0] (Db E  Ab B)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Dbm7                     ", "fret" === ["x 4 6 4 5 4] (Db E  Ab B)", "name" == "minor triad, minor 7th" }, 
-{ "note" = "Dbm7(b5)  or   Dbo7      ", "fret" === ["0 2 2 0 2 0] (Db E  G  B)", "name" == "diminished triad, minor 7th", "name" == "half-diminished 7th
-Dbmaj7    or   Db#7      ", "fret" === ["x 3 3 1 2 1] (C  Db F  Ab)", "name" == "major triad, major 7th" }, 
+{ "note" = "Dbm7(b5)  or   Dbo7      ", "fret" === ["0 2 2 0 2 0] (Db E  G  B)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Dbmaj7    or   Db#7      ", "fret" === ["x 3 3 1 2 1] (C  Db F  Ab)", "name" == "major triad, major 7th" }, 
 { "note" = "Dbmaj7    or   Db#7      ", "fret" === ["x 4 6 5 6 4] (C  Db F  Ab)", "name" == "major triad, major 7th" }, 
 { "note" = "C#sus2  or   DBadd9(no3) ", "fret" === ["x x 6 6 4 4] (C# Eb Ab)", "name" == "no 3rd but A 2nd from A major triad" }, 
 { "note" = "Dbsus4/Bb                ", "fret" === ["x x 4 3 2 4] (Db Gb Ab Bb)", "name" == "sus4 triad (altered bass)" }, 
@@ -479,10 +479,10 @@ Dbmaj7    or   Db#7      ", "fret" === ["x 3 3 1 2 1] (C  Db F  Ab)", "name" == 
 { "note" = "Dm7                      ", "fret" === ["x 5 7 5 6 5] (C  D  F  A)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Dm7                      ", "fret" === ["x x 0 2 1 1] (C  D  F  A)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Dm7                      ", "fret" === ["x x 0 5 6 5] (C  D  F  A)", "name" == "minor triad, minor 7th" }, 
-{ "note" = "Dm7(b5)   or   Do7       ", "fret" === ["x x 0 1 1 1] (C  D  F  Ab)", "name" == "diminished triad, minor 7th", "name" == "half-diminished 7th
-Dm7/add11 or   Dm7/11    ", "fret" === ["3 x 0 2 1 1] (C  D  F  G  A)", "name" == "minor triad, minor 7th, plus 11th
-Dmaj7     or   D#7       ", "fret" === ["x x 0 14 14 14] (Db D  Gb A)", "name" == "major triad, major 7th
-Dmaj7     or   D#7       ", "fret" === ["x x 0 2 2 2] (Db D  Gb A)", "name" == "major triad, major 7th" }, 
+{ "note" = "Dm7(b5)   or   Do7       ", "fret" === ["x x 0 1 1 1] (C  D  F  Ab)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Dm7/add11 or   Dm7/11    ", "fret" === ["3 x 0 2 1 1] (C  D  F  G  A)", "name" == "minor triad, minor 7th, plus 11th" }, 
+{ "note" = "Dmaj7     or   D#7       ", "fret" === ["x x 0 14 14 14] (Db D  Gb A)", "name" == "major triad, major 7th" }, 
+{ "note" = "Dmaj7     or   D#7       ", "fret" === ["x x 0 2 2 2] (Db D  Gb A)", "name" == "major triad, major 7th" }, 
 { "note" = "Dmin/maj7                ", "fret" === ["x x 0 2 2 1] (Db D  F  A)", "name" == "minor triad, major 7th" }, 
 { "note" = "Dsus      or   Dsus4     ", "fret" === ["5 x 0 0 3 5] (D  G  A)", "name" == "no 3rd but a 4th from a major triad" }, 
 { "note" = "Dsus      or   Dsus4     ", "fret" === ["3 0 0 0 3 3] (D  G  A)", "name" == "no 3rd but a 4th from a major triad" }, 
@@ -543,8 +543,8 @@ Dmaj7     or   D#7       ", "fret" === ["x x 0 2 2 2] (Db D  Gb A)", "name" == "
 { "note" = "E/Gb                     ", "fret" === ["0 2 2 1 0 2] (E  Gb Ab B)", "name" == "major triad (altered bass)" }, 
 { "note" = "E/Gb                     ", "fret" === ["0 x 4 1 0 0] (E  Gb Ab B)", "name" == "major triad (altered bass)" }, 
 { "note" = "E/Gb                     ", "fret" === ["2 2 2 1 0 0] (E  Gb Ab B)", "name" == "major triad (altered bass)" }, 
-{ "note" = "E11/b9                   ", "fret" === ["0 0 3 4 3 4] (D  E  F  Ab A  B)", "name" == "major triad, minor 7th, flat 9th, plus 11th
-E5        or   E(no 3rd) ", "fret" === ["0 2 x x x 0] (E  B)", "name" == "root and 5th (power chord)" }, 
+{ "note" = "E11/b9                   ", "fret" === ["0 0 3 4 3 4] (D  E  F  Ab A  B)", "name" == "major triad, minor 7th, flat 9th, plus 11th" }, 
+{ "note" = "E5        or   E(no 3rd) ", "fret" === ["0 2 x x x 0] (E  B)", "name" == "root and 5th (power chord)" }, 
 { "note" = "E5        or   E(no 3rd) ", "fret" === ["x 7 9 9 x 0] (E  B)", "name" == "root and 5th (power chord)" }, 
 { "note" = "E6                       ", "fret" === ["0 2 2 1 2 0] (Db E  Ab B)", "name" == "major triad plus 6th" }, 
 { "note" = "E6                       ", "fret" === ["x 4 6 4 5 4] (Db E  Ab B)", "name" == "major triad plus 6th" }, 
@@ -552,13 +552,13 @@ E5        or   E(no 3rd) ", "fret" === ["0 2 x x x 0] (E  B)", "name" == "root a
 { "note" = "E7        or   Edom 7    ", "fret" === ["0 2 2 1 3 0] (D  E  Ab B)", "name" == "major triad, minor 7th" }, 
 { "note" = "E7        or   Edom 7    ", "fret" === ["x 2 0 1 3 0] (D  E  Ab B)", "name" == "major triad, minor 7th" }, 
 { "note" = "E7        or   Edom 7    ", "fret" === ["x x 0 1 0 0] (D  E  Ab B)", "name" == "major triad, minor 7th" }, 
-{ "note" = "E7/add11  or   E7/11     ", "fret" === ["x 0 0 1 0 0] (D  E  Ab A  B)", "name" == "major triad, minor 7th, plus 11th
-E7/b9(B5)                ", "fret" === ["0 1 3 1 3 1] (D  E  F  Ab Bb)", "name" == "diminished 5th, minor 7th, flat 9th
-E7sus4                   ", "fret" === ["0 2 0 2 0 0] (D  E  A  B)", "name" == "sus4 triad, minor 7th" }, 
-{ "note" = "E9        or   Edom 9    ", "fret" === ["0 2 0 1 0 2] (D  E  Gb Ab B)", "name" == "major triad, minor 7th plus 9th
-E9        or   Edom 9    ", "fret" === ["2 2 0 1 0 0] (D  E  Gb Ab B)", "name" == "major triad, minor 7th plus 9th
-Eadd9     or   E2        ", "fret" === ["0 2 2 1 0 2] (E  Gb Ab B)", "name" == "major triad plus 9th
-Eadd9     or   E2        ", "fret" === ["0 x 4 1 0 0] (E  Gb Ab B)", "name" == "major triad plus 9th" }, 
+{ "note" = "E7/add11  or   E7/11     ", "fret" === ["x 0 0 1 0 0] (D  E  Ab A  B)", "name" == "major triad, minor 7th, plus 11th" }, 
+{ "note" = "E7/b9(B5)                ", "fret" === ["0 1 3 1 3 1] (D  E  F  Ab Bb)", "name" == "diminished 5th, minor 7th, flat 9th" }, 
+{ "note" = "E7sus4                   ", "fret" === ["0 2 0 2 0 0] (D  E  A  B)", "name" == "sus4 triad, minor 7th" }, 
+{ "note" = "E9        or   Edom 9    ", "fret" === ["0 2 0 1 0 2] (D  E  Gb Ab B)", "name" == "major triad, minor 7th plus 9th" }, 
+{ "note" = "E9        or   Edom 9    ", "fret" === ["2 2 0 1 0 0] (D  E  Gb Ab B)", "name" == "major triad, minor 7th plus 9th" }, 
+{ "note" = "Eadd9     or   E2        ", "fret" === ["0 2 2 1 0 2] (E  Gb Ab B)", "name" == "major triad plus 9th" }, 
+{ "note" = "Eadd9     or   E2        ", "fret" === ["0 x 4 1 0 0] (E  Gb Ab B)", "name" == "major triad plus 9th" }, 
 { "note" = "Eadd9     or   E2        ", "fret" === ["2 2 2 1 0 0] (E  Gb Ab B)", "name" == "major triad plus 9th" }, 
 { "note" = "Eb        or   Ebmaj     ", "fret" === ["x 1 1 3 4 3] (Eb G  Bb)", "name" == "major triad" }, 
 { "note" = "Eb        or   Ebmaj     ", "fret" === ["x x 1 3 4 3] (Eb G  Bb)", "name" == "major triad" }, 
@@ -633,17 +633,16 @@ Eadd9     or   E2        ", "fret" === ["0 x 4 1 0 0] (E  Gb Ab B)", "name" == "
 { "note" = "Em7                      ", "fret" === ["x x 2 4 3 3] (D  E  G  B)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Em7                      ", "fret" === ["0 x 0 0 0 0] (D  E  G  B)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Em7                      ", "fret" === ["x 10 12 12 12 0] (D  E  G  B)", "name" == "minor triad, minor 7th" }, 
-{ "note" = "Em7(b5)   or   Eo7       ", "fret" === ["3 x 0 3 3 0] (D  E  G  Bb)", "name" == "diminished triad, minor 7th", "name" == "half-diminished 7th
-Em7/add11 or   Em7/11    ", "fret" === ["0 0 0 0 0 0] (D  E  G  A  B)", "name" == "minor triad, minor 7th, plus 11th
-Em7/add11 or   Em7/11    ", "fret" === ["0 0 0 0 0 3] (D  E  G  A  B)", "name" == "minor triad, minor 7th, plus 11th
-Em7/add11 or   Em7/11    ", "fret" === ["3 x 0 2 0 0] (D  E  G  A  B)", "name" == "minor triad, minor 7th, plus 11th
-Em9                      ", "fret" === ["0 2 0 0 0 2] (D  E  Gb G  B)", "name" == "minor triad, minor 7th plus 9th
-Em9                      ", "fret" === ["0 2 0 0 3 2] (D  E  Gb G  B)", "name" == "minor triad, minor 7th plus 9th
-Em9                      ", "fret" === ["2 2 0 0 0 0] (D  E  Gb G  B)", "name" == "minor triad, minor 7th plus 9th
-Emaj7     or   E#7       ", "fret" === ["0 2 1 1 0 0] (Eb E  Ab B)", "name" == "major triad, major 7th
-Emaj7     or   E#7       ", "fret" === ["0 x 6 4 4 0] (Eb E  Ab B)", "name" == "major triad, major 7th" }, 
-{ "note" = "Emaj7     or   E#7       ", "fret" === ["x x 1 1 0 0] (Eb E  Ab B)", "name" == "major triad, major 7th
-Emaj9     or   E9(#7)    ", "fret" === ["0 2 1 1 0 2] (Eb E  Gb Ab B)", "name" == "major triad, major 7th plus 9th" }, 
+{ "note" = "Em7(b5)   or   Eo7       ", "fret" === ["3 x 0 3 3 0] (D  E  G  Bb)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Em7/add11 or   Em7/11    ", "fret" === ["0 0 0 0 0 0] (D  E  G  A  B)", "name" == "minor triad, minor 7th, plus 11th" }, 
+{ "note" = "Em7/add11 or   Em7/11    ", "fret" === ["0 0 0 0 0 3] (D  E  G  A  B)", "name" == "minor triad, minor 7th, plus 11th" }, 
+{ "note" = "Em7/add11 or   Em7/11    ", "fret" === ["3 x 0 2 0 0] (D  E  G  A  B)", "name" == "minor triad, minor 7th, plus 11th" }, 
+{ "note" = "Em9                      ", "fret" === ["0 2 0 0 0 2] (D  E  Gb G  B)", "name" == "minor triad, minor 7th plus 9th" }, 
+{ "note" = "Em9                      ", "fret" === ["0 2 0 0 3 2] (D  E  Gb G  B)", "name" == "minor triad, minor 7th plus 9th" }, 
+{ "note" = "Em9                      ", "fret" === ["2 2 0 0 0 0] (D  E  Gb G  B)", "name" == "minor triad, minor 7th plus 9th" }, 
+{ "note" = "Emaj7     or   E#7       ", "fret" === ["0 2 1 1 0 0] (Eb E  Ab B)", "name" == "major triad, major 7th" }, 
+{ "note" = "Emaj7     or   E#7       ", "fret" === ["0 x 6 4 4 0] (Eb E  Ab B)", "name" == "major triad, major 7th" }, " }, 
+{ "note" = "Emaj9     or   E9(#7)    ", "fret" === ["0 2 1 1 0 2] (Eb E  Gb Ab B)", "name" == "major triad, major 7th plus 9th" }, 
 { "note" = "Emaj9     or   E9(#7)    ", "fret" === ["4 x 4 4 4 0] (Eb E  Gb Ab B)", "name" == "major triad, major 7th plus 9th" }, 
 { "note" = "Emin/maj7                ", "fret" === ["3 x 1 0 0 0] (Eb E  G  B)", "name" == "minor triad, major 7th" }, 
 { "note" = "Emin/maj7                ", "fret" === ["x x 1 0 0 0] (Eb E  G  B)", "name" == "minor triad, major 7th" }, 
@@ -675,8 +674,8 @@ Emaj9     or   E9(#7)    ", "fret" === ["0 2 1 1 0 2] (Eb E  Gb Ab B)", "name" =
 { "note" = "Esus4/Db                 ", "fret" === ["0 0 2 4 2 0] (Db E  A  B)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Esus4/Db                 ", "fret" === ["x 0 7 6 0 0] (Db E  A  B)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Esus4/Eb                 ", "fret" === ["x 2 1 2 0 0] (Eb E  A  B)", "name" == "sus4 triad (altered bass)" }, 
-{ "note" = "Esus4/F                  ", "fret" === ["0 0 3 2 0 0] (E  F  A  B)", "name" == "sus4 triad (altered bass)
-Esus4/G                  ", "fret" === ["3 x 2 2 0 0] (E  G  A  B)", "name" == "sus4 triad (altered bass)" }, 
+{ "note" = "Esus4/F                  ", "fret" === ["0 0 3 2 0 0] (E  F  A  B)", "name" == "sus4 triad (altered bass)" }, 
+{ "note" = "Esus4/G                  ", "fret" === ["3 x 2 2 0 0] (E  G  A  B)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Esus4/G                  ", "fret" === ["x 0 2 0 0 0] (E  G  A  B)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Esus4/G                  ", "fret" === ["x 0 5 4 5 0] (E  G  A  B)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Esus4/Gb                 ", "fret" === ["x 0 4 4 0 0] (E  Gb A  B)", "name" == "sus4 triad (altered bass)" }, 
@@ -733,10 +732,10 @@ Esus4/G                  ", "fret" === ["3 x 2 2 0 0] (E  G  A  B)", "name" == "
 { "note" = "Fmaj7     or   F#7       ", "fret" === ["1 x 2 2 1 0] (C  E  F  A)", "name" == "major triad, major 7th" }, 
 { "note" = "Fmaj7     or   F#7       ", "fret" === ["x x 2 2 1 1] (C  E  F  A)", "name" == "major triad, major 7th" }, 
 { "note" = "Fmaj7     or   F#7       ", "fret" === ["x x 3 2 1 0] (C  E  F  A)", "name" == "major triad, major 7th" }, 
-{ "note" = "Fmaj7/#11                ", "fret" === ["0 2 3 2 1 0] (C  E  F  A  B)", "name" == "major triad, major 7th, augmented 11th
-Fmaj7/#11                ", "fret" === ["1 3 3 2 0 0] (C  E  F  A  B)", "name" == "major triad, major 7th, augmented 11th
-Fmaj9     or   F9(#7)    ", "fret" === ["0 0 3 0 1 3] (C  E  F  G  A)", "name" == "major triad, major 7th plus 9th
-Fsus      or   Fsus4     ", "fret" === ["x x 3 3 1 1] (C  F  Bb)", "name" == "no 3rd but a 4th from a major triad" }, 
+{ "note" = "Fmaj7/#11                ", "fret" === ["0 2 3 2 1 0] (C  E  F  A  B)", "name" == "major triad, major 7th, augmented 11th" }, 
+{ "note" = "Fmaj7/#11                ", "fret" === ["1 3 3 2 0 0] (C  E  F  A  B)", "name" == "major triad, major 7th, augmented 11th" }, 
+{ "note" = "Fmaj9     or   F9(#7)    ", "fret" === ["0 0 3 0 1 3] (C  E  F  G  A)", "name" == "major triad, major 7th plus 9th" }, 
+{ "note" = "Fsus      or   Fsus4     ", "fret" === ["x x 3 3 1 1] (C  F  Bb)", "name" == "no 3rd but a 4th from a major triad" }, 
 { "note" = "Fsus2     or   Fadd9(no3)", "fret" === ["x 3 3 0 1 1] (C  F  G)", "name" == "no 3rd but a 2nd from a major triad" }, 
 { "note" = "Fsus2     or   Fadd9(no3)", "fret" === ["x x 3 0 1 1] (C  F  G)", "name" == "no 3rd but a 2nd from a major triad" }, 
 { "note" = "Fsus2/A                  ", "fret" === ["3 x 3 2 1 1] (C  F  G  A)", "name" == "sus2 triad (altered bass)" }, 
@@ -842,9 +841,9 @@ Fsus      or   Fsus4     ", "fret" === ["x x 3 3 1 1] (C  F  Bb)", "name" == "no
 { "note" = "Gbm7                     ", "fret" === ["2 x 2 2 2 0] (Db E  Gb A)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Gbm7                     ", "fret" === ["x 0 4 2 2 0] (Db E  Gb A)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Gbm7                     ", "fret" === ["x x 2 2 2 2] (Db E  Gb A)", "name" == "minor triad, minor 7th" }, 
-{ "note" = "Gbm7(b5)  or   Gbo7      ", "fret" === ["x 0 2 2 1 2] (C  E  Gb A)", "name" == "diminished triad, minor 7th", "name" == "half-diminished 7th
-Gbm7(b5)  or   Gbo7      ", "fret" === ["x x 2 2 1 2] (C  E  Gb A)", "name" == "diminished triad, minor 7th", "name" == "half-diminished 7th
-Gbm7/b9                  ", "fret" === ["0 0 2 0 2 2] (Db E  Gb G  A)", "name" == "minor triad, minor 7th flat 9th" }, 
+{ "note" = "Gbm7(b5)  or   Gbo7      ", "fret" === ["x 0 2 2 1 2] (C  E  Gb A)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Gbm7(b5)  or   Gbo7      ", "fret" === ["x x 2 2 1 2] (C  E  Gb A)", "name" == "diminished triad, minor 7th : half-diminished 7th" }, 
+{ "note" = "Gbm7/b9                  ", "fret" === ["0 0 2 0 2 2] (Db E  Gb G  A)", "name" == "minor triad, minor 7th flat 9th" }, 
 { "note" = "Gbmaj7    or   Gb#7      ", "fret" === ["x x 3 3 2 2] (Db F  Gb Bb)", "name" == "major triad, major 7th" }, 
 { "note" = "Gbsus     or   Gbsus4    ", "fret" === ["x 4 4 4 2 2] (Db Gb B)", "name" == "no 3rd but a 4th from a major triad" }, 
 { "note" = "Gbsus2/Bb                ", "fret" === ["x x 4 3 2 4] (Db Gb Ab Bb)", "name" == "sus2 triad (altered bass)" }, 
@@ -862,8 +861,8 @@ Gbm7/b9                  ", "fret" === ["0 0 2 0 2 2] (Db E  Gb G  A)", "name" =
 { "note" = "Gm/Eb                    ", "fret" === ["x 6 8 7 8 6] (D  Eb G  Bb)", "name" == "minor triad (altered bass)" }, 
 { "note" = "Gm/F                     ", "fret" === ["3 5 3 3 3 3] (D  F  G  Bb)", "name" == "minor triad (altered bass)" }, 
 { "note" = "Gm/F                     ", "fret" === ["x x 3 3 3 3] (D  F  G  Bb)", "name" == "minor triad (altered bass)" }, 
-{ "note" = "Gm13                     ", "fret" === ["0 0 3 3 3 3] (D  E  F  G  A  Bb)", "name" == "minor triad, minor 7th, plus 9th and 13th
-Gm6                      ", "fret" === ["3 x 0 3 3 0] (D  E  G  Bb)", "name" == "minor triad plus 6th" }, 
+{ "note" = "Gm13                     ", "fret" === ["0 0 3 3 3 3] (D  E  F  G  A  Bb)", "name" == "minor triad, minor 7th, plus 9th and 13th" }, 
+{ "note" = "Gm6                      ", "fret" === ["3 x 0 3 3 0] (D  E  G  Bb)", "name" == "minor triad plus 6th" }, 
 { "note" = "Gm7                      ", "fret" === ["3 5 3 3 3 3] (D  F  G  Bb)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Gm7                      ", "fret" === ["x x 3 3 3 3] (D  F  G  Bb)", "name" == "minor triad, minor 7th" }, 
 { "note" = "Gm7/add11 or   Gm7/11    ", "fret" === ["x 3 3 3 3 3] (C  D  F  G  Bb)", "name" == "minor triad, minor 7th, plus 11th" }, 
@@ -902,5 +901,5 @@ Gm6                      ", "fret" === ["3 x 0 3 3 0] (D  E  G  Bb)", "name" == 
 { "note" = "Gsus4/E                  ", "fret" === ["x x 0 5 5 3] (C  D  E  G)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Gsus4/E                  ", "fret" === ["x 10 12 12 13 0] (C  D  E  G)", "name" == "sus4 triad (altered bass)" }, 
 { "note" = "Gsus4/E                  ", "fret" === ["x 5 5 5 x 0] (C  D  E  G)", "name" == "sus4 triad (altered bass)" }, 
-{ "note" = "Gsus4/F                  ", "fret" === ["3 3 0 0 1 1] (C  D  F  G)", "name" == "sus4 triad (altered bass)
+{ "note" = "Gsus4/F                  ", "fret" === ["3 3 0 0 1 1] (C  D  F  G)", "name" == "sus4 triad (altered bass)" }, 
 ]
