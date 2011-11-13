@@ -1,0 +1,56 @@
+[
+
+{ "name" : "Original",	"letters" : "E A D G B E"},
+
+
+{ "name" : "Open C",	"letters" : "C G C G C E"},
+{ "name" : "Open D",	"letters" : "D A D F# A D"},
+{ "name" : "Modal D",	"letters" : "D A D G A D"},
+{ "name" : "Open D Minor",	"letters" : "D A D F A D"},
+{ "name" : "Open G",	"letters" : "D G D G B D"},
+{ "name" : "Modal G",	"letters" : "D G D G C D"},
+{ "name" : "Open G Minor",	"letters" : "D G D G A# D"},
+{ "name" : "Open A",	"letters" : "E A C# E A E"},
+
+
+
+{ "name" : "Balalaika",	"letters" : "E A D E E A"},
+{ "name" : "Charango",	"letters" : "X G C E A E"},
+{ "name" : "Cittern (1)",	"letters" : "C F C G C D"},
+{ "name" : "Cittern (2)",	"letters" : "C G C G C G"},
+{ "name" : "Dobro",	"letters" : "G B D G B D"},
+{ "name" : "Lefty",	"letters" : "E B G D A E"},
+{ "name" : "Overtone",	"letters" : "C E G A# C D"},
+{ "name" : "Pentatonic",	"letters" : "A C D E G A"},
+
+
+
+{ "name" : "Minor Third",	"letters" : "C D# F# A C D#"},
+{ "name" : "Major Third",	"letters" : "C E G# C E G#"},
+{ "name" : "All Fourths",	"letters" : "E A D G C F"},
+{ "name" : "Aug Fourths",	"letters" : "C F# C F# C F#"},
+{ "name" : "Mandoguitar",	"letters" : "C G D A E B"},
+{ "name" : "Minor Sixth",	"letters" : "C G# E C G# E"},
+{ "name" : "Major Sixth",	"letters" : "C A F# D# C A"},
+
+
+
+
+{ "name" : "Admiral",	"letters" : "C G D G B C"},
+{ "name" : "Buzzard",	"letters" : "C F C G A# F"},
+{ "name" : "Drop D",	"letters" : "D A D G B E"},
+{ "name" : "Face",	"letters" : "C G D G A D"},
+{ "name" : "Four & Twenty",	"letters" : "D A D D A D"},
+{ "name" : "Hot Type",	"letters" : "A B E F# A D"},
+{ "name" : "Layover",	"letters" : "D A C G C E"},
+{ "name" : "Magic Farmer",	"letters" : "C F C G A E"},
+{ "name" : "Pelican",	"letters" : "D A D E A D"},
+{ "name" : "Processional",	"letters" : "D G D F A A#"},
+{ "name" : "Slow Motion",	"letters" : "D G D F C D"},
+{ "name" : "Spirit",	"letters" : "C# A C# G# A E"},
+{ "name" : "Tarboulton",	"letters" : "C A# C F A# F"},
+{ "name" : "Toulouse",	"letters" : "E C D F A D"},
+{ "name" : "Triqueen",	"letters" : "D G D F# A B"}
+
+
+]
