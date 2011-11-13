@@ -14,7 +14,9 @@ end
 get '/guitar' do
 	erb :guitar1
 end
-
+get '/guitar/' do
+	erb :guitar1
+end
 get '/api/utc' do
 	t = Time.now 
   "hello"

@@ -76,40 +76,41 @@ auto_refresh = "";
 vib_duration = 1; //sec
 vib_fps = 50;
 
-function getDiff(notes){
-  var corres = {
-    "A" : 0,
-    "A#" : 1,
-    "B" : 2,
-    "C" : 3,
-    "C#" : 4,
-    "D" : 5,
-    "D#" : 6,
-    "E" : 7,
-    "F" : 8,
-    "F#" : 9,
-    "G" : 10,
-    "G#" : 11,
-    "X" : "X",
-    "x" : "X",
-  }
+function getTuning(notes){
+  var corres = {  "A" : 0,  "A#" : 1,  "B" : 2,  "C" : 3,  "C#" : 4,  "D" : 5,  "D#" : 6,  "E" : 7,  
+  "F" : 8,  "F#" : 9,  "G" : 10,  "G#" : 11,  "X" : "X",  "x" : "X" };
+  
   var ar = notes.split(" ");
+  obj = { "note":[],"note_rel":[],"diff":[] };
    for (var i=0; i<ar.length; i++) { 
-     ar[i] = corres[ar[i]];
+     obj.note[i] = ar[i];
+     obj.note_rel[i] = corres[ar[i]];
+     obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
+     
+     // Octave check, to ensure normal octave with strings... better wrap this routine...
+     
+     if( obj.diff[i] < -7){
+       obj.note_rel[i] += 12;
+      obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
+     }
+     if( obj.diff[i] > 7){
+        obj.note_rel[i] -= 12;
+       obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
+      }
+        
   }
-  ar[0] -=12; //!! TODO: Find a clever way to ponder string basic value...
-  ar[4] +=12;
-  ar[5] +=12;
-  return ar
+
+  return obj
 }
 
 
+retular_tuning_rel = [-5,0,5,10,14,19]; //used to calculate proximity with notes...
+tuning_str = "E A D G B E";
+tuning_str = "D A D G B E";
+tuning = getTuning(tuning_str); // returns an array...
 
-tuning = "E A D G B E";
-tuning_rel = getDiff(tuning); // returns an array...
 
-
-console.log('!!! '+ getDiff(tuning));
+//console.log('!!! '+ getDiff(tuning));
 
 function activateCorde(key){
   console.log(key +' + + + +');
@@ -136,7 +137,7 @@ function activateCorde(key){
     
     //play the sound
     //note = key*2;
-    note = tuning_rel[key - 1];
+    note = tuning.note_rel[ key-1 ]; // return a semi-tone value difference from 440 A.
     adsr.active = true; //basic envelope
     calculateADSR();
     a = buildSound(note, 'shape', adsr.master, vib_duration, adsr, false);
@@ -188,9 +189,28 @@ function slugify(str) {
 
 
 
+function setTuningNav(){
+  
+}
 
+var Tuning = Backbone.Model.extend({
 
+  initialize: function() { 
+    var name = this.get('name');
+    this.set({ slug : slugify(name)});
+   },
 
+  select: function() {
+    alert('selected tuning: ' + this);
+  },
+
+  coordinates: function() { },
+
+  allowedToEdit: function(account) {
+    return true;
+  }
+
+});
 
 
 
