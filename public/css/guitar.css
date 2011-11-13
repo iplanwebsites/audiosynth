@@ -1,0 +1,35 @@
+
+
+#app{clear:both;}
+
+
+
+
+/* ////////////////////////////////
+//  NAV
+///////////////////////////////// */
+
+
+#scale_selector{position:absolute; top:72px; width:100%; height:60px;}
+#scale_selector a{display:block; text-decoration:none; padding:5px; line-height:1.7em; width:120px; height:50px; color:#555; background:#ddd; float:left; margin-right:20px; border-radius:5px;}
+#scale_selector a em{display:block; font-weight:bold; color:#000; font-size:1.3em;}
+#scale_selector a:hover, #scale_selector a.selected{ background:#fff;}
+
+
+
+
+/* ////////////////////////////////
+//  NECK
+///////////////////////////////// */
+
+#neck{position:relative; top:132px; width:400px; height:900px; padding:5px; border:#f00 1px solid; }
+
+#keyboard{position:relative; left:25px; top:0px; height:40px; margin-top:-0px;}
+#frets{ background:#000; margin-top:-40px; }
+
+#fret_canvas{ background:#ccc;}
+
+
+
+
+

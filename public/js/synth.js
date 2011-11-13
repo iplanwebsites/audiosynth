@@ -397,24 +397,13 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
 	var zeroBase = false;
 	if(zeroBase){
       val = vol + (vol*Math.sin(i * (1/ freq )+noiseRnd )); // 128+(127*Math.sin(i / 5));
-      // I think this line create the "pop" craquement...
+      // I think this line create the "pop" - craquement...
 		}else{
 		  val = (255/2) + (vol*Math.sin(i * (1/ freq )+noiseRnd ));
 	
 		}
-		/*
-		if(val < 15){
-		  val = 15;
-		}
-		if(val > 240){
-		  val = 240;
-		}*/
-// !!!! HERE it is!!!!
 
 
-
-/**/
-      
 			
 			//we center the curve in the amplitude lvl, so overlaping doesn't create square waves...
       if(square) {val = Math.round(val/255)*255;} //TODO: SQUARE forms doens't have any envelopes!
@@ -431,7 +420,7 @@ function buildSound(note, shape, volume, duration, env, noise){ //duration is in
       // donc inversement proportionel à la Fre reelegf
      // SIN returns -127 to 127, so we have a full, 255 (one bit) Amplitude (volume) of sound
   }
-s = sine; //tracing purpose only
+s = sine; //tracing purpose only in console
 drawSineGraph(sine);
 
   
