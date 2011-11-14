@@ -399,14 +399,37 @@ var Tuning = Backbone.Model.extend({
 				  // }//end if..
   				}
       },
-    chord: function(slug, chord) {
+    chord: function(slug, chord, hover ) {
         this.tuning(slug); //set the tuning first...
         //var  c = Music.chords.find_by_slug(chord);
         var  all_c_models = Music.chords.find_by_note_slug(chord);
         c = all_c_models[0];
         this.draw_chord(c);
+        
+        if(! hover){
+          Music.active_chord = c; //we set it only if it's not trigerred by an hover on the button...
+          fretVariationCount = 0; //sort of global counter to keep track of variation number to show...
+          $('#chords a.'+c.get('slug')).bind('click touch', function(){
+            // alert('click!');
+            // fretVariationCount++;
+            // alert('x='+fretVariationCount );
+            Music.app_router.show_next_variation(chord);
+          });
+        }else{
+          $('#chords a.'+c.get('slug')).unbind('click touch'); //clear it!
+        }
+    },
+    chord_show: function(slug, chord, hover ) {
+      Music.app_router.chord(slug, chord, hover );
+    },
+    show_next_variation: function(chord) {
+      var  all_c_models = Music.chords.find_by_note_slug(chord);
+      var c = all_c_models[ ++fretVariationCount % all_c_models.length];
+      // console.log(fretVariationCount + ' / '+all_c_models.length);
+      Music.app_router.draw_chord(c);
     },
     draw_chord: function(c) {
+      if(c != 0){
       var a_pos =  c.get('fret');
       a_pos = a_pos.split(' ');//position of each strings...
        for(var i=0; i < a_pos.length; i++){
@@ -424,6 +447,7 @@ var Tuning = Backbone.Model.extend({
       
       $('#chords a.selected').removeClass('selected');
 		  $('#chords a.'+c.get('slug')).addClass('selected');
+	  }
   	 },	
 
       search: function(slug, search) {
@@ -509,7 +533,7 @@ function buildTuningNav(){
   
   $('#scale_selector a.more').bind('click', function(event){
     event.preventDefault();
-    if(! $('#scale_selector').hasClass('view_all') ){
+    if( $('#scale_selector').hasClass('view_all') ){
       $('#scale_selector').removeClass('view_all');
       $('#scale_selector a.more').text('VIEW All!');
     }else{
@@ -553,9 +577,11 @@ function buildChordNav(){
                  classes += " "+ all_chords[i].get('slug');
          }
          var c = all_chords[0]; //set the active chord...
+         
          if(c != undefined){
            if (s > 10){ classes += " extra "; }
-           html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('note_slug')+'" class="'+c.get('slug')  + classes+ '" title="'+keys[k]+' '+c.get('name')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
+           classes += c.get('note_slug');
+           html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('note_slug')+'" class="'+c.get('slug')  + classes+ '" title="'+keys[k]+' '+c.get('name')+'" data-note-slug="'+c.get('note_slug')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
           }else{
             html += '<div class="no_chord">-</div> ';
           }
@@ -565,16 +591,24 @@ function buildChordNav(){
   
   
   $('#chords').html(html);
-  $('#scale_selector a.more').bind('click touch', function(){
-    if($('#scale_selector').hasClass('view_all')){
-      $('#scale_selector').removeClass('view_all');
-      $('#scale_selector a.more').text('VIEW All!');
-    }else{
-      $('#scale_selector').addClass('view_all');
-      $('#scale_selector a.more').text('Hide extra...');
+
+
+
+  $('#chords a').hover(function(){
+    //hover...
+  var note_slug = $(this).attr('data-note-slug');
+  console.log('note_slug = '+note_slug);
+  var tuning = 'normal';
+  var c= Music.chords.find_by_note_slug(note_slug);
+  c = c[0];
+    Music.app_router.draw_chord(c );
+  }, function(){
+    if(Music.active_chord != 0){
+      Music.app_router.draw_chord( Music.active_chord );
     }
-    
+    // out...
   });
+
 }
 
 

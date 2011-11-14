@@ -19,6 +19,8 @@
 
 - add complexity in the formula (sum f all finger position, where 'x' is -1), sort collection on complexity so easier chords surface up;
 
+- hide complex chords (extra...)
+
 
 # Quoi  (Intermède technico-expérimentale)
 - Un monstre: Aprox 25 pages dactylographié de code
