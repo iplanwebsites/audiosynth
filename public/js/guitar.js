@@ -26,6 +26,21 @@ function drawNeck(nbCorde, cordeType, timeRatio, activeCorde){
 	  var maxDiam = 10;
 	}
 	
+	//draw frets...
+	
+	for (var f=0; f<12; f++) {
+	  context.strokeStyle = '#ccc'; 
+	  if(f ==0){
+  	  context.lineWidth   = 8;//first bar is thick!
+  	}else{
+  	  context.lineWidth   = 2;
+  	}
+  	context.beginPath();
+  	var y = f*100 + 30+50;
+	  context.moveTo(0+20, y); 
+	  context.lineTo(w-20, y);
+	  context.stroke();
+  }
 	
 	// Draw each cordes:
 	var vibDirection =  Math.random()*2 - 1;
@@ -76,7 +91,7 @@ function update() {
 
 auto_refresh = "";
 vib_duration = 5; //sec !!
-vib_fps = 50;
+vib_fps = 30;
 //drawNeck(6, 'guitar', 0, 2);
 
 function getTuning(notes){
@@ -276,7 +291,19 @@ var Tuning = Backbone.Model.extend({
     },
     initialize: function() { 
       var fret = this.get('fret');
-      this.set({ slug : slugify(fret)});
+      var the_note = this.get('note');
+      this.set({ slug : slugify(fret),  note_slug : slugify(the_note) });
+      
+      //this.set({ note_slug : slugify(the_note)});
+      
+      var cmplx = fret.split(' ');
+      var total = 0;
+      for(var i = 0; i < cmplx.length; i++) {
+                v = parseFloat(cmplx[i]);
+                if (v == "x") v=0;
+                if (!isNaN(v)) total += v; 
+              }
+      this.set({ complexity : total});   
      },
 
     select: function() {
@@ -294,9 +321,19 @@ var Tuning = Backbone.Model.extend({
        return _.find(Music.chords.models, function(models){ return models['attributes']['slug'] == slug; }) //digg deep directly in the model collection and comapre...
      },
    find_by_note: function(note) {
-     console.log(note);
-      return _.find(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
-    }
+     //console.log(note);
+     // return _.find(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
+      return _.filter(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
+   
+    },
+    find_by_note_slug: function(note_slug) {
+       //console.log(note);
+       // return _.find(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
+        return _.filter(Music.chords.models, function(models){ return models['attributes']['note_slug'] == note_slug; }) //digg deep directly in the model collection and comapre...
+
+      }
+    
+    
     });
     
     
@@ -329,8 +366,11 @@ var Tuning = Backbone.Model.extend({
   				// Find the tuning by slug
   				// var t = _.find(Music.tunings.models, function(tuni){ return tuni['attributes']['slug'] == slug; });
   				//if(slug == "") slug = "normal";
+  				
   				var  t = Music.tunings.find_by_slug(slug);
-  				 activeTuning = t;//save for public access
+  				activeTuning = t;
+  				//if( 1 ){ //so we don'T call it twice for no reasons...
+  				
   				 
   				 
   				 if(t != undefined){
@@ -346,8 +386,6 @@ var Tuning = Backbone.Model.extend({
       				   }else{
       				     $('.key.c'+(49+i) +' em').removeClass('pos neg').text('-');
       				   }
-     				   //$('.key.c'+(49+i) +' em')
-     				   
      				 }
   				   
   				   $('#tuning_title em').text(t.get('name'));
@@ -356,18 +394,37 @@ var Tuning = Backbone.Model.extend({
   				   //sec active class on tuning nav:
   				   $('#scale_selector a.selected').removeClass('selected');
   				   $('#scale_selector a.'+t.get('slug')).addClass('selected');
+  				   
+  				   buildChordNav(); //refresh chord nav according to new tuning...
+				  // }//end if..
   				}
       },
     chord: function(slug, chord) {
         this.tuning(slug); //set the tuning first...
-        var  c = Music.chords.find_by_slug(chord);
-        //alert(' searching chord ID:'+c.get('name'));
-        $('#tuning_title .chord').html(c.get('note') + ', ['+ c.get('fret')+'] <br/>'+c.get('name'));
-        
-        $('#chords a.selected').removeClass('selected');
-			   $('#chords a.'+c.get('slug')).addClass('selected');
+        //var  c = Music.chords.find_by_slug(chord);
+        var  all_c_models = Music.chords.find_by_note_slug(chord);
+        c = all_c_models[0];
+        this.draw_chord(c);
     },
-  		
+    draw_chord: function(c) {
+      var a_pos =  c.get('fret');
+      a_pos = a_pos.split(' ');//position of each strings...
+       for(var i=0; i < a_pos.length; i++){
+			   if(a_pos[i] == 'x'){ //set classes to color red/green
+			     $('.key.c'+(49+i) +' .chord_pos').removeClass('open').addClass('x').text(a_pos[i]);
+			   }else if(a_pos[i] == 0){
+			     $('.key.c'+(49+i) +' .chord_pos').removeClass('x').addClass('open').text(a_pos[i]);
+			   }else{
+			     $('.key.c'+(49+i) +' .chord_pos').removeClass('x open').text(a_pos[i]);
+			   }
+			   $('.key.c'+(49+i) +' .chord_pos').removeClass('f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f0 fx').addClass('f'+a_pos[i]);
+			 }
+			 
+      $('#tuning_title .chord').html(c.get('note') + ', ['+ c.get('fret')+'] <br/>'+c.get('name') + ' = '+c.get('complexity'));
+      
+      $('#chords a.selected').removeClass('selected');
+		  $('#chords a.'+c.get('slug')).addClass('selected');
+  	 },	
 
       search: function(slug, search) {
         this.tuning(slug); //set the tuning first...
@@ -391,7 +448,9 @@ Music.app_router = app_router;
 //Models
 Music.tunings = new TuningCollection;
 Music.chords = new ChordsCollection;
-
+Music.chords.comparator = function(c) {
+  return c.get("complexity");
+};
 //alert("d");
 pullData(function(){
   Backbone.history.start({pushState: false, root: "/guitar"}); // Start the engines!
@@ -415,6 +474,7 @@ $.getJSON('data/guitar_tunings.json', function(data) {
   $.getJSON('data/guitar_chords.json', function(data2) {
     //alert(data)
     Music.chords.add(data2);
+    Music.chords.sort(); //ordered by complexity
      callback(); //starts backbone...
     buildChordNav();
      // alert(Music.chords.length);
@@ -446,14 +506,17 @@ function buildTuningNav(){
  
  
   $('#scale_selector').html(html);
-  $('#scale_selector a.more').bind('click touch', function(){
-    if($('#scale_selector').hasClass('view_all')){
+  
+  $('#scale_selector a.more').bind('click', function(event){
+    event.preventDefault();
+    if(! $('#scale_selector').hasClass('view_all') ){
       $('#scale_selector').removeClass('view_all');
       $('#scale_selector a.more').text('VIEW All!');
     }else{
       $('#scale_selector').addClass('view_all');
       $('#scale_selector a.more').text('Hide extra...');
     }
+    return false;
     
   });
 }
@@ -476,7 +539,7 @@ function buildChordNav(){
   var keys = "Ab A B C Db D Eb E F Gb G";
    keys = keys.split(' ');//make an array... 
 
-  var shapes = "- m 6 9 m7 maj7 sus";
+  var shapes = "- m 7 m7 5 6 m6 maj7 sus sus2 dim7 7sus4 add9 add9 9 m9 /Ab /A /B /C /Db /D /Eb /E /F /Gb /G m/Ab m/A m/B m/C m/Db m/D m/Eb m/E m/F m/Gb m/G";
   shapes= shapes.split(' ');
   shapes[0] = '';//overide
   
@@ -484,9 +547,17 @@ function buildChordNav(){
     html += '<div class="col '+keys[k]+'"><h1>'+keys[k]+'</h1>';
       for(var s=0; s < shapes.length; s++){
          //var c = Music.chords.at(i);
-         var c = Music.chords.find_by_note(keys[k] + shapes[s]);
+         var classes = "";
+         var all_chords = Music.chords.find_by_note(keys[k] + shapes[s]); //returns all matched chords in an array.
+            for(var i=0; i < all_chords.length; i++){
+                 classes += " "+ all_chords[i].get('slug');
+         }
+         var c = all_chords[0]; //set the active chord...
          if(c != undefined){
-           html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('slug')+'" class="'+c.get('slug')+'" alt="'+keys[k]+''+c.get('name')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
+           if (s > 10){ classes += " extra "; }
+           html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('note_slug')+'" class="'+c.get('slug')  + classes+ '" title="'+keys[k]+' '+c.get('name')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
+          }else{
+            html += '<div class="no_chord">-</div> ';
           }
       }
     html += '</div>'; //eo .col

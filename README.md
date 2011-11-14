@@ -1,6 +1,23 @@
 
-## French...
 
+## GUITAR
+
+# features
+
+- Show alternate chords on click (and progress indicator (3 of 5 Dm7))
+- Play sound on click
+-   mute button
+- Show all chords?
+- Search?
+- Restyle the neck
+- draw frets on the board.
+- animate strings according to the chord position (50px per fret...)...
+
+- make an array of 1 sound per timmer, so we can play multiple string at the same time
+
+- play chord (method that play all chords sequenced by a x delay between strings...)
+
+- add complexity in the formula (sum f all finger position, where 'x' is -1), sort collection on complexity so easier chords surface up;
 
 
 # Quoi  (Intermède technico-expérimentale)

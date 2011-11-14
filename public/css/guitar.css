@@ -49,7 +49,24 @@
 .key em{ font-size:13px; display:block;position:relative; top:-52px; padding-left:30px; color:#ccc; font-weight:normal;}
 .key em.pos{color:#0f0;}
 .key em.neg{color:#f00;}
-.key span{margin-top:-35px; }
+.key span.digit{margin-top:-35px; }
+.key span.chord_pos{margin-top:45px; color:#fff; width:30px; height:30px; font-size:25px; text-align:center; background:#000; border-radius:20px; margin-left:5px;}
+.key span.chord_pos.x{ margin-top:-15px; background:#f00; z-index:22; }
+.key span.chord_pos.open{margin-top:25px; background:#55f; }
+.key span.chord_pos.f1{margin-top:100px;}
+.key span.chord_pos.f2{margin-top:200px;}
+.key span.chord_pos.f3{margin-top:300px;}
+.key span.chord_pos.f4{margin-top:400px;}
+.key span.chord_pos.f5{margin-top:500px;}
+.key span.chord_pos.f6{margin-top:600px;}
+.key span.chord_pos.f7{margin-top:700px;}
+.key span.chord_pos.f8{margin-top:800px;}
+.key span.chord_pos.f9{margin-top:900px;}
+.key span.chord_pos.f10{margin-top:1000px;}
+.key span.chord_pos.f11{margin-top:1100px;}
+.key span.chord_pos.f12{margin-top:1200px;}
+.key span.chord_pos.f13{margin-top:1300px;}
+
 #frets{  margin-top:-40px; }
 
 #fret_canvas{ }
@@ -63,10 +80,10 @@
 
 #chords{float:left; position:absolute; left:500px; top:150px; }
 #chords .col{ width:70px; float:left;}
-#chords .col a{display:block;background:#ccc; border-radius:2px; padding:2px 5px; margin-right:3px; margin-bottom:13px;}
-#chords .col a:hover{ background:#eee; }
+#chords .col a{display:block;background:#ddd; border-radius:2px; padding:10px 5px; padding-right:0px; margin-right:6px; margin-bottom:3px; text-decoration:none; color:#444;}
+#chords .col a:hover{ background:#eee; color:#000;}
 #chords .col a.selected{ background:#fff; }
-
+#chords .no_chord{ padding:10px 5px; background:#ccc; margin-bottom:3px; color:#bbb;}
 
 
 #effects, #sine_graph_wrap{ display:none; }
