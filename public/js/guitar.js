@@ -404,6 +404,13 @@ function buildTuningNav(){
   }
   $('#scale_selector').html(html);
   $('#scale_selector a.more').bind('click touch', function(){
-    $('#scale_selector').addClass('view_all');
+    if($('#scale_selector').hasClass('view_all')){
+      $('#scale_selector').removeClass('view_all');
+      $('#scale_selector a.more').text('VIEW All!');
+    }else{
+      $('#scale_selector').addClass('view_all');
+      $('#scale_selector a.more').text('Hide extra...');
+    }
+    
   });
 }
