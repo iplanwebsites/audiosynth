@@ -226,6 +226,7 @@ var Tuning = Backbone.Model.extend({
     var ar = notes.split(" ");
     var obj = { "note":[],"note_rel":[],"diff":[] }; //our temporary object...
      for (var i=0; i<ar.length; i++) { 
+       //obj.letter[i] = ar[i];
        obj.note[i] = ar[i];
        obj.note_rel[i] = corres[ar[i]];
        obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
@@ -315,12 +316,30 @@ var Tuning = Backbone.Model.extend({
   				var  t = Music.tunings.find_by_slug(slug);
   				 activeTuning = t;//save for public access
   				 
+  				 
   				 if(t != undefined){
-  				   //alert(t.get('name'));
   				   t.calculateTuning();
-  				   $('#tuning_title em').text(t.get('name'));
-  				   $('#tuning_title span').html(t.get('letters') + "<br>diff:"+ t.get('diff') + "<br> note_rel:"+ t.get('note_rel'));
+  				   var diff = t.get('diff');
+  				   var note = t.get('note');
+     				 for(var i=0; i < 6; i++){
+     				   $('.key.c'+(49+i) +' b').text(note[i]);
+     				   if(diff[i] > 0){ //set classes to color red/green
+      				     $('.key.c'+(49+i) +' em').removeClass('neg').addClass('pos').text('+'+diff[i]);;
+      				   }else if(diff[i] < 0){
+      				     $('.key.c'+(49+i) +' em').removeClass('pos').addClass('neg').text(diff[i]);;
+      				   }else{
+      				     $('.key.c'+(49+i) +' em').removeClass('pos neg').text('-');
+      				   }
+     				   //$('.key.c'+(49+i) +' em')
+     				   
+     				 }
   				   
+  				   $('#tuning_title em').text(t.get('name'));
+  				   $('#tuning_title span').html(t.get('letters') ); //+ "<br>diff:"+ t.get('diff') + "<br> note_rel:"+ t.get('note_rel')
+  				   
+  				   //sec active class on tuning nav:
+  				   $('#scale_selector a.selected').removeClass('selected');
+  				   $('#scale_selector a.'+t.get('slug')).addClass('selected');
   				}
       },
   		
@@ -378,9 +397,13 @@ $.getJSON('data/guitar_chords.json', function(data) {
 
 function buildTuningNav(){
   var html = "";
+  html += '<a href="#" class="more"><em>More</em> View all... </a> ';
   for(var i=0; i < Music.tunings.length; i++){
     var t = Music.tunings.at(i);
-    html += '<a href="#tuning/'+t.get('slug')+'"><em>'+t.get('name')+'</em> '+ t.get('letters') +'</a> ';
+    html += '<a href="#tuning/'+t.get('slug')+'" class="'+t.get('slug')+'"><em>'+t.get('name')+'</em> '+ t.get('letters') +'</a> ';
   }
   $('#scale_selector').html(html);
+  $('#scale_selector a.more').bind('click touch', function(){
+    $('#scale_selector').addClass('view_all');
+  });
 }
