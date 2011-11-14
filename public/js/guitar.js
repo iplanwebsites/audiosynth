@@ -275,8 +275,8 @@ var Tuning = Backbone.Model.extend({
         note: 'A'
     },
     initialize: function() { 
-      var name = this.get('name');
-      this.set({ slug : slugify(name)});
+      var fret = this.get('fret');
+      this.set({ slug : slugify(fret)});
      },
 
     select: function() {
@@ -289,7 +289,14 @@ var Tuning = Backbone.Model.extend({
         localStorage: new Store("chords"),
   			url: '/chords',
   //URL??? TRY COUCHAPP with Cloudant, ready to go with backbone!
-        model: Chord
+        model: Chord,
+    find_by_slug: function(slug) {
+       return _.find(Music.chords.models, function(models){ return models['attributes']['slug'] == slug; }) //digg deep directly in the model collection and comapre...
+     },
+   find_by_note: function(note) {
+     console.log(note);
+      return _.find(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
+    }
     });
     
     
@@ -353,7 +360,8 @@ var Tuning = Backbone.Model.extend({
       },
     chord: function(slug, chord) {
         this.tuning(slug); //set the tuning first...
-        alert(' searching chord ID:'+chord);
+        var  c = Music.chords.find_by_slug(chord);
+        alert(' searching chord ID:'+c.get('name'));
     },
   		
 
@@ -398,14 +406,21 @@ $.getJSON('data/guitar_tunings.json', function(data) {
   Music.tunings.add(data);
   //  alert(Music.tunings.length);
   buildTuningNav();
-  callback();
+  
+  
+  $.getJSON('data/guitar_chords.json', function(data2) {
+    //alert(data)
+    Music.chords.add(data2);
+     callback(); //starts backbone...
+    buildChordNav();
+     // alert(Music.chords.length);
+    
+  });
+  
+  
 });
 
-$.getJSON('data/guitar_chords.json', function(data) {
-  //alert(data)
-  Music.chords.add(data);
-   // alert(Music.chords.length);
-});
+
 
 
 }
@@ -418,10 +433,14 @@ function buildTuningNav(){
   
   var html = "";
   html += '<a href="#" class="more"><em>More</em> View all... </a> ';
+
+
   for(var i=0; i < Music.tunings.length; i++){
     var t = Music.tunings.at(i);
     html += '<a href="#tuning/'+t.get('slug')+'" class="'+t.get('slug')+'"><em>'+t.get('name')+'</em> '+ t.get('letters') +'</a> ';
   }
+ 
+ 
   $('#scale_selector').html(html);
   $('#scale_selector a.more').bind('click touch', function(){
     if($('#scale_selector').hasClass('view_all')){
@@ -434,3 +453,55 @@ function buildTuningNav(){
     
   });
 }
+
+
+
+function buildChordNav(){
+  
+  var html = "";
+  html += '<a href="#" class="more"><em>More</em> View all... </a> ';
+  
+  
+  /*
+  Full listing...
+  for(var i=0; i < Music.chords.length; i++){
+    var c = Music.chords.at(i);
+    html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('slug')+'" class="'+c.get('slug')+'" alt="'+c.get('name')+'"><em>'+c.get('name')+'</em> </a> ';
+  }*/
+  
+  var keys = "Ab A B C Db D Eb E F Gb G";
+   keys = keys.split(' ');//make an array... 
+
+  var shapes = "- m 6 9 m7 maj7 sus";
+  shapes= shapes.split(' ');
+  shapes[0] = '';//overide
+  
+  for(var k=0; k < keys.length; k++){
+    html += '<div class="col '+keys[k]+'"><h1>'+keys[k]+'</h1>';
+      for(var s=0; s < shapes.length; s++){
+         //var c = Music.chords.at(i);
+         var c = Music.chords.find_by_note(keys[k] + shapes[s]);
+         if(c != undefined){
+           html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('slug')+'" class="'+c.get('slug')+'" alt="'+keys[k]+''+c.get('name')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
+          }
+      }
+    html += '</div>'; //eo .col
+  }
+  
+  
+  $('#chords').html(html);
+  $('#scale_selector a.more').bind('click touch', function(){
+    if($('#scale_selector').hasClass('view_all')){
+      $('#scale_selector').removeClass('view_all');
+      $('#scale_selector a.more').text('VIEW All!');
+    }else{
+      $('#scale_selector').addClass('view_all');
+      $('#scale_selector a.more').text('Hide extra...');
+    }
+    
+  });
+}
+
+
+
+
