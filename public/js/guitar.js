@@ -147,6 +147,7 @@ function activateCorde(key){
 $(document).ready(function(){
  // drawNeck(6, 'guitar', Math.random()*1, 2);
   
+  initBackbone();
   
   // setInterval(update, 1000/30);
   $('a.key.num').bind('click touch', function(){
@@ -193,18 +194,28 @@ function setTuningNav(){
   
 }
 
-var Tuning = Backbone.Model.extend({
 
+
+
+///////////////////////////////////////
+//  MODEL :  Tunnings
+////////////////////////////////////////
+var Tuning = Backbone.Model.extend({
+  defaults: {
+      name: 'Regular',
+      note: ["E", "A", "D", "G", "B", "E"],
+      note_rel : [-5,0,5,10,14,19],
+      diff : [0,0,0,0,0,0]
+  },
   initialize: function() { 
     var name = this.get('name');
     this.set({ slug : slugify(name)});
    },
 
   select: function() {
-    alert('selected tuning: ' + this);
+    alert('selected tuning: ' + this.get('name'));
   },
 
-  coordinates: function() { },
 
   allowedToEdit: function(account) {
     return true;
@@ -212,6 +223,109 @@ var Tuning = Backbone.Model.extend({
 
 });
 
+  window.TuningCollection = Backbone.Collection.extend({
+      localStorage: new Store("tunings"),
+			url: '/tunings',
+//URL??? TRY COUCHAPP with Cloudant, ready to go with backbone!
+      model: Tuning
+  });
+  
+  
+  ///////////////////////////////////////
+  //  MODEL :  Chord
+  ////////////////////////////////////////
+  var Chord = Backbone.Model.extend({
+    defaults: {
+        name: 'Open',
+        fret : [0,0,0,0,0,0],
+        note: 'A'
+    },
+    initialize: function() { 
+      var name = this.get('name');
+      this.set({ slug : slugify(name)});
+     },
+
+    select: function() {
+      alert('selected chord: ' + this.get('name'));
+    }
+
+  });
+
+    window.ChordsCollection = Backbone.Collection.extend({
+        localStorage: new Store("chords"),
+  			url: '/chords',
+  //URL??? TRY COUCHAPP with Cloudant, ready to go with backbone!
+        model: Chord
+    });
+    
+    
+  
+  ///////////////////////////////////////
+  //  ROUTES
+  ////////////////////////////////////////
+  
+  AppRouter = Backbone.Router.extend({ 
+
+      routes: {
+          "help":                 		"help", // #help
+  				"":                 				"tuning", // #help
+          "tuning/:slug":        			"tuning", 
+          "add":        							"add", 
+          "note/:id/search/:find": 		"search",
+  				"browse/*path": 						"browse"
+      },
+      tuning: function(slug) {
+
+          alert('need help?' + slug);
+  				// setSection('help');
+      },
+  		
+
+      search: function(id, search) {
+          alert(' searching note ID:'+id + 'for '+search);
+      }
+  });
+    
+  
+  ///////////////////////////////////////
+  //  INIT
+  ////////////////////////////////////////
+  
+Music = {};
+
+function initBackbone(){
+// ROUTES
+/**/
+app_router = new AppRouter;
+Music.app_router = app_router;
+
+//Models
+Music.tunings = new TuningCollection;
+Music.chords = new ChordsCollection;
+Backbone.history.start({pushState: false, root: "/guitar"}); // Start the engines!
+//alert("d");
+pullData();
+}
+
+///////////////////////////////////////
+//  AJAX LOAD...
+////////////////////////////////////////
+
+// load tunning JSON.
+// For each tuning, create a model, add it to the colleciton...
+function pullData(){
+$.getJSON('data/guitar_tunings.json', function(data) {
+  //alert(data)
+  Music.tunings.add(data);
+  //  alert(Music.tunings.length);
+});
+
+$.getJSON('data/guitar_chords.json', function(data) {
+  //alert(data)
+  Music.chords.add(data);
+   // alert(Music.chords.length);
+});
 
 
+}
 
