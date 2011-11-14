@@ -88,7 +88,6 @@ function getTuning(notes){
      obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
      
      // Octave check, to ensure normal octave with strings... better wrap this routine...
-     
      if( obj.diff[i] < -7){
        obj.note_rel[i] += 12;
       obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
@@ -97,9 +96,7 @@ function getTuning(notes){
         obj.note_rel[i] -= 12;
        obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
       }
-        
   }
-
   return obj
 }
 
@@ -110,6 +107,7 @@ tuning_str = "D A D G B E";
 tuning = getTuning(tuning_str); // returns an array...
 
 
+
 //console.log('!!! '+ getDiff(tuning));
 
 function activateCorde(key){
@@ -118,7 +116,10 @@ function activateCorde(key){
   
   if (auto_refresh != "") {
     clearInterval(auto_refresh);
-    a.pause();
+    if(a != undefined){
+      a.pause();
+    }
+    
       // already set
      // return;
   }
@@ -136,8 +137,12 @@ function activateCorde(key){
     }, 1000/vib_fps);
     
     //play the sound
-    //note = key*2;
-    note = tuning.note_rel[ key-1 ]; // return a semi-tone value difference from 440 A.
+   // note = tuning.note_rel[ key-1 ]; // return a semi-tone value difference from 440 A.
+   if(activeTuning == undefined) {activeTuning=Music.tunings.at(0);}
+    var rel = activeTuning.get('note_rel');
+    console.log("rel = "+rel);
+    note = rel[ key-1 ]; // return a semi-tone value difference from 440 A.
+    // note = -2;
     adsr.active = true; //basic envelope
     calculateADSR();
     a = buildSound(note, 'shape', adsr.master, vib_duration, adsr, false);
@@ -190,9 +195,7 @@ function slugify(str) {
 
 
 
-function setTuningNav(){
-  
-}
+
 
 
 
@@ -215,6 +218,31 @@ var Tuning = Backbone.Model.extend({
   select: function() {
     alert('selected tuning: ' + this.get('name'));
   },
+  calculateTuning: function(){
+    var corres = {  "A" : 0,  "A#" : 1,  "B" : 2,  "C" : 3,  "C#" : 4,  "D" : 5,  "D#" : 6,  "E" : 7,  
+    "F" : 8,  "F#" : 9,  "G" : 10,  "G#" : 11,  "X" : "X",  "x" : "X" };
+
+    var notes = this.get('letters')
+    var ar = notes.split(" ");
+    var obj = { "note":[],"note_rel":[],"diff":[] }; //our temporary object...
+     for (var i=0; i<ar.length; i++) { 
+       obj.note[i] = ar[i];
+       obj.note_rel[i] = corres[ar[i]];
+       obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
+
+       // Octave check, to ensure normal octave with strings... better wrap this routine...
+
+       if( obj.diff[i] < -7){
+         obj.note_rel[i] += 12;
+        obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
+       }
+       if( obj.diff[i] > 7){
+          obj.note_rel[i] -= 12;
+         obj.diff[i] =  obj.note_rel[i] - retular_tuning_rel[i];
+        }
+    }
+     this.set(obj); //works!
+    },
 
 
   allowedToEdit: function(account) {
@@ -226,9 +254,11 @@ var Tuning = Backbone.Model.extend({
   window.TuningCollection = Backbone.Collection.extend({
       localStorage: new Store("tunings"),
 			url: '/tunings',
-//URL??? TRY COUCHAPP with Cloudant, ready to go with backbone!
-      model: Tuning
-  });
+      model: Tuning,
+  find_by_slug: function(slug) {
+     return _.find(Music.tunings.models, function(tuni){ return tuni['attributes']['slug'] == slug; }) //digg deep directly in the model collection and comapre...
+   }
+ });
   
   
   ///////////////////////////////////////
@@ -251,7 +281,7 @@ var Tuning = Backbone.Model.extend({
 
   });
 
-    window.ChordsCollection = Backbone.Collection.extend({
+ window.ChordsCollection = Backbone.Collection.extend({
         localStorage: new Store("chords"),
   			url: '/chords',
   //URL??? TRY COUCHAPP with Cloudant, ready to go with backbone!
@@ -276,8 +306,22 @@ var Tuning = Backbone.Model.extend({
       },
       tuning: function(slug) {
 
-          alert('need help?' + slug);
+          //alert('need help?' + slug);
+          //Music.tunings.at(i)
   				// setSection('help');
+  				//var t = _.find(Music.tunings.models, function(tuni){ return tuni['attributes']['slug'] == 'normal'; });
+  				// Find the tuning by slug
+  				// var t = _.find(Music.tunings.models, function(tuni){ return tuni['attributes']['slug'] == slug; });
+  				var  t = Music.tunings.find_by_slug(slug);
+  				 activeTuning = t;//save for public access
+  				 
+  				 if(t != undefined){
+  				   //alert(t.get('name'));
+  				   t.calculateTuning();
+  				   $('#tuning_title em').text(t.get('name'));
+  				   $('#tuning_title span').html(t.get('letters') + "<br>diff:"+ t.get('diff') + "<br> note_rel:"+ t.get('note_rel'));
+  				   
+  				}
       },
   		
 
@@ -318,6 +362,7 @@ $.getJSON('data/guitar_tunings.json', function(data) {
   //alert(data)
   Music.tunings.add(data);
   //  alert(Music.tunings.length);
+  buildTuningNav();
 });
 
 $.getJSON('data/guitar_chords.json', function(data) {
@@ -329,3 +374,13 @@ $.getJSON('data/guitar_chords.json', function(data) {
 
 }
 
+
+
+function buildTuningNav(){
+  var html = "";
+  for(var i=0; i < Music.tunings.length; i++){
+    var t = Music.tunings.at(i);
+    html += '<a href="#tuning/'+t.get('slug')+'"><em>'+t.get('name')+'</em> '+ t.get('letters') +'</a> ';
+  }
+  $('#scale_selector').html(html);
+}

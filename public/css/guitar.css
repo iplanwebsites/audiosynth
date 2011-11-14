@@ -30,6 +30,6 @@
 #fret_canvas{ background:#ccc;}
 
 
-
-
+#tuning_title{font-size: 22px; color:#000; background:#fff;}
+#tuning_title em{ font-weight: bold; display:block;}
 
