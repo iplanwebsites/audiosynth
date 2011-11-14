@@ -42,14 +42,16 @@ function drawNeck(nbCorde, cordeType, timeRatio, activeCorde){
 	  
 	  if(activeCorde == c){
 	    context.strokeStyle = '#499'; 
+	    if (Math.random() > 0.5){ var revert = 1 }else{var revert = -1}
 	    for (var i=0; i<h; i++) { //we find vibrating x pos for 900px high...
     	//	pos = Math.round( i / w * s.length);
     	//	val = (s[pos]/255) *h;
     	freq = thickness /1.5;
     	amplitude = 1 * (thickness/3)+3;
     	amplitude = amplitude * Math.sqrt( Math.pow(i/h , 2));
-    	vib  = posX + ( amplitude *  Math.sin(i/freq* (1-timeRatio)));
-    	vib += (vibDirection * amplitude) * (1-timeRatio)*5; //this move the corde fomr left to right, simulating bending...
+    	
+    	vib  = posX + ( amplitude *  Math.sin(i/freq* (1-timeRatio)) *revert );
+    	vib += (vibDirection * amplitude) * (1-timeRatio)*3; //this move the corde fomr left to right, simulating bending...
     		context.lineTo(vib, i); //attack peak 
     	}
 	  }else{
@@ -67,14 +69,15 @@ function drawNeck(nbCorde, cordeType, timeRatio, activeCorde){
   
 }
 
-
+/*
 function update() {
   drawNeck(6, 'guitar', Math.random()*1, 2);
-}
+}*/
 
 auto_refresh = "";
-vib_duration = 1; //sec
+vib_duration = 5; //sec !!
 vib_fps = 50;
+//drawNeck(6, 'guitar', 0, 2);
 
 function getTuning(notes){
   var corres = {  "A" : 0,  "A#" : 1,  "B" : 2,  "C" : 3,  "C#" : 4,  "D" : 5,  "D#" : 6,  "E" : 7,  
@@ -299,11 +302,16 @@ var Tuning = Backbone.Model.extend({
 
       routes: {
           "help":                 		"help", // #help
-  				"":                 				"tuning", // #help
+  				"":                 				"home", 
           "tuning/:slug":        			"tuning", 
+          "tuning/:slug/:chord":  		"chord", 
           "add":        							"add", 
-          "note/:id/search/:find": 		"search",
+          "tuning/:slug/:search": 		"search",
   				"browse/*path": 						"browse"
+      },
+      home: function(slug) {
+        // alert('home')
+        this.tuning('normal'); //default tuning
       },
       tuning: function(slug) {
 
@@ -313,6 +321,7 @@ var Tuning = Backbone.Model.extend({
   				//var t = _.find(Music.tunings.models, function(tuni){ return tuni['attributes']['slug'] == 'normal'; });
   				// Find the tuning by slug
   				// var t = _.find(Music.tunings.models, function(tuni){ return tuni['attributes']['slug'] == slug; });
+  				//if(slug == "") slug = "normal";
   				var  t = Music.tunings.find_by_slug(slug);
   				 activeTuning = t;//save for public access
   				 
@@ -342,9 +351,14 @@ var Tuning = Backbone.Model.extend({
   				   $('#scale_selector a.'+t.get('slug')).addClass('selected');
   				}
       },
+    chord: function(slug, chord) {
+        this.tuning(slug); //set the tuning first...
+        alert(' searching chord ID:'+chord);
+    },
   		
 
-      search: function(id, search) {
+      search: function(slug, search) {
+        this.tuning(slug); //set the tuning first...
           alert(' searching note ID:'+id + 'for '+search);
       }
   });
@@ -365,9 +379,11 @@ Music.app_router = app_router;
 //Models
 Music.tunings = new TuningCollection;
 Music.chords = new ChordsCollection;
-Backbone.history.start({pushState: false, root: "/guitar"}); // Start the engines!
+
 //alert("d");
-pullData();
+pullData(function(){
+  Backbone.history.start({pushState: false, root: "/guitar"}); // Start the engines!
+});
 }
 
 ///////////////////////////////////////
@@ -376,12 +392,13 @@ pullData();
 
 // load tunning JSON.
 // For each tuning, create a model, add it to the colleciton...
-function pullData(){
+function pullData(callback){
 $.getJSON('data/guitar_tunings.json', function(data) {
   //alert(data)
   Music.tunings.add(data);
   //  alert(Music.tunings.length);
   buildTuningNav();
+  callback();
 });
 
 $.getJSON('data/guitar_chords.json', function(data) {
@@ -396,6 +413,9 @@ $.getJSON('data/guitar_chords.json', function(data) {
 
 
 function buildTuningNav(){
+  
+  drawNeck(6, 'guitar', 0, -1);
+  
   var html = "";
   html += '<a href="#" class="more"><em>More</em> View all... </a> ';
   for(var i=0; i < Music.tunings.length; i++){
