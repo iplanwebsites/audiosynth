@@ -361,7 +361,11 @@ var Tuning = Backbone.Model.extend({
     chord: function(slug, chord) {
         this.tuning(slug); //set the tuning first...
         var  c = Music.chords.find_by_slug(chord);
-        alert(' searching chord ID:'+c.get('name'));
+        //alert(' searching chord ID:'+c.get('name'));
+        $('#tuning_title .chord').html(c.get('note') + ', ['+ c.get('fret')+'] <br/>'+c.get('name'));
+        
+        $('#chords a.selected').removeClass('selected');
+			   $('#chords a.'+c.get('slug')).addClass('selected');
     },
   		
 
@@ -459,7 +463,7 @@ function buildTuningNav(){
 function buildChordNav(){
   
   var html = "";
-  html += '<a href="#" class="more"><em>More</em> View all... </a> ';
+//  html += '<a href="#" class="more"><em>More</em> View all... </a> ';
   
   
   /*

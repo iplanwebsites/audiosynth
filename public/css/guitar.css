@@ -55,9 +55,18 @@
 #fret_canvas{ }
 
 
-#tuning_title{font-size: 20px; color:#999;  margin-bottom:40px; margin-top:10px; font-weight:normal; text-align:center;}
+#tuning_title{font-size: 20px; color:#999;  margin-bottom:40px; margin-top:10px; font-weight:normal; text-align:right;}
+#tuning_title .chord{ float:left; font-weight:normal; color:#000; font-size:15px; text-align:left}
 #tuning_title em{ font-weight: bold; display:block;}
 #tuning_title span{ display:none;}
+
+
+#chords{float:left; position:absolute; left:500px; top:150px; }
+#chords .col{ width:70px; float:left;}
+#chords .col a{display:block;background:#ccc; border-radius:2px; padding:2px 5px; margin-right:3px; margin-bottom:13px;}
+#chords .col a:hover{ background:#eee; }
+#chords .col a.selected{ background:#fff; }
+
 
 
 #effects, #sine_graph_wrap{ display:none; }
