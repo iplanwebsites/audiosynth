@@ -21,7 +21,8 @@
 
 - FLASH microphone: http://www.mediaboxstudios.com/blog/post/2010/01/21/Anatomy-of-a-Flash-101-Guitar-Tuner-Part-1.aspx
 
-
+- manualy add a overiding attribute (priority - an int number) in the JSON chords for main chords so they rank with lower complexity.
+  - complexity = sum of moves - priority. (this way priority offset more fingers or farther on the neck...)
 
 # Quoi  (Intermède technico-expérimentale)
 - Un monstre: Aprox 25 pages dactylographié de code

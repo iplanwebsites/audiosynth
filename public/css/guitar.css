@@ -42,7 +42,7 @@
 #scale_selector a em{display:block; font-weight:bold; color:#000; font-size:1.1em;
   }
 #scale_selector a:hover{ background:#fff;}
-#scale_selector a.selected{ background:#9ff;}
+#scale_selector a.selected{ background:#fff; /*9ff*/}
 
 
 
@@ -114,7 +114,8 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 
 #chords .col{ width:65px; float:left;}
 
-#chords .col a{display:block;background:#ddd;
+#chords .col a{
+  display:block;background:#ddd;
    border-radius:2px; padding:10px 5px;  margin-right:6px; 
    margin-bottom:3px; text-decoration:none; color:#444;
    text-align:center;
@@ -123,8 +124,11 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 #chords .col.alt a{ background:#ccc;}
 #chords .col a:hover{ background:#eee; color:#000;}
 #chords .col a.selected{ background:#fff; }
+#chords .col a:active, #chords .col a.maj:active{ 
+  background:#fff; color:#999; margin-top:4px;  margin-bottom:2px;  
+  }
 #chords .no_chord{ padding:10px 5px; background:#ccc; margin-bottom:3px; color:#bbb;}
-#chords .col a.maj{font-size:32px; font-weight:bold; }
+#chords .col a.maj{font-size:32px; font-weight:bold; margin-top:3px; }
 #chords .col a.minor{font-size:22px;}
 
 #not_avail_msg{display:none;}

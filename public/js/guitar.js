@@ -33,8 +33,8 @@ function drawNeck(nbCorde, cordeType, timeRatio, activeCorde){
 	  context.strokeStyle = '#ccc'; 
 	  context.lineWidth   = 2;
 	  if(f == 0){
-	    context.strokeStyle = '#333'; 
-  	  context.lineWidth   = 8;//first bar is thick!
+	    context.strokeStyle = '#555'; 
+  	  context.lineWidth   = 20;//first bar is thick!
   	}
   	if(_.include(dot_frets, f)){ //if it's a dotted fret...
   	  context.beginPath();
@@ -301,6 +301,7 @@ var Tuning = Backbone.Model.extend({
     initialize: function() { 
       var fret = this.get('fret');
       var the_note = this.get('note');
+      var priority = this.get('priority');
       this.set({ slug : slugify(fret),  note_slug : slugify(the_note) });
       
       //this.set({ note_slug : slugify(the_note)});
@@ -312,6 +313,8 @@ var Tuning = Backbone.Model.extend({
                 if (v == "x") v=0;
                 if (!isNaN(v)) total += v; 
               }
+      if(priority != undefined) total -= priority; //ponder the manual tweacks in the JSON...
+      console.log('total = '+priority);
       this.set({ complexity : total});   
      },
 
