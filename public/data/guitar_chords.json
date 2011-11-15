@@ -1,4 +1,5 @@
 [
+{ "note" : "Open", "fret" : "0 0 0 0 0 0", "comp" : "(E A D G B)", "name" : "" },
 { "note" : "A", "alt_note" : "Amaj", "fret" : "0 0 2 2 2 0", "comp" : "(Db E A)", "name" : "major triad" },
 { "note" : "A", "alt_note" : "Amaj", "fret" : "0 4 x 2 5 0", "comp" : "(Db E A)", "name" : "major triad" },
 { "note" : "A", "alt_note" : "Amaj", "fret" : "5 7 7 6 5 5", "comp" : "(Db E A)", "name" : "major triad" },

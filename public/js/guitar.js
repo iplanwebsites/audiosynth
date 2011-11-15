@@ -28,12 +28,21 @@ function drawNeck(nbCorde, cordeType, timeRatio, activeCorde){
 	
 	//draw frets...
 	
+	var dot_frets = [3,5,7,9,12,15,17,19,21];
 	for (var f=0; f<12; f++) {
 	  context.strokeStyle = '#ccc'; 
-	  if(f ==0){
+	  context.lineWidth   = 2;
+	  if(f == 0){
+	    context.strokeStyle = '#333'; 
   	  context.lineWidth   = 8;//first bar is thick!
-  	}else{
-  	  context.lineWidth   = 2;
+  	}
+  	if(_.include(dot_frets, f)){ //if it's a dotted fret...
+  	  context.beginPath();
+  	  context.strokeStyle = '#ccc'; 
+  	  context.fillStyle = '#ccc'; 
+      context.arc( w/2, (f*100 + 50-15), 10, 0, Math.PI*2, true);  //x,y,width,heigh
+      context.closePath();
+      context.fill();
   	}
   	context.beginPath();
   	var y = f*100 + 30+50;
@@ -237,8 +246,8 @@ var Tuning = Backbone.Model.extend({
     alert('selected tuning: ' + this.get('name'));
   },
   calculateTuning: function(){
-    var corres = {  "A" : 0,  "A#" : 1,  "B" : 2,  "C" : 3,  "C#" : 4,  "D" : 5,  "D#" : 6,  "E" : 7,  
-    "F" : 8,  "F#" : 9,  "G" : 10,  "G#" : 11,  "X" : "X",  "x" : "X" };
+    corres = {  "A" : 0,  "A#" : 1,  "B" : 2,  "C" : 3,  "C#" : 4,  "D" : 5,  "D#" : 6,  "E" : 7,  
+    "F" : 8,  "F#" : 9,  "G" : 10,  "G#" : 11,  "X" : "X",  "x" : "X" }; //should be more global...
 
     var notes = this.get('letters')
     var ar = notes.split(" ");
@@ -330,8 +339,10 @@ var Tuning = Backbone.Model.extend({
        //console.log(note);
        // return _.find(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
         return _.filter(Music.chords.models, function(models){ return models['attributes']['note_slug'] == note_slug; }) //digg deep directly in the model collection and comapre...
-
-      }
+ },
+ get_open: function() {
+   return Music.chords.at(0);
+ }
     
     
     });
@@ -357,8 +368,9 @@ var Tuning = Backbone.Model.extend({
         // alert('home')
         this.tuning('normal'); //default tuning
       },
-      tuning: function(slug) {
+      tuning: function(slug, internal) {
 
+          
           //alert('need help?' + slug);
           //Music.tunings.at(i)
   				// setSection('help');
@@ -378,7 +390,9 @@ var Tuning = Backbone.Model.extend({
   				   var diff = t.get('diff');
   				   var note = t.get('note');
      				 for(var i=0; i < 6; i++){
+     				   
      				   $('.key.c'+(49+i) +' b').text(note[i]);
+     				   
      				   if(diff[i] > 0){ //set classes to color red/green
       				     $('.key.c'+(49+i) +' em').removeClass('neg').addClass('pos').text('+'+diff[i]);;
       				   }else if(diff[i] < 0){
@@ -388,6 +402,8 @@ var Tuning = Backbone.Model.extend({
       				   }
      				 }
   				   
+             //calculate how the chord changes the note...
+
   				   $('#tuning_title em').text(t.get('name'));
   				   $('#tuning_title span').html(t.get('letters') ); //+ "<br>diff:"+ t.get('diff') + "<br> note_rel:"+ t.get('note_rel')
   				   
@@ -395,12 +411,27 @@ var Tuning = Backbone.Model.extend({
   				   $('#scale_selector a.selected').removeClass('selected');
   				   $('#scale_selector a.'+t.get('slug')).addClass('selected');
   				   
-  				   buildChordNav(); //refresh chord nav according to new tuning...
+  				   
+  				   if(! internal){
+  				     buildChordNav(); //refresh chord nav according to new tuning...
+               var open_c = Music.chords.find_by_note('Open');
+               Music.app_router.draw_chord(  open_c[0] ); //we hard-set the chord to "open" - reset...
+               
+               if (t.get('slug') == 'normal'){
+                 $('#chords').show();
+                 $('.key span.chord_pos').show();
+                 $('#tuning_title .chord').show();
+               }else{
+                 $('#chords').hide();
+                 $('.key span.chord_pos').hide();
+                 $('#tuning_title .chord').hide();
+               }
+             }
 				  // }//end if..
   				}
       },
     chord: function(slug, chord, hover ) {
-        this.tuning(slug); //set the tuning first...
+        this.tuning(slug, 1); //set the tuning first..., 1 stands for "internal"
         //var  c = Music.chords.find_by_slug(chord);
         var  all_c_models = Music.chords.find_by_note_slug(chord);
         c = all_c_models[0];
@@ -408,24 +439,23 @@ var Tuning = Backbone.Model.extend({
         
         if(! hover){
           Music.active_chord = c; //we set it only if it's not trigerred by an hover on the button...
-          fretVariationCount = 0; //sort of global counter to keep track of variation number to show...
+           Music.fretVariationCount = 0; //sort of global counter to keep track of variation number to show...
+          //if(Music.fretVariationCount > 2){alert('problem with Music.fretVariationCount incrementation...'); Music.fretVariationCount =0;}
           $('#chords a.'+c.get('slug')).bind('click touch', function(){
-            // alert('click!');
-            // fretVariationCount++;
-            // alert('x='+fretVariationCount );
             Music.app_router.show_next_variation(chord);
           });
         }else{
           $('#chords a.'+c.get('slug')).unbind('click touch'); //clear it!
         }
     },
-    chord_show: function(slug, chord, hover ) {
+   /* chord_show: function(slug, chord, hover ) {
       Music.app_router.chord(slug, chord, hover );
-    },
+    },*/
     show_next_variation: function(chord) {
       var  all_c_models = Music.chords.find_by_note_slug(chord);
-      var c = all_c_models[ ++fretVariationCount % all_c_models.length];
-      // console.log(fretVariationCount + ' / '+all_c_models.length);
+      var c = all_c_models[ ++Music.fretVariationCount % all_c_models.length];
+      console.log(Music.fretVariationCount + ' / '+all_c_models.length);
+      Music.active_chord = c;
       Music.app_router.draw_chord(c);
     },
     draw_chord: function(c) {
@@ -441,9 +471,24 @@ var Tuning = Backbone.Model.extend({
 			     $('.key.c'+(49+i) +' .chord_pos').removeClass('x open').text(a_pos[i]);
 			   }
 			   $('.key.c'+(49+i) +' .chord_pos').removeClass('f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f0 fx').addClass('f'+a_pos[i]);
+			   // replace letters on the board with offseted ones
+   			 var tuning = activeTuning.get('note_rel');
+   			 var new_note = Math.round(a_pos[i]) + Math.round(tuning[i]);
+   			 console.log(Math.round(a_pos[i]) + " + "+ Math.round(tuning[i]) +" = "+new_note);
+   			 if(_.isNaN(new_note)){
+   			     letter = "-";
+   			   }else{
+   			      var key_letters = Music.keys.split(' '); //Music.keys = "Ab A B C Db D Eb E F Gb G";
+   			     
+        			var letter = key_letters[(new_note +36) % 12];
+   			   }
+   			 $('.key.c'+(49+i) +' b').text(letter);
 			 }
 			 
-      $('#tuning_title .chord').html(c.get('note') + ', ['+ c.get('fret')+'] <br/>'+c.get('name') + ' = '+c.get('complexity'));
+			 
+			 
+			 
+      $('#tuning_title .chord').html(c.get('note') + ', ['+ c.get('fret')+'] <br/>'+c.get('name') );
       
       $('#chords a.selected').removeClass('selected');
 		  $('#chords a.'+c.get('slug')).addClass('selected');
@@ -462,7 +507,9 @@ var Tuning = Backbone.Model.extend({
   ////////////////////////////////////////
   
 Music = {};
-
+Music.fretVariationCount = 0;
+// Music.keys = "Ab A B C Db D Eb E F Gb G";
+Music.keys = "A Bb B C Db D Eb E F Gb G Ab";
 function initBackbone(){
 // ROUTES
 /**/
@@ -475,6 +522,9 @@ Music.chords = new ChordsCollection;
 Music.chords.comparator = function(c) {
   return c.get("complexity");
 };
+
+wire_view_all_button();
+
 //alert("d");
 pullData(function(){
   Backbone.history.start({pushState: false, root: "/guitar"}); // Start the engines!
@@ -520,8 +570,8 @@ function buildTuningNav(){
   drawNeck(6, 'guitar', 0, -1);
   
   var html = "";
+  html += '<h1> ~ Tunings ~ </h1>';
   html += '<a href="#" class="more"><em>More</em> View all... </a> ';
-
 
   for(var i=0; i < Music.tunings.length; i++){
     var t = Music.tunings.at(i);
@@ -560,15 +610,16 @@ function buildChordNav(){
     html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('slug')+'" class="'+c.get('slug')+'" alt="'+c.get('name')+'"><em>'+c.get('name')+'</em> </a> ';
   }*/
   
-  var keys = "Ab A B C Db D Eb E F Gb G";
-   keys = keys.split(' ');//make an array... 
+  
+  var keys = Music.keys.split(' ');//make an array... 
 
-  var shapes = "- m 7 m7 5 6 m6 maj7 sus sus2 dim7 7sus4 add9 add9 9 m9 /Ab /A /B /C /Db /D /Eb /E /F /Gb /G m/Ab m/A m/B m/C m/Db m/D m/Eb m/E m/F m/Gb m/G";
+  var shapes = "- m 7 m7 5 6 m6 maj7 sus sus2 dim7 7sus4 add9 9 m9 /Ab /A /B /C /Db /D /Eb /E /F /Gb /G m/Ab m/A m/B m/C m/Db m/D m/Eb m/E m/F m/Gb m/G";
   shapes= shapes.split(' ');
   shapes[0] = '';//overide
   
   for(var k=0; k < keys.length; k++){
-    html += '<div class="col '+keys[k]+'"><h1>'+keys[k]+'</h1>';
+    if(k % 2 == 1){ var alt =" alt";}else{var alt ="";}
+    html += '<div class="col '+ keys[k] + alt +'"><h1>'+keys[k]+'</h1>';
       for(var s=0; s < shapes.length; s++){
          //var c = Music.chords.at(i);
          var classes = "";
@@ -579,11 +630,15 @@ function buildChordNav(){
          var c = all_chords[0]; //set the active chord...
          
          if(c != undefined){
-           if (s > 10){ classes += " extra "; }
+           if (s > 5){ classes += " extra "; }
+           if (s == 0){ classes += " maj "; }
+           if (s == 1){ classes += " minor "; }
            classes += c.get('note_slug');
            html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('note_slug')+'" class="'+c.get('slug')  + classes+ '" title="'+keys[k]+' '+c.get('name')+'" data-note-slug="'+c.get('note_slug')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
           }else{
-            html += '<div class="no_chord">-</div> ';
+            var spacerClass = "";
+            if(s > 5){ spacerClass += " extra"}
+            html += '<div class="no_chord'+spacerClass+'">-</div> ';
           }
       }
     html += '</div>'; //eo .col
@@ -594,23 +649,48 @@ function buildChordNav(){
 
 
 
-  $('#chords a').hover(function(){
-    //hover...
+ $('#chords a').hover(function(){
+//hover...
   var note_slug = $(this).attr('data-note-slug');
-  console.log('note_slug = '+note_slug);
+ // console.log('note_slug = '+note_slug);
   var tuning = 'normal';
   var c= Music.chords.find_by_note_slug(note_slug);
   c = c[0];
+  //Music.fretVariationCount =1; //so we show the 'next one on click...
     Music.app_router.draw_chord(c );
-  }, function(){
-    if(Music.active_chord != 0){
+  }, function(){ 
+//out
+    //Music.fretVariationCount =0;
+    if(Music.active_chord != 0 && Music.active_chord != undefined){
       Music.app_router.draw_chord( Music.active_chord );
+      
+     // alert(Music.active_chord);
+    }else{ //set OPEN chord...
+      var open_c = Music.chords.find_by_note('Open');
+      Music.app_router.draw_chord(  open_c[0] );
+      //alert('op');
     }
     // out...
   });
 
+
+
 }
 
+
+function wire_view_all_button(){
+// more chords button
+$('#more_chords').click(function(){
+  if($('#chords_wrap').hasClass('view_all')){
+    $('#chords_wrap').removeClass('view_all');
+    $('#more_chords').text('View all chords');
+  }else{
+    $('#chords_wrap').addClass('view_all');
+    $('#more_chords').text('View Basic chords only');
+  }
+ // console.log('viewall')
+});
+}
 
 
 
