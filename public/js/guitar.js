@@ -358,8 +358,8 @@ var Tuning = Backbone.Model.extend({
       routes: {
           "help":                 		"help", // #help
   				"":                 				"home", 
-          "tuning/:slug":        			"tuning", 
-          "tuning/:slug/:chord":  		"chord", 
+          ":slug":        		      	"tuning", 
+          ":slug/:chord":  	        	"chord", 
           "add":        							"add", 
           "tuning/:slug/:search": 		"search",
   				"browse/*path": 						"browse"
@@ -418,13 +418,14 @@ var Tuning = Backbone.Model.extend({
                Music.app_router.draw_chord(  open_c[0] ); //we hard-set the chord to "open" - reset...
                
                if (t.get('slug') == 'normal'){
-                 $('#chords').show();
-                 $('.key span.chord_pos').show();
-                 $('#tuning_title .chord').show();
+                 $('#chords_wrap').removeClass('not_avail');
+                 //$('.key span.chord_pos').removeClass('invisible');
+                // $('#tuning_title .chord').show();
                }else{
-                 $('#chords').hide();
-                 $('.key span.chord_pos').hide();
-                 $('#tuning_title .chord').hide();
+                // $('#chords').hide();
+                 $('#chords_wrap').addClass('not_avail');
+                 //$('.key span.chord_pos').addClass('invisible');
+               //  $('#tuning_title .chord').hide();
                }
              }
 				  // }//end if..
@@ -471,6 +472,7 @@ var Tuning = Backbone.Model.extend({
 			     $('.key.c'+(49+i) +' .chord_pos').removeClass('x open').text(a_pos[i]);
 			   }
 			   $('.key.c'+(49+i) +' .chord_pos').removeClass('f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f0 fx').addClass('f'+a_pos[i]);
+			   
 			   // replace letters on the board with offseted ones
    			 var tuning = activeTuning.get('note_rel');
    			 var new_note = Math.round(a_pos[i]) + Math.round(tuning[i]);
@@ -483,6 +485,13 @@ var Tuning = Backbone.Model.extend({
         			var letter = key_letters[(new_note +36) % 12];
    			   }
    			 $('.key.c'+(49+i) +' b').text(letter);
+   			 
+   			 //hide dots, when playing open...
+   			 if(c.get('note') == "Open"){
+   			   $('.key span.chord_pos').addClass('invisible');
+   			 }else{
+   			   $('.key span.chord_pos').removeClass('invisible');
+   			 }
 			 }
 			 
 			 
@@ -575,7 +584,7 @@ function buildTuningNav(){
 
   for(var i=0; i < Music.tunings.length; i++){
     var t = Music.tunings.at(i);
-    html += '<a href="#tuning/'+t.get('slug')+'" class="'+t.get('slug')+'"><em>'+t.get('name')+'</em> '+ t.get('letters') +'</a> ';
+    html += '<a href="#'+t.get('slug')+'" class="'+t.get('slug')+'"><em>'+t.get('name')+'</em> '+ t.get('letters') +'</a> ';
   }
  
  
@@ -634,7 +643,7 @@ function buildChordNav(){
            if (s == 0){ classes += " maj "; }
            if (s == 1){ classes += " minor "; }
            classes += c.get('note_slug');
-           html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('note_slug')+'" class="'+c.get('slug')  + classes+ '" title="'+keys[k]+' '+c.get('name')+'" data-note-slug="'+c.get('note_slug')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
+           html += '<a href="#'+ activeTuning.get('slug')+'/'+c.get('note_slug')+'" class="'+c.get('slug')  + classes+ '" title="'+keys[k]+' '+c.get('name')+'" data-note-slug="'+c.get('note_slug')+'"><em>'+keys[k]+'</em>'+shapes[s]+'</a> ';
           }else{
             var spacerClass = "";
             if(s > 5){ spacerClass += " extra"}

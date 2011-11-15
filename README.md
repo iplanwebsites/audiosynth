@@ -17,6 +17,7 @@
 
 - play chord (method that play all chords sequenced by a x delay between strings...)
 
+- fade the end of the cavas (white fader? html5 degrad?)
 
 - FLASH microphone: http://www.mediaboxstudios.com/blog/post/2010/01/21/Anatomy-of-a-Flash-101-Guitar-Tuner-Part-1.aspx
 
