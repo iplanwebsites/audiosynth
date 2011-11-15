@@ -459,6 +459,7 @@ var Tuning = Backbone.Model.extend({
       var  all_c_models = Music.chords.find_by_note_slug(chord);
       var c = all_c_models[ ++Music.fretVariationCount % all_c_models.length];
       console.log(Music.fretVariationCount + ' / '+all_c_models.length);
+      //Find the key with the note_slug class, set its step according to this modulo. !!! TODO !!
       Music.active_chord = c;
       Music.app_router.draw_chord(c);
     },
