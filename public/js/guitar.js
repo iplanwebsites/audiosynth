@@ -609,16 +609,8 @@ function buildTuningNav(){
 function buildChordNav(){
   
   var html = "";
-//  html += '<a href="#" class="more"><em>More</em> View all... </a> ';
-  
-  
-  /*
-  Full listing...
-  for(var i=0; i < Music.chords.length; i++){
-    var c = Music.chords.at(i);
-    html += '<a href="#tuning/'+ activeTuning.get('slug')+'/'+c.get('slug')+'" class="'+c.get('slug')+'" alt="'+c.get('name')+'"><em>'+c.get('name')+'</em> </a> ';
-  }*/
-  
+
+
   
   var keys = Music.keys.split(' ');//make an array... 
 
