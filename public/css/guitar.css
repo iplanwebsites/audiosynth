@@ -145,3 +145,71 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 
 #effects, #sine_graph_wrap{ display:none; }
 
+
+
+
+
+
+
+
+/* ////////////////////////////////
+//  NEck v2
+///////////////////////////////// */
+#neck{top: 700px; margin-top:500px; position:absolute;}
+
+#guitar_neck{ width: 500px; background:#333; color:#fff; padding:50px; position:absolute; }
+
+#guitar_neck canvas{ border: 1px solid #500; }
+.string{ float:left; border: 1px solid #f00; }
+
+.test{background:#f00; }
+
+
+em.pos{color:#0f0;}
+em.neg{color:#f00;}
+.key span.digit{margin-top:-35px; }
+
+.string{margin-top:40px; }
+.string .icon{ font-size:22px; text-align:center; margin-top:-30px; }
+
+.string .dot{
+  opacity:1;
+  margin-top:45px; color:#fff; width:50px; height:50px; 
+  font-size:25px; text-align:center; background:#000; 
+  border-radius:50px; margin:auto;
+  margin-top:10px;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  cursor:pointer;
+}
+.string.x .dot{opacity: 0;}
+.string.open .dot{opacity: 0;}
+.string .dot.invisible{opacity: 0; }
+.string.x{ background:#f00;}
+.string.open{  background:#55f; }
+.string .dot.f1{margin-top:100px;}
+.string .dot.f2{margin-top:200px;}
+.string .dot.f3{margin-top:300px;}
+.string .dot.f4{margin-top:400px;}
+.string .dot.f5{margin-top:500px;}
+.string .dot.f6{margin-top:600px;}
+.string .dot.f7{margin-top:700px;}
+.string .dot.f8{margin-top:800px;}
+.string .dot.f9{margin-top:900px;}
+.string .dot.f10{margin-top:1000px;}
+.string .dot.f11{margin-top:1100px;}
+.string .dot.f12{margin-top:1200px;}
+.string .dot.f13{margin-top:1300px;}
+
+
+
+
+
+
+
+
+
+
+

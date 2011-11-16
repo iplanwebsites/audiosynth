@@ -338,7 +338,6 @@ var Tuning = Backbone.Model.extend({
      //console.log(note);
      // return _.find(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
       return _.filter(Music.chords.models, function(models){ return models['attributes']['note'] == note; }) //digg deep directly in the model collection and comapre...
-   
     },
     find_by_note_slug: function(note_slug) {
        //console.log(note);
@@ -437,6 +436,15 @@ var Tuning = Backbone.Model.extend({
   				}
       },
     chord: function(slug, chord, hover ) {
+      
+      
+      // NEW OPTION
+      Music.neck.change_chord( chord );
+      
+      
+      // OLD ROUTE
+      
+      
         this.tuning(slug, 1); //set the tuning first..., 1 stands for "internal"
         //var  c = Music.chords.find_by_slug(chord);
         var  all_c_models = Music.chords.find_by_note_slug(chord);
@@ -483,13 +491,8 @@ var Tuning = Backbone.Model.extend({
    			 var tuning = activeTuning.get('note_rel');
    			 var new_note = Math.round(a_pos[i]) + Math.round(tuning[i]);
    			 //console.logog(Math.round(a_pos[i]) + " + "+ Math.round(tuning[i]) +" = "+new_note);
-   			 if(_.isNaN(new_note)){
-   			     letter = "-";
-   			   }else{
-   			      var key_letters = Music.keys.split(' '); //Music.keys = "Ab A B C Db D Eb E F Gb G";
-   			     
-        			var letter = key_letters[(new_note +36) % 12];
-   			   }
+   			 
+   			  letter = get_note_name_by_num(new_note);
    			 $('.key.c'+(49+i) +' b').text(letter);
    			 
    			 //hide dots, when playing open...
@@ -707,5 +710,15 @@ $('#more_chords').click(function(){
 });
 }
 
-
+function get_note_name_by_num(new_note){
+ if(_.isNaN(new_note)){
+     letter = "-";
+   }else{
+      var key_letters = Music.keys.split(' '); //Music.keys = "Ab A B C Db D Eb E F Gb G";
+     
+			var letter = key_letters[(new_note +36) % 12];
+   }
+  return letter
+  }
+  
 
