@@ -439,8 +439,8 @@ var Tuning = Backbone.Model.extend({
       
       
       // NEW OPTION
+     // Music.neck.set( { chord_name_slug : chord } );
       Music.neck.change_chord( chord );
-      
       
       // OLD ROUTE
       
