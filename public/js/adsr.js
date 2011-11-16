@@ -31,7 +31,7 @@ $('.adsr_on').change(function(){
 
 
 function createAdsrSlider(id_s){
-	console.log(id_s);
+//console.log(id_s);
 	var elem = document.getElementById(id_s)
 
 	

@@ -240,6 +240,7 @@ var Tuning = Backbone.Model.extend({
   initialize: function() { 
     var name = this.get('name');
     this.set({ slug : slugify(name)});
+    this.calculateTuning();// we set the note_rel here instead...
    },
 
   select: function() {
@@ -296,7 +297,8 @@ var Tuning = Backbone.Model.extend({
     defaults: {
         name: 'Open',
         fret : [0,0,0,0,0,0],
-        note: 'A'
+        note: 'A',
+        priority: 0
     },
     initialize: function() { 
       var fret = this.get('fret');
@@ -313,8 +315,8 @@ var Tuning = Backbone.Model.extend({
                 if (v == "x") v=0;
                 if (!isNaN(v)) total += v; 
               }
-      if(priority != undefined) total -= priority; //ponder the manual tweacks in the JSON...
-      console.log('total = '+priority);
+      total -= priority; //ponder the manual tweacks in the JSON...
+      // console.log('total = '+priority);
       this.set({ complexity : total});   
      },
 
@@ -458,7 +460,7 @@ var Tuning = Backbone.Model.extend({
     show_next_variation: function(chord) {
       var  all_c_models = Music.chords.find_by_note_slug(chord);
       var c = all_c_models[ ++Music.fretVariationCount % all_c_models.length];
-      console.log(Music.fretVariationCount + ' / '+all_c_models.length);
+      //console.logog(Music.fretVariationCount + ' / '+all_c_models.length);
       //Find the key with the note_slug class, set its step according to this modulo. !!! TODO !!
       Music.active_chord = c;
       Music.app_router.draw_chord(c);
@@ -480,7 +482,7 @@ var Tuning = Backbone.Model.extend({
 			   // replace letters on the board with offseted ones
    			 var tuning = activeTuning.get('note_rel');
    			 var new_note = Math.round(a_pos[i]) + Math.round(tuning[i]);
-   			 console.log(Math.round(a_pos[i]) + " + "+ Math.round(tuning[i]) +" = "+new_note);
+   			 //console.logog(Math.round(a_pos[i]) + " + "+ Math.round(tuning[i]) +" = "+new_note);
    			 if(_.isNaN(new_note)){
    			     letter = "-";
    			   }else{
@@ -536,6 +538,8 @@ Music.chords.comparator = function(c) {
   return c.get("complexity");
 };
 
+
+
 wire_view_all_button();
 
 //alert("d");
@@ -562,9 +566,15 @@ $.getJSON('data/guitar_tunings.json', function(data) {
     //alert(data)
     Music.chords.add(data2);
     Music.chords.sort(); //ordered by complexity
+    
+    
+     Music.neck = new Neck; //backbone model creation!
+     
+     
      callback(); //starts backbone...
     buildChordNav();
      // alert(Music.chords.length);
+     
     
   });
   

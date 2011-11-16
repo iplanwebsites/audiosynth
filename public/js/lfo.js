@@ -71,7 +71,7 @@ function lfoChange(){
 	}else{
 		lfo.a.pause(); //just in case it isn'T stopped already...
 	}
-	console.log(lfo.freq_rel);
+	//console.log(lfo.freq_rel);
 }
 
 function lfoPlay(){
@@ -197,8 +197,8 @@ function calculateDuration(){
 	
 	$('.actual_note_duration').text(smartRound(duration));
 	$('.actual_tempo').text(tempo);
-	console.log('duration='+duration);
-	console.log('pow='+pow);
+	//console.log('duration='+duration);
+	//console.log('pow='+pow);
 }
 
 
