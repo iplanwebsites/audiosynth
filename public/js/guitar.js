@@ -99,7 +99,7 @@ function update() {
 }*/
 
 auto_refresh = "";
-vib_duration = 5; //sec !!
+vib_duration = 0; //sec !!
 vib_fps = 30;
 //drawNeck(6, 'guitar', 0, 2);
 

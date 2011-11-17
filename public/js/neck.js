@@ -109,16 +109,39 @@ Neck = Backbone.Model.extend({ // <<< Singleton
     change_position: function(pos) {
       alert('selected chord: ' + this.get('name'));
     },
-    
 
     wire_elements: function() {
        $('#guitar_neck .string').bind('click touch', function(){
          var num = $(this).attr('data-id');
-        
          var s = Music.strings.find_by_num(num);
          console.log(s);
           s.play();
-       })
+       });
+       $("#guitar_neck .string").mousemove(function(e) {
+         var num = $(this).attr('data-id');
+         var s = Music.strings.find_by_num(num);
+         var e_can = $('canvas', this)[0];
+         var pos= $(e_can).offset();
+         
+         var x= e.pageX - pos.left;
+         var y= e.pageY - pos.top;
+         s.draw_string('bent', {x:x, y:y}, 0);
+                   /*if(draw==true){
+                           ctx.lineWidth = 15;
+                           ctx.lineCap = "round";
+                           ctx.beginPath();
+                           ctx.moveTo(e.pageX,e.pageY);
+                           ctx.lineTo(e.pageX+1,e.pageY+1);
+                           ctx.stroke();
+                   }  */  
+        });
+        $("#guitar_neck .string").mouseleave  (function(e) { 
+          var num = $(this).attr('data-id');
+           var s = Music.strings.find_by_num(num);
+           s.draw_string('straight', 0, 0);
+           
+           // TODO : start the sound + waving animation!
+        });
       }
 
    });
