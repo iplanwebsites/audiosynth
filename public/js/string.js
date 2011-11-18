@@ -15,7 +15,8 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          tuning_diff: 0,
          num: 0,
          audio: {},
-         first_last: 0 // 'first' or 'last'
+         first_last: 0, // 'first' or 'last'
+         vib_count: 0
      },
      initialize: function() {
        var id_s = this.get('num') ;
@@ -130,7 +131,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          	}*/
          	
          	context.beginPath();
-         	var y = f*100 + 30+50;
+         	var y = f*60 ;
          	if(this.get('first_last') == 'first'){
        	    context.moveTo(w/2, y);  //if it's the first string, only draw half of the fret...
        	  }else{
@@ -176,6 +177,9 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        	  }else if(mode == 'straight'){
        	    context.lineTo(posX, h); // straight line...
        	  }else if(mode == 'bent'){
+       	      if(point.x <0)point.x=0;
+       	      if(point.y <0)point.y=0;
+       	      if(point.x > w)point.x= w;
        	      context.lineTo(point.x, point.y); //bent point
        	      var x_pos_f = (point.x + posX) / 2; //we make an average between the bent point, and the middle, so the sting doesn't look attached to the bottom fret...
          	    context.lineTo(x_pos_f, h); // straight line...
@@ -190,6 +194,48 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
 
       // }
 
+     },
+     start_animation: function() { 
+       // console.log('start anim');
+      // var timer = setInterval(function(this) {
+        this.count =0;
+        if(this.timer != 0  )clearInterval(this.timer); //delete in case it already exists...
+        this.timer = setInterval( (function(self){
+        	return function(){
+        	  self.set({vib_count: 0});
+        	  self.repeat_animation();
+       	}
+     	})(this), 1000/30 ); //30 fps
+       //this.set({timer: timer}); //save the interval object...
+     },
+     stop_animation: function() { 
+       console.log('STOP anim');
+       // only execute if currently animating...
+       //  timer = this.get('timer');
+         clearInterval(this.timer); //TODO: not sure it'S cleared correctly... NOTT!!
+         this.timer =0;
+        // this.set({vib_count: 0, timer: 0});
+      },
+     repeat_animation: function() { 
+       console.log('Rpeat anim');
+       // var t = this.get('timer_count');
+       //check wherther or not the ratio is over
+       //var vib_duration = 5;
+      // var count = this.get('vib_count');
+       var count = this.count ++;
+      // this.count = this.count + 1; 
+      // count++
+       
+       var vib_fps = 30;
+       var ratio = (count / vib_fps) / vib_duration; // current / total-time
+       console.log('r= '+ratio + ', c='+count);
+      if (ratio > 1) { 
+        this.stop_animation();
+      }else{
+       this.set({vib_count: count +1 });
+       this.draw_string('wave', 0, ratio);
+      }
+       
      },
      refresh_view: function(pos) {  //the jquery stuff...
       // console.log( this.get('num') );

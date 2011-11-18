@@ -159,8 +159,8 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 
 #guitar_neck{ width: 500px; background:#333; color:#fff; padding:50px; position:absolute; }
 
-#guitar_neck canvas{ border: 1px solid #500; }
-.string{ float:left; border: 1px solid #f00; }
+#guitar_neck canvas{  }
+.string{ float:left;  }
 
 .test{background:#f00; }
 

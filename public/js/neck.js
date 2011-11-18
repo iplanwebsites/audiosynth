@@ -111,34 +111,34 @@ Neck = Backbone.Model.extend({ // <<< Singleton
     },
 
     wire_elements: function() {
-       $('#guitar_neck .string').bind('click touch', function(){
-         var num = $(this).attr('data-id');
+       $('#guitar_neck .string canvas').bind('click touch', function(){
+         var num = $(this).parent().attr('data-id');
          var s = Music.strings.find_by_num(num);
          console.log(s);
           s.play();
        });
-       $("#guitar_neck .string").mousemove(function(e) {
-         var num = $(this).attr('data-id');
+       $("#guitar_neck .string canvas").mousemove(function(e) {
+         var num = $(this).parent().attr('data-id');
          var s = Music.strings.find_by_num(num);
-         var e_can = $('canvas', this)[0];
+        // var state = s.get('state');
+         
+         //s.stop_animation(); //if it were playing already, TODO: stop sound too!
+         //var e_can = $('canvas', this)[0];
+         var e_can = $(this);
          var pos= $(e_can).offset();
          
          var x= e.pageX - pos.left;
          var y= e.pageY - pos.top;
          s.draw_string('bent', {x:x, y:y}, 0);
-                   /*if(draw==true){
-                           ctx.lineWidth = 15;
-                           ctx.lineCap = "round";
-                           ctx.beginPath();
-                           ctx.moveTo(e.pageX,e.pageY);
-                           ctx.lineTo(e.pageX+1,e.pageY+1);
-                           ctx.stroke();
-                   }  */  
+         
         });
-        $("#guitar_neck .string").mouseleave  (function(e) { 
-          var num = $(this).attr('data-id');
+        $("#guitar_neck .string canvas").mouseleave  (function(e) {  //can't rely on mouseleave since mousemove is called too!
+          var num = $(this).parent().attr('data-id');
            var s = Music.strings.find_by_num(num);
-           s.draw_string('straight', 0, 0);
+           // s.draw_string('straight', 0, 0);
+          // s.stop_animation(); //restart?
+           s.start_animation();
+           
            
            // TODO : start the sound + waving animation!
         });

@@ -99,7 +99,7 @@ function update() {
 }*/
 
 auto_refresh = "";
-vib_duration = 0; //sec !!
+vib_duration = 1; //sec !!
 vib_fps = 30;
 //drawNeck(6, 'guitar', 0, 2);
 
@@ -137,7 +137,7 @@ tuning = getTuning(tuning_str); // returns an array...
 
 //console.log('!!! '+ getDiff(tuning));
 
-function activateCorde(key){
+function activateCorde(key){ // !!!! TODO: 
   console.log(key +' + + + +');
   
   
