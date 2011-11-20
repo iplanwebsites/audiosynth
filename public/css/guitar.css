@@ -169,12 +169,36 @@ em.pos{color:#0f0;}
 em.neg{color:#f00;}
 .key span.digit{margin-top:-35px; }
 
-.string{margin-top:40px; }
+.string canvas{position:absolute; top:0px; z-index:0;}
+
+.string{
+  margin-top:40px; 
+  position: relative; 
+  width:75px; 
+  /*border:#f00 solid 1px;*/
+  
+  height:400px;  
+  text-align:center;
+}
 .string .icon{ font-size:22px; text-align:center; margin-top:-30px; }
 
+.string .note{
+  position:absolute;
+  bottom:0; 
+  display:block;
+  margin:auto;
+  text-align:center;
+  z-index:10;
+  opacity:1;
+  width:100%;
+  
+  }
 .string .dot{
   opacity:1;
-  margin-top:45px; color:#fff; width:50px; height:50px; 
+  z-index:10;
+  position:relative;
+  margin-top:45px; 
+  color:#fff; width:50px; height:50px; 
   font-size:25px; text-align:center; background:#000; 
   border-radius:50px; margin:auto;
   margin-top:10px;
@@ -184,6 +208,17 @@ em.neg{color:#f00;}
   transition: all 0.1s ease-in-out;
   cursor:pointer;
 }
+.string .pattern{ 
+  display:none;
+}
+.string.x .pattern{
+  display:block;
+  position:absolute;
+  height:300px; top:-40px;
+  margin-top:-45px;
+   background:url('../img/thick_diago.png'); position:relative;
+ z-index:10;
+ }
 .string.x .dot{opacity: 0;}
 .string.open .dot{opacity: 0;}
 .string .dot.invisible{opacity: 0; }
