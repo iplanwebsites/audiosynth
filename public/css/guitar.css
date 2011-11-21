@@ -20,12 +20,11 @@ p, span, h1, h2, h3, h4, h5, h6{cursor:default;}
 
 
 #scale_selector{
-  top:72px; 
+  
   left:0px;
-  margin-top:65px; /* header h*/
+  padding-top:85px;
    height:42px; 
-   width:100%;
-    padding:0; 
+   width:700px;
   overflow:hidden; 
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
@@ -114,7 +113,7 @@ p, span, h1, h2, h3, h4, h5, h6{cursor:default;}
 //  Chords Nav
 ///////////////////////////////// */
 
-#chords_wrap{float:right;   top:150px;  }
+#chords_wrap{ top:150px;  clear:both; }
 #chords_wrap h1{ text-align:center; margin-bottom:20px; padding-bottom:10px; margin-top:40px; font-size:16px; border-bottom:dashed 1px #aaa;}
 
 #chords h1{display:none; }
@@ -148,7 +147,11 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 #chords_wrap .col a.extra, #chords_wrap .extra{display:none;}
 #chords_wrap.view_all .col a.extra, #chords_wrap.view_all .extra{display:block;}
 
-#more_chords{  background:#777; color:#fff; width: 300px; padding:20px; float:right; cursor:pointer; margin-top:10px; border-radius:4px;}
+#more_chords{  background:#777; color:#fff; width: 300px; padding:20px; 
+  clear:both;
+  float:left; 
+  cursor:pointer; margin-top:10px; border-radius:4px;
+}
 #more_chords:hover{background:#000; }
 
 
@@ -164,9 +167,20 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 /* ////////////////////////////////
 //  NEck v2
 ///////////////////////////////// */
-#neck{top: 700px; margin-top:500px; position:absolute;}
+#neck{top: 700px; margin-top:500px; position:absolute; }
 
-#guitar_neck{ width: 600px; background:#333; color:#fff; padding:50px; position:absolute; text-align:left;}
+#guitar_neck{ 
+  position:absolute; 
+  left:820px;
+  top:0px;
+  width: 600px; 
+  background:#333; 
+  color:#fff; 
+  padding:5px; 
+  
+  text-align:left;
+  
+  }
 
 #guitar_neck .title{font-family: georgia; width:450px; text-align:center;}
 
@@ -300,4 +314,7 @@ em.neg{color:#f00;}
   font-size:12px; border-bottom: 1px dashed #ccc; }
 
 
+#neck{display:none;}
 
+body{background:#333; }
+header{background:none; box-shadow:none; color: #fff; border:none;}
