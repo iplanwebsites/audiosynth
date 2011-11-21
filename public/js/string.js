@@ -10,11 +10,13 @@
 
 InstrumentString = Backbone.Model.extend({ // <<< Singleton
     defaults: {
-         tuning_note_name: 'C',
+         tuning_note_name: 'A',
          tuning_note: 0,
          tuning_diff: 0,
-         num: 0,
-         audio: {},
+         note: 0,
+         note_name: 'A',
+         num: 0, //it's id
+         audio: {}, //sound object.
          first_last: 0, // 'first' or 'last'
          vib_count: 0
      },
@@ -24,7 +26,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        this.set({e: e});
      },
      change: function(new_fret_pos) { //call when we change chords on the neck...
-       console.log('change...')
+       // console.log('change...')
           // redraw the chord
          // this.set({'fret' : new_fret_pos} );
           // calculate the diff and the note name now, set it as well.
@@ -42,7 +44,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
             var actualNote = baseNote + parseInt(fret);
           }
           //var nam
-          console.log(actualNote);
+          console.log('Change String! '+actualNote);
           
           this.set({
             note : actualNote, 
@@ -51,6 +53,8 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
           this.refresh_view();
           this.draw_string('straight', 0, 0);
           
+         // 
+          
           // update the name as well...
          // var key_letters = Music.keys.split(' '); //Music.keys = "Ab A B C Db D Eb E F Gb G";
     		//	var letter = key_letters[(new_note +36) % 12];
@@ -58,16 +62,31 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          // var new_audio = buildsound(); //... 
          // this.set({ audio: new_audio })
           //update interface according to model data.
-      },
+      }, //eo change chord
       
       play: function() { //cald from click..
            // redraw canvas according to new values + time...
-           console.log('play:'+this.get('num'));
+          // console.log('play:'+this.get('num'));
            this.refresh_view();
        },
      start_sound: function() {
          var a = this.get('audio');
-         a.play();
+         //a.play();
+         this.build_sound(); //there's a loop happening...
+     },
+     build_sound: function(){
+       //if(activeTuning == undefined) {activeTuning=Music.tunings.at(0);}
+         //var rel = activeTuning.get('note_rel');
+        // console.log("rel = "+rel);
+        // note = rel[ key-1 ]; // return a semi-tone value difference from 440 A.
+         // note = -2;
+         var note = this.get('note');
+         adsr.active = true; //basic envelope
+         calculateADSR();
+         a = buildSound(note, 'sine', adsr.master, 1.5, adsr, false);
+         
+        // this.set({audio: a});
+         //a.play();
      },
      stop_sound: function() {
         var a = this.get('audio');
@@ -75,9 +94,6 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
      },
      redraw: function() {
          // redraw canvas according to new values + time...
-     },
-     start_sound: function() {
-         alert('selected : ' + this.get('name'));
      },
      draw_string: function( mode, point, timeRatio) {
        // mode: 'straight, wave, bent'
@@ -94,6 +110,9 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        var e_can = $('canvas', this.get('e'))[0];
        var context = $(e_can)[0].getContext('2d');
        	var topOffset = 10;
+       	var fretHeight = 75; //px
+       	var fret = this.get('fret');
+       	var fret = this.get('fret');
        	var w = $(e_can).width();
        	var h = $(e_can).height();
 
@@ -131,7 +150,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          	}*/
          	
          	context.beginPath();
-         	var y = f*60 ;
+         	var y = f * fretHeight ;
          	if(this.get('first_last') == 'first'){
        	    context.moveTo(w/2, y);  //if it's the first string, only draw half of the fret...
        	  }else{
@@ -151,7 +170,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        	 // thickness = ((maxDiam-minDiam) * ((nbCorde-c) / nbCorde)) + minDiam;
           thickness = 3; //TODO
          var thickness = 1.4 * (6-this.get('num')) +2; //TODO
-       	  context.strokeStyle = '#4cc'; 
+       	  context.strokeStyle = '#fff'; 
          	context.fillStyle = '#cee'; 
          	context.lineWidth   = thickness;
          	context.beginPath();
@@ -161,22 +180,32 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          	context.moveTo(posX, 0); // initial positions, lower left
 
        	  if(mode == 'wave'){
-       	    context.strokeStyle = '#499'; 
+       	    context.strokeStyle = '#4cc'; // blue active color
        	    if (Math.random() > 0.5){ var revert = 1 }else{var revert = -1}
-       	    for (var i=0; i<h; i++) { //we find vibrating x pos for 900px high...
-           	//	pos = Math.round( i / w * s.length);
-           	//	val = (s[pos]/255) *h;
-           	freq = thickness /1.5;
-           	amplitude = 1 * (thickness/3)+3;
-           	amplitude = amplitude * Math.sqrt( Math.pow(i/h , 2));
-
-           	vib  = posX + ( amplitude *  Math.sin(i/freq* (1-timeRatio)) *revert );
-           	vib += (vibDirection * amplitude) * (1-timeRatio)*3; //this move the corde fomr left to right, simulating bending...
-           		context.lineTo(vib, i); //attack peak 
-           	}
+       	    for (var i=0; i<h; i+=10) { //we find vibrating x pos for 900px high...
+       	      if ( i < fret * fretHeight){
+       	        //draw staight before the active fret...
+       	        context.lineTo(posX, i);
+       	      }else{
+       	        
+       	      
+       	      
+           	    freq = thickness /1.5;
+           	    amplitude = 1 * (thickness/3)+3;
+           	   // amplitude = amplitude * Math.sqrt( Math.pow(i/h , 2)); // TODO: account fret pos...
+           	    var dist_fret = (fret*fretHeight); //
+           	    var active_range = h - dist_fret;
+           	    amplitude = amplitude * Math.sqrt( Math.pow( (i - dist_fret) /(  active_range) , 2)); 
+               // console.log((i - dist_fret) +' / ' + (  active_range));
+           	    vib  = posX + ( amplitude *  Math.sin(i/freq* (1-timeRatio)) *revert );
+           	    vib += (vibDirection * amplitude) * (1-timeRatio)*3; //this move the corde fomr left to right, simulating bending...
+           		  context.lineTo(vib, i); //attack peak 
+              }//end if
+           	}//end loop
        	  }else if(mode == 'straight'){
        	    context.lineTo(posX, h); // straight line...
        	  }else if(mode == 'bent'){
+       	    context.strokeStyle = '#4cc'; // blue active color
        	      if(point.x <0)point.x=0;
        	      if(point.y <0)point.y=0;
        	      if(point.x > w)point.x= w;
@@ -209,7 +238,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        //this.set({timer: timer}); //save the interval object...
      },
      stop_animation: function() { 
-       console.log('STOP anim');
+       //console.log('STOP anim');
        // only execute if currently animating...
        //  timer = this.get('timer');
          clearInterval(this.timer); //TODO: not sure it'S cleared correctly... NOTT!!
@@ -217,7 +246,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
         // this.set({vib_count: 0, timer: 0});
       },
      repeat_animation: function() { 
-       console.log('Rpeat anim');
+       //console.log('Rpeat anim');
        // var t = this.get('timer_count');
        //check wherther or not the ratio is over
        //var vib_duration = 5;
@@ -228,7 +257,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        
        var vib_fps = 30;
        var ratio = (count / vib_fps) / vib_duration; // current / total-time
-       console.log('r= '+ratio + ', c='+count);
+       //console.log('r= '+ratio + ', c='+count);
       if (ratio > 1) { 
         this.stop_animation();
       }else{

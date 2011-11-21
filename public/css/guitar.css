@@ -157,12 +157,19 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 ///////////////////////////////// */
 #neck{top: 700px; margin-top:500px; position:absolute;}
 
-#guitar_neck{ width: 500px; background:#333; color:#fff; padding:50px; position:absolute; }
+#guitar_neck{ width: 600px; background:#333; color:#fff; padding:50px; position:absolute; text-align:left;}
+
+#guitar_neck .title{font-family: georgia; width:450px; text-align:center;}
+
+#guitar_neck .title h1{font-family: georgia; font-size: 55px; font-weight:normal; }
+#guitar_neck .title h1 em{font-size:0.7em; margin-left:0.2em; }
+span.flat{font-size:0.7em; line-height:1.2em; margin-left:-0.3em; }
+#guitar_neck .title h3{font-family: georgia; font-size: 14px;font-weight:normal; letter-spacing:1px;  padding-bottom:20px;}
 
 #guitar_neck canvas{  }
 .string{ float:left;  }
 
-.test{background:#f00; }
+.test{ background:#f00; }
 
 
 em.pos{color:#0f0;}
@@ -176,12 +183,16 @@ em.neg{color:#f00;}
   position: relative; 
   width:75px; 
   /*border:#f00 solid 1px;*/
-  
   height:400px;  
   text-align:center;
 }
-.string .icon{ font-size:22px; text-align:center; margin-top:-30px; }
-
+.string .icon{ 
+  font-size:15px; text-align:center; margin-top:-30px; 
+  height:42px; /* ! to position the dots!*/
+  }
+   .string.x .icon { font-size:22px; line-height:24px; margin-top:-30px; }
+  .string.open .icon{ font-size:40px; line-height:10px; margin-top:-30px; }
+  
 .string .note{
   position:absolute;
   bottom:0; 
@@ -198,37 +209,49 @@ em.neg{color:#f00;}
   z-index:10;
   position:relative;
   margin-top:45px; 
-  color:#fff; width:50px; height:50px; 
-  font-size:25px; text-align:center; background:#000; 
+  width:50px; height:50px; 
+  color:#000; 
+  background:#fff; 
+  font-weight:bold;
+  font-size:39px; text-align:center; 
   border-radius:50px; margin:auto;
   margin-top:10px;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
+    box-shadow: 0px 0px 10px #333;
   cursor:pointer;
 }
 .string .pattern{ 
   display:none;
 }
+.string.x{ }
 .string.x .pattern{
   display:block;
   position:absolute;
-  height:300px; top:-40px;
+  height:300px; 
+  top:-10px;
+  height:100%;
   margin-top:-45px;
-   background:url('../img/thick_diago.png'); position:relative;
+   background:url('../img/thick_diago_fade2.png'); 
+   position:relative;
  z-index:10;
  }
+
 .string.x .dot{opacity: 0;}
+.string.x .note{opacity: 0;}
 .string.open .dot{opacity: 0;}
 .string .dot.invisible{opacity: 0; }
-.string.x{ background:#f00;}
-.string.open{  background:#55f; }
-.string .dot.f1{margin-top:100px;}
-.string .dot.f2{margin-top:200px;}
-.string .dot.f3{margin-top:300px;}
-.string .dot.f4{margin-top:400px;}
-.string .dot.f5{margin-top:500px;}
+
+
+
+.string.open{  background:#330; }
+.string .dot.f1{margin-top:5px;} /* 70 - 10*/
+.string .dot.f2{margin-top:75px;}
+.string .dot.f3{margin-top:150px;}
+.string .dot.f4{margin-top:225px;}
+.string .dot.f5{margin-top:330px;}
 .string .dot.f6{margin-top:600px;}
 .string .dot.f7{margin-top:700px;}
 .string .dot.f8{margin-top:800px;}
@@ -239,11 +262,32 @@ em.neg{color:#f00;}
 .string .dot.f13{margin-top:1300px;}
 
 
+/*
+  ALT Pos
+*/
 
-
-
-
-
+#alt_positions{ 
+  background:#000; 
+  width:100px;
+  height:300px;
+  float:right;
+  clear:both;
+}
+#alt_positions a{ 
+  color:#fff; text-decoration:none; 
+  display:block; 
+  height:90px; background:#333;  
+  width:75px; margin:auto;
+  margin-bottom:5px;
+  text-align:center;
+  font-size:11px;
+  letter-spacing:1px;
+  }
+#alt_positions a:hover{ background:#f00; }
+#alt_positions h2{ text-align: center; font-weight:normal; 
+  padding-bottom:3px; 
+  margin-bottom:16px;
+  font-size:12px; border-bottom: 1px dashed #ccc; }
 
 
 

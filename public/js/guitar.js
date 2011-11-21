@@ -165,6 +165,8 @@ function activateCorde(key){ // !!!! TODO:
     
     //play the sound
    // note = tuning.note_rel[ key-1 ]; // return a semi-tone value difference from 440 A.
+   
+   
    if(activeTuning == undefined) {activeTuning=Music.tunings.at(0);}
     var rel = activeTuning.get('note_rel');
     console.log("rel = "+rel);
@@ -172,8 +174,10 @@ function activateCorde(key){ // !!!! TODO:
     // note = -2;
     adsr.active = true; //basic envelope
     calculateADSR();
-    a = buildSound(note, 'shape', adsr.master, vib_duration, adsr, false);
-    a.play();
+    //a = buildSound(note, 'shape', adsr.master, vib_duration, adsr, false);
+   // a.play();
+    
+    
 }
 
 $(document).ready(function(){
@@ -296,6 +300,7 @@ var Tuning = Backbone.Model.extend({
   var Chord = Backbone.Model.extend({
     defaults: {
         name: 'Open',
+        note_html: 'open', 
         fret : [0,0,0,0,0,0],
         note: 'A',
         priority: 0
@@ -304,7 +309,38 @@ var Tuning = Backbone.Model.extend({
       var fret = this.get('fret');
       var the_note = this.get('note');
       var priority = this.get('priority');
-      this.set({ slug : slugify(fret),  note_slug : slugify(the_note) });
+       var note = this.get('note');
+      // html_note name
+      var note_html = "";
+      
+      
+      // TODO: convert to regex
+     var flat = '<span class="flat">'+"♭"+'</span>';
+     var sup = "";
+      if(note.charAt(1) == "b"){
+        var key = note.charAt(0) + flat;
+        var type = note.substr(2);
+      }else{
+        var key = note.charAt(0);
+        var type = note.substr(1);
+      }
+      if(! isNaN(Math.floor(note.charAt(note.length-1)))){ //if last char is a number... wrap it in a sup tag
+        sup = '<sup>' + type.substr(type.length-1) + '</sup>';
+        type = type.substr(0, type.length-1); //remove the last char...
+      }
+      note_html += "<span class='chord_key'>" + key + '</span>';
+      note_html += '<em>'+ type + sup+'</em>';
+        // Format the title in span tags...
+        // First letter in a Span, two letters if it's 'b' folowing...
+        //replace B with bemol symbol...♭
+
+        //wrap the rest in an EM tag (italics)
+        //if the last number is a digit (3, 5, 7, 9 etc), wrap it in a <sup> tag.
+
+        // REGEX: ([A-G](#|b)*([a-z]|[0-9])*)(/[A-G](#|b)*([a-z]|[0-9])*)*
+
+      
+      this.set({ slug : slugify(fret),  note_slug : slugify(the_note), note_html: note_html });
       
       //this.set({ note_slug : slugify(the_note)});
       
@@ -364,6 +400,7 @@ var Tuning = Backbone.Model.extend({
   				"":                 				"home", 
           ":slug":        		      	"tuning", 
           ":slug/:chord":  	        	"chord", 
+          ":slug/:chord/:alt":  	  	"chord_variation", 
           "add":        							"add", 
           "tuning/:slug/:search": 		"search",
   				"browse/*path": 						"browse"
@@ -465,6 +502,11 @@ var Tuning = Backbone.Model.extend({
    /* chord_show: function(slug, chord, hover ) {
       Music.app_router.chord(slug, chord, hover );
     },*/
+    chord_variation: function(slug, chord, alt) {
+      Music.neck.set({ active_chord_shape_id: alt });
+       Music.neck.change_chord( chord );
+      
+    },
     show_next_variation: function(chord) {
       var  all_c_models = Music.chords.find_by_note_slug(chord);
       var c = all_c_models[ ++Music.fretVariationCount % all_c_models.length];
