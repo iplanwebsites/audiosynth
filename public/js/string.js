@@ -18,7 +18,8 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          num: 0, //it's id
          audio: {}, //sound object.
          first_last: 0, // 'first' or 'last'
-         vib_count: 0
+         vib_count: 0,
+         duration: 3 //sec
      },
      initialize: function() {
        var id_s = this.get('num') ;
@@ -94,9 +95,10 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
         // note = rel[ key-1 ]; // return a semi-tone value difference from 440 A.
          // note = -2;
          var note = this.get('note');
+         var dur = this.get('duration');
          adsr.active = true; //basic envelope
          calculateADSR();
-         a = buildSound(note, 'sine', adsr.master, 1.5, adsr, false);
+         a = buildSound(note, 'sine', adsr.master, dur, adsr, false);
          console.log("build_sound = "+a);
         this.set({audio: a});
         // a.play();
@@ -146,14 +148,14 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
         //////////////////////////////////
        	var dot_frets = [3,5,7,9,12,15,17,19,21];
        	for (var f=0; f<12; f++) {
-       	  context.strokeStyle = '#ccc'; 
+       	  context.strokeStyle = '#555'; 
        	  context.lineWidth   = 2;
        	  if(f == 0){
-       	    context.strokeStyle = '#555'; 
+       	    context.strokeStyle = '#999'; 
          	  context.lineWidth   = 20;//first bar is thick!
          	}
-         	
-         /*	if(_.include(dot_frets, f)){ //if it's a dotted fret...
+         	/*
+         	if(_.include(dot_frets, f)){ //if it's a dotted fret...
          	  context.beginPath();
          	  context.strokeStyle = '#ccc'; 
          	  context.fillStyle = '#ccc'; 
@@ -240,6 +242,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
      start_animation: function() { 
        // console.log('start anim');
       // var timer = setInterval(function(this) {
+        var dur  = this.get('duration');
         this.count =0;
         if(this.timer != 0  )clearInterval(this.timer); //delete in case it already exists...
         this.timer = setInterval( (function(self){
@@ -267,7 +270,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        var count = this.count ++;
       // this.count = this.count + 1; 
       // count++
-       
+       var vib_duration = this.get('duration');
        var vib_fps = 30;
        var ratio = (count / vib_fps) / vib_duration; // current / total-time
        //console.log('r= '+ratio + ', c='+count);
