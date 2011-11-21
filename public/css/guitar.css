@@ -1,4 +1,13 @@
 
+body, #app, #neck, p{
+  webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+p, span, h1, h2, h3, h4, h5, h6{cursor:default;}
+
 
 #app{clear:both; padding:0px; font-family:arial, sans, helvetica; }
 
@@ -282,13 +291,13 @@ em.neg{color:#f00;}
   text-align:center;
   font-size:11px;
   letter-spacing:1px;
-  }
+}
+
 #alt_positions a:hover{ background:#f00; }
 #alt_positions h2{ text-align: center; font-weight:normal; 
   padding-bottom:3px; 
   margin-bottom:16px;
   font-size:12px; border-bottom: 1px dashed #ccc; }
-
 
 
 

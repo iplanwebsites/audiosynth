@@ -477,6 +477,7 @@ var Tuning = Backbone.Model.extend({
       
       // NEW OPTION
      // Music.neck.set( { chord_name_slug : chord } );
+     Music.neck.set({ active_chord_shape_id: 0 }); //we want the MAIN chord position by default (index 0)
       Music.neck.change_chord( chord );
       
       // OLD ROUTE

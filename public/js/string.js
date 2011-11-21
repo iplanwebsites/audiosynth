@@ -47,8 +47,6 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
           //var nam
           console.log('Change String! '+actualNote);
           
-          this.build_sound();
-          
           
           this.set({
             note : actualNote, 
@@ -57,6 +55,8 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
           this.refresh_view();
           this.draw_string('straight', 0, 0);
           
+          
+          this.build_sound();
          // 
           
           // update the name as well...
@@ -98,8 +98,10 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
          var dur = this.get('duration');
          adsr.active = true; //basic envelope
          calculateADSR();
+         // note +=24;
+         if(note == 'x')note=0;
+         note = parseInt(note);
          a = buildSound(note, 'sine', adsr.master, dur, adsr, false);
-         console.log("build_sound = "+a);
         this.set({audio: a});
         // a.play();
      },
