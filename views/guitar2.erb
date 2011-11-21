@@ -1,0 +1,373 @@
+
+<html>
+<head>
+<title>HTML ORCHESTRA - guitar</title>
+</head>
+
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/keys.css">
+<link rel="stylesheet" href="css/fd-slider.css">
+<link rel="stylesheet" href="css/adsr.css">
+<link rel="stylesheet" href="css/radioland/stylesheet.css"><!-- fpont -->
+
+<link rel="stylesheet" href="css/guitar.css">
+
+<!-- 
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+-->
+<script type="text/javascript" src="js/libs/underscore.js"></script>
+<script type="text/javascript" src="js/libs/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.throttle.js"></script> <!-- Unused...-->
+
+<script type="text/javascript" src="js/libs/underscore.js"></script>
+<script type="text/javascript" src="js/libs/backbone.js"></script>
+<script type="text/javascript" src="js/libs/backbone.localStorage.js"></script>
+<script type="text/javascript" src="js/libs/prefixfree.min.js"></script> <!-- this script adds browser prefix to css -->
+
+
+<script src="js/fd-slider.js"></script>
+<script src="js/riffwave.js"></script>
+
+<script src="js/adsr.js"></script>
+<script src="js/lfo.js"></script>
+<script src="js/synth.js"></script>
+
+<script src="js/neck.js"></script>
+<script src="js/string.js"></script>
+<script src="js/guitar.js"></script>
+
+<!-- 
+<script src="js/note-calculator.js"></script>
+-->
+
+
+<body>
+  <img src="/img/mock.png" class="hide" alt="for facebook">
+<header>
+  
+ <div class="right">
+   Natural (440 is the standard)
+  <div class="scale_inputs">
+   <input type="number" name="tuning_freq" id="tuning_freq" min="0" max="520" value="440" />
+  </div>
+  
+ </div>
+ 
+ <h1> &lt; Guitar + <em>Tuna </em>/&gt; 
+   <sup>alpha</sup>
+ <span>// A simple guitar chordbook and tuner (by ear only, no microphone)</span>
+ </h1>
+ 
+</header>
+
+
+<div id="app" class="guitar">
+
+
+
+<div id="scale_selector">
+  <h1> ~ Tunings ~ </h1>
+    <a href="#" class="selected"><em>Regular</em> E A D G D E </a> 
+    <a href="#"><em>Drop D</em> D A D G D D </a> 
+    <a href="#"><em>Open G</em> G A D G D G </a> 
+    <a href="#"><em>Open C</em> G C D G C G </a> 
+    <a href="#"><em>Random</em> Surprise me! </a> 
+    <a href="#"><em>Custom</em> Create your own </a> 
+</div>
+
+
+
+<div id="chords_wrap">
+  <h1> ~ Chords ~ </h1>
+  
+  <div id="not_avail_msg">Sorry, this alpha version only supports the "regular" tuning chords.<br/><br/><br/><br/><br/><br/></div>
+  
+  <p class="instruction">
+    Clicking a chord repeatedly shows its alternate positions.<br>
+    
+    This is an alpha version, there's still a lot of bugs and known issues. <br>
+    More string instruments and tuning data will be added shortly.<br>
+    I'd love to hear your comment, so feel free to shoot me an email:<br> info [at] iplanwebsites (dot) com
+  </p>
+  
+<div id="chords">
+  Keywords here?
+
+</div><!-- eo #chords-->
+  <div id="more_chords">
+  View All Chords...
+  </div>
+</div>
+
+
+
+<div id="guitar_neck">
+  <div class="title">
+    <h1>Em 7</h1>
+    <h3>major triad, minor 7th</h3>
+  </div>
+  <div id="positions">
+    <div id="alt_positions">
+      <h2>shapes</h2>
+     <nav>
+      <a href="">dasdas</a>
+      <a href="">dasdas</a>
+     </nav>
+    </div>
+    <div id="main_position">
+      
+      <div class="string" data-id="1" id="string1">
+        <div class="icon">x</div>
+        <div class="dot">2</div>       
+        <div class="note">F</div>
+       <div class="pattern"></div>
+        <canvas width="75" height="400"></canvas>
+      </div>
+      
+      <div class="string" data-id="2" id="string2">
+        <div class="icon">x</div>
+        <div class="dot">2</div>       
+        <div class="note">F</div>
+       <div class="pattern"></div>
+        <canvas width="75" height="400"></canvas>
+      </div>
+      
+      <div class="string" data-id="3" id="string3" >
+        <div class="icon">x</div>
+        <div class="dot">2</div>       
+        <div class="note">F</div>
+       <div class="pattern"></div>
+        <canvas width="75" height="400"></canvas>
+      </div>
+      
+      <div class="string" data-id="4" id="string4">
+        <div class="icon">x</div>
+        <div class="dot">2</div>       
+        <div class="note">F</div>
+       <div class="pattern"></div>
+        <canvas width="75" height="400"></canvas>
+      </div>
+      
+      <div class="string" data-id="5" id="string5">
+        <div class="icon">x</div>
+        <div class="dot">2</div>       
+        <div class="note">F</div>
+       <div class="pattern"></div>
+        <canvas width="75" height="400"></canvas>
+      </div>
+      
+      <div class="string" data-id="6" id="string6">
+        <div class="icon">x</div>
+        <div class="dot">2</div>       
+        <div class="note">F</div>
+       <div class="pattern"></div>
+        <canvas width="75" height="400"></canvas>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div id="neck">
+  <div id="tuning_title">
+    <strong class="chord">Open</strong>
+    <em>tuning</em>
+    
+    
+    <span>composition</span>
+  </div>
+  <div id="keyboard">
+      	<ul id="numbers">
+  	    	<!-- <li><a href="#" class="key c192"><b>~</b><span>`</span></a></li>-->
+  	    	<li><a href="#" class="key c49 num"><b>!</b><em>!</em><span class="digit">1</span><span class="chord_pos">x</span></a></li>
+  	    	<li><a href="#" class="key c50 num"><b>@</b><em>!</em><span class="digit">2</span><span class="chord_pos">x</span></a></li>
+  	    	<li><a href="#" class="key c51 num"><b>#</b><em>!</em><span class="digit">3</span><span class="chord_pos">x</span></a></li>
+  	    	<li><a href="#" class="key c52 num"><b>$</b><em>!</em><span class="digit">4</span><span class="chord_pos">x</span></a></li>
+  	    	<li><a href="#" class="key c53 num"><b>%</b><em>!</em><span class="digit">5</span><span class="chord_pos">x</span></a></li>
+  	    	<li><a href="#" class="key c54 num"><b>^</b><em>!</em><span class="digit">6</span><span class="chord_pos">x</span></a></li>
+  	    	<!-- other keys will be used for 12 strings...
+  	    	<li><a href="#" class="key c55 num"><b>&amp;</b><span>7</span></a></li>
+  	    	<li><a href="#" class="key c56 num"><b>*</b><span>8</span></a></li>
+  	    	<li><a href="#" class="key c57 num"><b>(</b><span>9</span></a></li>
+  	    	<li><a href="#" class="key c48 num"><b>)</b><span>0</span></a></li>
+  	    	<li><a href="#" class="key c189 alt"><b>_</b><span>-</span></a></li>
+  	    	<li><a href="#" class="key c187"><b>+</b><span>=</span></a></li>-->
+          </ul>
+      </div> <!-- eo keyboard-->
+      
+      <div id="frets">
+        <canvas id="fret_canvas" width="379" height="700"></canvas>
+      </div>
+      
+</div><!-- eo #neck-->
+
+
+
+<div id="effects">
+
+  
+
+  
+
+
+<!-- 
+<p class="field switch">
+	<input type="radio" id="radio1" name="field"  checked />enable
+	<input type="radio" id="radio2" name="field" />disable
+	<label for="radio1" class="cb-enable selected"><span>Enable</span></label>
+	<label for="radio2" class="cb-disable"><span>Disable</span></label>
+</p>
+<p class="field switch">
+	<label class="cb-enable"><span>On</span></label>
+	<label class="cb-disable selected"><span>Off</span></label>
+	<input type="checkbox" id="checkbox" class="checkbox" name="field2" /> Checkbox
+	$('#checkbox').attr('checked')
+</p>
+-->
+
+
+
+
+<!-- ADSR -->
+
+<div id="adsr" class="box">
+   <canvas id="adsr_graph" width="200" height="100"></canvas>
+  <div class="on_off">
+    <p class="field switch">
+   	<label class="cb-enable"><span>On</span></label>
+   	<label class="cb-disable selected"><span>Off</span></label>
+   	<input type="checkbox" class="checkbox hide adsr_on" name="adsr_on" checked="false" />
+   </p>
+ </div>
+
+  <h1>ADSR</h1>
+   
+   
+  <div class="s"><label>A </label> <input name="adsr_a" id="adsr_a" type="text" title="Attack Time" value="0.01"  maxlength="6" onchange="alert('ddd')"/> </div>
+  <div class="s"><label>D </label><input name="adsr_d" id="adsr_d" type="text" title="Decay Time" value="0.3"  maxlength="6" /></div>
+  <div class="s"><label>S </label><input name="adsr_s_level" id="adsr_s_level" type="text" title="Sustain Level" value="0.4"  maxlength="6" /></div>
+  <div class="s"><label>R </label><input name="adsr_r" id="adsr_r" type="text" title="Release Time" value="0.7"  maxlength="6" /></div>
+  <input name="adsr_s" id="adsr_s" type="hidden" title="Sustain Time" value="0.3"  maxlength="6" />
+  
+
+</div><!-- eo ADSR-->
+
+
+
+
+
+
+<div class="lfo box" id="lfo1">
+   <!-- VOL SLIDER -->
+    <div class="lfo_volume">
+      <input name="lfo_vol" id="lfo_vol" type="text" title="LFO Amplitude" value="1"  maxlength="6"  />
+     <!-- <label for="lfo_vol" id="lfo_vol_label">Amp</label>--> 
+      <br>
+    </div>
+    
+    <!-- ON / OFF -->
+    <div class="on_off">
+    <p class="field switch">
+    	<label class="cb-enable"><span>On</span></label>
+    	<label class="cb-disable selected"><span>Off</span></label>
+    	<input type="checkbox" class="checkbox hide lfo_on" name="lfo_on" data-lfo="lfo1" checked="false" />
+    </p>
+    </div>
+    <h1>LFO</h1>
+    
+    <div class="clear-left"></div>
+    <!-- FREQ SLIDER -->
+    <div class="s">
+      <label><em>Rate </em>(osciliation freq.) </label>
+      <input name="lfo_freq" id="lfo_freq" class="lfo_freq" type="text" title="Frequency" value="-18"  maxlength="6" />
+    </div>
+  
+    <!-- freq display-->
+    <p class="right">
+    <em> <span class="actual_freq">440</span>mhz </em> <span class="note_name"></span>
+    
+    </p>
+    
+  <!-- chkbox even-->
+  <label for="chk_even">
+    <input type="checkbox" class="chk_even" name="chk_even" checked="true" />
+    Even frequencies only
+  </label>
+  </div>
+</div><!-- eo LFO -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input name="master_volume" id="master_volume" type="hidden" title="Master Volume" value="1"  maxlength="6"  />
+
+
+
+</div> <!-- eo #efects-->
+
+
+
+    
+   
+   
+ <div id="sine_graph_wrap">
+   
+    <canvas id="sine_graph" width="1200" height="200"></canvas>
+    <small>
+       note waveform.<br/> 
+       <span class="actual_note_duration"> </span> sec
+      </small>
+     
+  </div>
+
+
+
+
+   
+   
+   
+   
+</div> <!-- eo #app-->
+<footer>
+    <h1>
+      <h1> &lt; guitar <em>tuner </em>/&gt; 
+      <span>In the press: <a href="#"> another blog</a></span>
+    </h1>
+    
+      <!-- <a href="http://iplanwebsites.com" class="right"> About the html otchestra </a> -->
+     
+</footer>
+  
+  
+   
+
+
+
+<script type="text/javascript">
+/*
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24688279-5']); 
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+</script>
+
+</body>
+</html>

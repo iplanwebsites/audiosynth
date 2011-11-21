@@ -12,10 +12,10 @@ get '/' do
 end
 
 get '/guitar' do
-	erb :guitar1
+	erb :guitar2
 end
 get '/guitar/' do
-	erb :guitar1
+	erb :guitar2
 end
 get '/api/utc' do
 	t = Time.now 
