@@ -25,7 +25,7 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        var e = $('#string'+id_s );
        this.set({e: e});
      },
-     change: function(new_fret_pos) { //call when we change chords on the neck...
+     update_note: function() { //call when we change chords on the neck...
        // console.log('change...')
           // redraw the chord
          // this.set({'fret' : new_fret_pos} );
@@ -45,6 +45,9 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
           }
           //var nam
           console.log('Change String! '+actualNote);
+          
+          this.build_sound();
+          
           
           this.set({
             note : actualNote, 
@@ -71,22 +74,32 @@ InstrumentString = Backbone.Model.extend({ // <<< Singleton
        },
      start_sound: function() {
          var a = this.get('audio');
-         //a.play();
-         this.build_sound(); //there's a loop happening...
+         //pause + restart if playing.
+          if (a.paused) { 
+            a.play();
+         }else{ //already playing
+          // a.pause();
+            a.currentTime = 0;//in sec
+           // console.log('PAUSED' + a.currentTime);
+           // also, audio.duration.
+           // console.log('hehe = ' + a.seekable.start() );  // Returns the starting time (in seconds)  
+           a.play();
+         }
+        // this.build_sound(); //there's a loop happening...
      },
      build_sound: function(){
        //if(activeTuning == undefined) {activeTuning=Music.tunings.at(0);}
          //var rel = activeTuning.get('note_rel');
-        // console.log("rel = "+rel);
+        // 
         // note = rel[ key-1 ]; // return a semi-tone value difference from 440 A.
          // note = -2;
          var note = this.get('note');
          adsr.active = true; //basic envelope
          calculateADSR();
          a = buildSound(note, 'sine', adsr.master, 1.5, adsr, false);
-         
-        // this.set({audio: a});
-         //a.play();
+         console.log("build_sound = "+a);
+        this.set({audio: a});
+        // a.play();
      },
      stop_sound: function() {
         var a = this.get('audio');

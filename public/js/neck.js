@@ -96,6 +96,7 @@ Neck = Backbone.Model.extend({ // <<< Singleton
         if(i == 0 ){ s.first_last = 'first'; }else if(i == shape.length-1 ){ s.first_last = 'last'; } //for drawing
         var currentString = Music.strings.at(i);
        currentString.set(s);
+       currentString.update_note();
      }
        
        this.set({chord_name : n.active_chord_shape.get('note'), chord_name_html : n.active_chord_shape.get('note_html'), chord_desc : n.active_chord_shape.get('name')});
