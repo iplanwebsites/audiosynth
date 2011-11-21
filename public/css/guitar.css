@@ -20,7 +20,7 @@ p, span, h1, h2, h3, h4, h5, h6{cursor:default;}
 
 
 #scale_selector{
-  
+  clear:both;
   left:0px;
   padding-top:85px;
    height:42px; 
@@ -113,31 +113,57 @@ p, span, h1, h2, h3, h4, h5, h6{cursor:default;}
 //  Chords Nav
 ///////////////////////////////// */
 
-#chords_wrap{ top:150px;  clear:both; }
-#chords_wrap h1{ text-align:center; margin-bottom:20px; padding-bottom:10px; margin-top:40px; font-size:16px; border-bottom:dashed 1px #aaa;}
-
+#chords_wrap{ clear:both; width:660px; margin-top:160px;}
+#chords_wrap h1{ 
+  text-align:left; 
+  margin-top:80px;  
+  margin-bottom:10px; 
+  padding:0;
+  font-size:9px; border-bottom:solid 3px #fff;
+  line-height:1em;
+  text-transform:uppercase;
+  color:#000;
+  font-family:arial;
+  letter-spacing:2px;
+}
+#chords_wrap h1 span{ 
+  background:#fff;  padding:2px 5px;
+  padding-right:10px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topright: 8px;
+  border-top-right-radius: 8px;
+  -webkit-border-top-left-radius: 0px;
+  -moz-border-radius-topleft: 0px;
+  border-top-left-radius: 0px;
+}
 #chords h1{display:none; }
 
 p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:600px; display:block; color:#777; }
 
-#chords .col{ width:65px; float:left;}
+#chords .col{ width:55px; float:left;}
 
 #chords .col a{
-  display:block;background:#ddd;
+  display:block;
+  background:rgba(255,255,255,0.01);
+  color:#fff;
+  /*border:#fff 1px solid;*/
+  box-shadow: 0px 0px 5px #000, inset 0 0 4px #fff;
    border-radius:2px; padding:10px 5px;  margin-right:6px; 
-   margin-bottom:3px; text-decoration:none; color:#444;
+   margin-bottom:3px; text-decoration:none; 
    text-align:center;
-   font-size:16px;
+   font-size:14px;/*
+   border-right:none;
+   border-bottom:none;*/
    }
-#chords .col.alt a{ background:#ccc;}
-#chords .col a:hover{ background:#eee; color:#000;}
-#chords .col a.selected{ background:#fff; }
+#chords .col.alt a{ background:rgba(255,255,255,0.1);}
+#chords .col a:hover{ background:#eee; color:#444; background:rgba(255,255,255,0.8);}
+#chords .col a.selected{ background:#fff; color:#000 }
 #chords .col a:active, #chords .col a.maj:active{ 
   background:#fff; color:#999; margin-top:4px;  margin-bottom:2px;  
   }
-#chords .no_chord{ padding:10px 5px; background:#ccc; margin-bottom:3px; color:#bbb;}
-#chords .col a.maj{font-size:32px; font-weight:bold; margin-top:3px; }
-#chords .col a.minor{font-size:22px;}
+#chords .no_chord{ padding:10px 5px;  margin-bottom:3px; color:#bbb;}
+#chords .col a.maj{font-size:28px; font-weight:bold; margin-top:3px; }
+#chords .col a.minor{font-size:18px;}
 
 #not_avail_msg{display:none;}
 #chords_wrap.not_avail #chords, #chords_wrap.not_avail #more_chords{display:none; }
@@ -147,12 +173,24 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 #chords_wrap .col a.extra, #chords_wrap .extra{display:none;}
 #chords_wrap.view_all .col a.extra, #chords_wrap.view_all .extra{display:block;}
 
-#more_chords{  background:#777; color:#fff; width: 300px; padding:20px; 
+#more_chords{ 
+   color:#fff; 
+   width: 300px; 
+   padding:20px; 
   clear:both;
   float:left; 
-  cursor:pointer; margin-top:10px; border-radius:4px;
+  cursor:pointer; margin-top:19px; border-radius:5px;
+  background:rgba(255,255,255,0.2);
+  /*border:#fff 1px solid;*/
+  box-shadow: 0px 0px 5px #000, inset 0 0 4px #fff;
+   padding:10px 9px;  margin-right:6px; 
+   margin-bottom:3px; 
+   text-decoration:none; 
+   text-align:center;
+   font-size:14px;
+   opacity:0.5;
 }
-#more_chords:hover{background:#000; }
+#more_chords:hover{background:#fff; color:#000; opacity:1; }
 
 
 #effects, #sine_graph_wrap{ display:none; }
@@ -171,12 +209,11 @@ p.instruction{ padding-bottom:20px; font-size:16px; font-style:italic;  width:60
 
 #guitar_neck{ 
   position:absolute; 
-  left:820px;
-  top:0px;
-  width: 600px; 
-  background:#333; 
+  left:760px;
+  top:30px;
+  width: 550px; 
   color:#fff; 
-  padding:5px; 
+  padding:0px; 
   
   text-align:left;
   
@@ -269,14 +306,14 @@ em.neg{color:#f00;}
 
 
 
-.string.open{  background:#330; }
+.string.open{   }
 .string .dot.f1{margin-top:5px;} /* 70 - 10*/
 .string .dot.f2{margin-top:75px;}
 .string .dot.f3{margin-top:150px;}
 .string .dot.f4{margin-top:225px;}
 .string .dot.f5{margin-top:330px;}
-.string .dot.f6{margin-top:600px;}
-.string .dot.f7{margin-top:700px;}
+.string .dot.f6{margin-top:405px;}
+.string .dot.f7{margin-top:580px;}
 .string .dot.f8{margin-top:800px;}
 .string .dot.f9{margin-top:900px;}
 .string .dot.f10{margin-top:1000px;}
@@ -290,31 +327,39 @@ em.neg{color:#f00;}
 */
 
 #alt_positions{ 
-  background:#000; 
-  width:100px;
   height:300px;
+  width:100px;
   float:right;
   clear:both;
 }
 #alt_positions a{ 
   color:#fff; text-decoration:none; 
   display:block; 
-  height:90px; background:#333;  
+  height:90px; 
   width:75px; margin:auto;
   margin-bottom:5px;
   text-align:center;
-  font-size:11px;
+  font-size:9px;
   letter-spacing:1px;
+  opacity:0.5;
 }
 
-#alt_positions a:hover{ background:#f00; }
+#alt_positions a:hover{  opacity:1; }
 #alt_positions h2{ text-align: center; font-weight:normal; 
   padding-bottom:3px; 
   margin-bottom:16px;
   font-size:12px; border-bottom: 1px dashed #ccc; }
 
 
+#scale_selector{display:none; }/* TEMPORARY, while we make it work... */
+
+
+
+
+
+
 #neck{display:none;}
 
-body{background:#333; }
+footer{display:none; }
+body{background:#333 url('../img/cafe.jpg'); }
 header{background:none; box-shadow:none; color: #fff; border:none;}
